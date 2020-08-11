@@ -51,7 +51,7 @@ def upload():
     
     blend_pic = editPic(app.config['bkg_pic'])
     blend_pic.pastPic(file_obj,(810,810),(132,300))
-    blend_pic.pastPic(app.config['lb_pic'],(200,100),(45,254))
+    # blend_pic.pastPic(app.config['lb_pic'],(200,100),(45,254),rmbg=1)
     print ('done')
     img_stream = base64.b64encode(blend_pic.getBytesPic)
     return img_stream 
@@ -61,12 +61,19 @@ class editPic():
         backpic = Image.open(pic)
         self.backpic = backpic.convert('RGBA') 
         
-    def pastPic(self,pic,size=(100,100),pos=(100,100)):
+    def pastPic(self,pic,size=(100,100),pos=(100,100),rmbg=0):
         forepic = Image.open(pic)
-        self.forpic = forepic.convert('RGBA') 
-        # self.forpic.show()
-        self.backpic.paste(self.forpic.resize(size),pos)
+        self.forepic = forepic.convert('RGBA') 
+        if rmbg == 1:
+            self.forepic = removeBackgroundColor(self.forepic)
+        self.forepic.show()
+        self.backpic.paste(self.forepic.resize(size),pos)
         
+    def compositePic(self):
+        forepic = Image.open(pic)
+        self.forepic = forepic.convert('RGBA')
+        self.backpic.alpha_composite(self.backpic, self.forepic)
+               
     @property    
     def getBytesPic(self):
         img_bytes = BytesIO()
@@ -74,6 +81,15 @@ class editPic():
         img_bytes = img_bytes.getvalue()
         return img_bytes
 
+        
+def removeBackgroundColor(pic):
+    pixdata =pic.load()
+    for y in range(pic.size[1]):
+        for x in range(pic.size[0]):
+            if pixdata[x, y][0] > 220 and pixdata[x, y][1] > 220 and pixdata[x, y][2] > 220 and pixdata[x, y][3] > 220:
+                pixdata[x, y] = (255, 255, 255, 0)
+    return pic
+    
 if __name__ == "__main__":
         app.run(
       host='0.0.0.0',

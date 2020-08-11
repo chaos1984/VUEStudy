@@ -8,7 +8,8 @@ import base64
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = r".\upload"
-app.config['img_pic'] = r".\img\background.jpg"
+app.config['bkg_pic'] = r".\img\background.jpg"
+app.config['lb_pic'] = r".\img\Lable.png"
 CORS(app)
 
 @app.route('/')
@@ -47,37 +48,31 @@ def upload():
 
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], "1.jpg")
     file_obj.save(file_path)
-    blend_pic = blend_two_images(file_obj)
-
-    img_stream = base64.b64encode(blend_pic)
-
+    
+    blend_pic = editPic(app.config['bkg_pic'])
+    blend_pic.pastPic(file_obj,(810,810),(132,300))
+    blend_pic.pastPic(app.config['lb_pic'],(200,100),(45,254))
+    print ('done')
+    img_stream = base64.b64encode(blend_pic.getBytesPic)
     return img_stream 
 
-    
-def return_img_stream(img_local_path):
-  img_stream = ''
-  with open(img_local_path, 'rb') as img_f:
-    print ('ok')
-    img_stream = img_f.read()
-    img_stream = base64.b64encode(img_stream)
-  return img_stream 
- 
-def blend_two_images(img,back=app.config['img_pic']):
-    img1 = Image.open(back)
-    print(img1)
-    img1 = img1.convert('RGBA')
- 
-    img2 = Image.open(img)
-    print(img2)
-    img2 = img2.convert('RGBA')
-    # img2.resize((littlesize,littlesize))
-    img2= img2.crop((0,0,810,810))
-    img1.paste(img2,(140,300))
-    # img1.show()
-    img_bytes = BytesIO()
-    img1.save(img_bytes, format='png')
-    img_bytes = img_bytes.getvalue()
-    return img_bytes
+class editPic():
+    def __init__(self,pic):
+        backpic = Image.open(pic)
+        self.backpic = backpic.convert('RGBA') 
+        
+    def pastPic(self,pic,size=(100,100),pos=(100,100)):
+        forepic = Image.open(pic)
+        self.forpic = forepic.convert('RGBA') 
+        # self.forpic.show()
+        self.backpic.paste(self.forpic.resize(size),pos)
+        
+    @property    
+    def getBytesPic(self):
+        img_bytes = BytesIO()
+        self.backpic.save(img_bytes, format='png')
+        img_bytes = img_bytes.getvalue()
+        return img_bytes
 
 if __name__ == "__main__":
         app.run(

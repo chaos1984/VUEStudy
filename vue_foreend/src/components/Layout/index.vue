@@ -34,12 +34,13 @@
       color="cyan"
       dark
     >
-      <v-toolbar-title>Autoliv ESR Submit</v-toolbar-title>
+      
 
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-toolbar-title>Autoliv ESR Submit</v-toolbar-title>
     </v-app-bar>
 <!-- 操作区域 -->
-    <v-main fluid>
+    <v-main  class="d-flex pa-2">
     <!-- <appmain/> -->
     <component :is="currentvue"></component>
     </v-main>

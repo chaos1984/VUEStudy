@@ -1,24 +1,16 @@
 <template>
   <div>
-    <v-card class="mb-4">
-      <v-card-text>
-        <v-select
-          v-model="steps"
-          :items="[2, 3, 4, 5, 6]"
-          label="# of steps"
-        ></v-select>
-      </v-card-text>
-    </v-card>
+
     <v-stepper v-model="e1">
       <v-stepper-header>
-        <template v-for="n in steps">
+        <template v-for="(title,n) in stepsNames">
           <v-stepper-step
             :key="`${n}-step`"
             :complete="e1 > n"
             :step="n"
             editable
           >
-            Step {{ n }}
+            {{title.title}}{{kk}}
           </v-stepper-step>
 
           <v-divider
@@ -30,15 +22,14 @@
 
       <v-stepper-items>
         <v-stepper-content
-          v-for="n in steps"
+          v-for="(title,n) in stepsNames"
           :key="`${n}-content`"
           :step="n"
         >
-          <v-card
-            class="mb-12"
-            color="grey lighten-1"
-            height="200px"
-          ></v-card>
+           <v-main  class="d-flex pa-2">
+            <!-- <appmain/> -->
+                <ValidateForm />
+            </v-main>
 
           <v-btn
             color="primary"
@@ -56,10 +47,15 @@
 
 <script>
   export default {
+    components:{
+        ValidateForm: () => import('@/components/ValidateForm'),
+    },
     data () {
       return {
+        kk :'',
         e1: 1,
-        steps: 2,
+        stepsNames:[{title:'项目录入'},{title:'分析内容'},{title:'特殊分析'},{title:'截至时间'}],
+        steps:''
       }
     },
 
@@ -70,8 +66,14 @@
         }
       },
     },
-
+mounted(){
+  this.getLength()
+},
     methods: {
+      getLength(){
+      this.steps = Object.keys(this.stepsNames).length
+      console.log(this.steps)
+      },
       nextStep (n) {
         if (n === this.steps) {
           this.e1 = 1

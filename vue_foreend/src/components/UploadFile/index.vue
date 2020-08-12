@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import Timer from '@/components/Timer/Timer';
+import Timer from '@/components/Timer';
 export default {
 components: {
   Timer,
@@ -26,7 +26,7 @@ methods: {
         let param = new FormData(); //创建form对象
         param.append('file',file);//通过append向form对象添加数据
         console.log(param.get('file')); //FormData私有类对象，访问不到，可以通过get判断值是否传进去
-        this.$axios.post('http://192.168.1.7:5000/upload',param,{headers:{'Content-Type':'application/x-www-form-urlencoded' }}, {responseType:"arraybuffer"})
+        this.$axios.post('http://10.123.20.255:5000/upload',param,{headers:{'Content-Type':'application/x-www-form-urlencoded' }}, {responseType:"arraybuffer"})
           .then(res=>{
                 this.img = 'data:;base64,' +res.data
           })

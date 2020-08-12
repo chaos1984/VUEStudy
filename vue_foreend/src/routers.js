@@ -1,14 +1,22 @@
-import Upload from './components/UploadFile'
+import Layout from './components/Layout'
 
 const routers = [
   {
+    path: '/',
+    component: Layout
+  },
+  {
+      path: '/Layout',
+      name: 'Layout',
+      component: Layout
+  },
+  {
     path: '/Upload',
-    name: 'Upload',
-    component: Upload
+    component: () => import('./components/UploadFile'),
   },  
   {
-    path: '/',
-    component: Upload
+      path: '/Stepper',
+      component: () => import('./components/Stepper'),
   },
 ]
 export default routers

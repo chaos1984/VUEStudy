@@ -1,3 +1,4 @@
+<!-- Stepper -->
 <template>
   <div>
 
@@ -7,7 +8,7 @@
           <v-stepper-step
             :key="`${n}-step`"
             :complete="e1 > n"
-            :step="n"
+            :step="n+1"
             editable
           >
             {{title.title}}{{kk}}
@@ -32,13 +33,13 @@
             </v-main>
 
           <v-btn
+            :disabled = "NextStepDisabled"
             color="primary"
             @click="nextStep(n)"
           >
             Continue
           </v-btn>
 
-          <v-btn text>Cancel</v-btn>
         </v-stepper-content>
       </v-stepper-items>
     </v-stepper>
@@ -66,13 +67,18 @@
         }
       },
     },
-mounted(){
-  this.getLength()
-},
+    mounted(){
+      this.getLength()
+    },
+    computed:{
+       NextStepDisabled:function(){
+          console.log(this.$store.state.NextStepbtn)
+          return  this.$store.state.NextStepbtn
+     }
+    },
     methods: {
       getLength(){
       this.steps = Object.keys(this.stepsNames).length
-      console.log(this.steps)
       },
       nextStep (n) {
         if (n === this.steps) {

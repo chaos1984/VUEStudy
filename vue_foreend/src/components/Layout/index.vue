@@ -1,3 +1,4 @@
+<!-- Layout -->
 <template>
   <v-app id="inspire">
     <v-navigation-drawer
@@ -42,7 +43,14 @@
 <!-- 操作区域 -->
     <v-main  class="d-flex pa-2">
     <!-- <appmain/> -->
-    <component :is="currentvue"></component>
+    <component :is="currentvue" ></component>
+    
+      <v-banner >
+          <p >
+          项目信息：{{$store.state.ESRInfo}}
+          </p>
+      </v-banner>
+  
     </v-main>
 <!-- footer设置 -->
     <v-footer
@@ -82,10 +90,10 @@
         Stepper: () => import('@/components/Stepper'),
         ProjectTable: () => import('@/components/ProjectTable'),
     },
-    props: {
-      source: String,
-    },
+ 
+
     data: () => ({
+      infor:'No infor',      
       currentvue:'',
       drawer: null,
       links: [
@@ -102,7 +110,7 @@
          },
       PAB(){
          this.currentvue = 'ProjectTable';
-      }
+         },
     }
   }
 </script>

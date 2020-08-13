@@ -1,3 +1,4 @@
+<!-- ValidateForm -->
 <template>
   <v-form v-model="valid">
     <v-container>
@@ -20,7 +21,7 @@
           md="4"
         >
           <v-text-field
-            v-model="PE"
+            v-model="PEName"
             :rules="nameRules"
             :counter="50"
             label="PE"
@@ -40,13 +41,23 @@
           ></v-text-field>
         </v-col>
       </v-row>
+
     </v-container>
+        <v-alert
+      :value = "isError"
+      :dense =false
+      outlined
+      type="error"
+    >
+       Information is not complete! Please check!
+       </v-alert>
   </v-form>
 </template>
 
 <script>
   export default {
     data: () => ({
+      info : '',
       valid: false,
       ProjectName: '',
       PEName: '',
@@ -60,10 +71,28 @@
         v => /.+@.+/.test(v) || 'E-mail must be valid',
       ],
     }),
-   mounted:{
-     logemit(){
-        this.$emit("kk","Hello world!")
-     }
+    computed:{
+        isError:function(){
+        if (this.ProjectName != '' && this.PEName != '' && this.email != ''){
+            this.$store.commit('isNextStep')
+            return false
+        } else {
+            this.$store.commit('noNextStep')
+            return true
+            }
+         }
+    },
+    methods:{
+     inforemit(){
+       this.info = ''
+       if (this.ProjectName != '' && this.PEName != '' && this.email != ''){
+           this.info =  this.ProjectName + this.PEName + this.email
+           console.log(this.info)
+           this.$store.commit('edit',this.info)
+       } else {
+          this.getalert()
+       }
+     },
    }
   }
 </script>

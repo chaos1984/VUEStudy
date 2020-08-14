@@ -7,7 +7,7 @@
       left
     >
       <v-list dense>
-        <v-list-item @click='DAB'>
+        <v-list-item @click='onDAB'>
           <v-list-item-action>
             <v-icon >mdi-home</v-icon>
           </v-list-item-action>
@@ -17,7 +17,7 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item @click='PAB'>
+        <v-list-item @click='onPAB'>
           <v-list-item-action>
             <v-icon>mdi-email</v-icon>
           </v-list-item-action>
@@ -25,7 +25,19 @@
           <v-list-item-content>
             <v-list-item-title>PAB</v-list-item-title>
           </v-list-item-content>
+        </v-list-item>        
+        
+        <v-list-item @click='onESRinfo'>
+          <v-list-item-action>
+            <v-icon>mdi-email</v-icon>
+          </v-list-item-action>
+
+          <v-list-item-content>
+            <v-list-item-title>ESR</v-list-item-title>
+          </v-list-item-content>
         </v-list-item>
+        
+
       </v-list>
     </v-navigation-drawer>
     
@@ -75,7 +87,7 @@
         class="cyan lighten-1 py-4 text-center white--text"
         cols="12"
       >
-        {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+        {{ new Date().getFullYear() }} — <strong>Autoliv CTC</strong>
       </v-col>
     </v-row>
   </v-footer>
@@ -105,10 +117,13 @@
       ],
     }),
     methods:{
-      DAB(){
+      onDAB(){
          this.currentvue = 'Stepper';
          },
-      PAB(){
+      onPAB(){
+         console.log("PAB")
+      },
+      onESRinfo(){
          this.currentvue = 'ProjectTable';
          },
     }

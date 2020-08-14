@@ -2,16 +2,15 @@
 <template>
   <div>
 
-    <v-stepper v-model="e1">
+    <v-stepper v-model="$store.state.CurrentStep">
       <v-stepper-header>
         <template v-for="(title,n) in stepsNames">
           <v-stepper-step
             :key="`${n}-step`"
             :complete="e1 > n"
-            :step="n+1"
-            editable
+            :step="n"
           >
-            {{title.title}}{{kk}}
+            {{title.title}}
           </v-stepper-step>
 
           <v-divider
@@ -28,17 +27,8 @@
           :step="n"
         >
            <v-main  class="d-flex pa-2">
-            <!-- <appmain/> -->
-                <ValidateForm />
+                <ProjectForm1 />
             </v-main>
-
-          <v-btn
-            :disabled = "NextStepDisabled"
-            color="primary"
-            @click="nextStep(n)"
-          >
-            Continue
-          </v-btn>
 
         </v-stepper-content>
       </v-stepper-items>
@@ -49,43 +39,24 @@
 <script>
   export default {
     components:{
-        ValidateForm: () => import('@/components/ValidateForm'),
+        ProjectForm1: () => import('@/components/ProjectForm1'),
     },
     data () {
       return {
-        kk :'',
-        e1: 1,
+        e1: "",
         stepsNames:[{title:'项目录入'},{title:'分析内容'},{title:'特殊分析'},{title:'截至时间'}],
-        steps:''
+        steps:'',
       }
     },
 
-    watch: {
-      steps (val) {
-        if (this.e1 > val) {
-          this.e1 = val
-        }
-      },
-    },
     mounted(){
       this.getLength()
     },
-    computed:{
-       NextStepDisabled:function(){
-          console.log(this.$store.state.NextStepbtn)
-          return  this.$store.state.NextStepbtn
-     }
-    },
     methods: {
       getLength(){
-      this.steps = Object.keys(this.stepsNames).length
-      },
-      nextStep (n) {
-        if (n === this.steps) {
-          this.e1 = 1
-        } else {
-          this.e1 = n + 1
-        }
+        this.steps = Object.keys(this.stepsNames).length
+        this.$store.commit('getStepsNum',this.steps)
+        console.log(this.$store.state.StepsNum)
       },
     },
   }

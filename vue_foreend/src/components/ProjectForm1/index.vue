@@ -51,11 +51,16 @@
     >
        Information is not complete! Please check!
        </v-alert>
+       <NextBackbtn></NextBackbtn>
   </v-form>
 </template>
 
 <script>
   export default {
+    name : 'projectform1',
+    components:{
+        NextBackbtn: () => import('./NextBackbtn'),
+    },
     data: () => ({
       info : '',
       valid: false,

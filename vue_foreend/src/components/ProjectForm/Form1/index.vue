@@ -8,10 +8,10 @@
           md="4"
         >
           <v-text-field
-            v-model="ProjectName"
+            v-model="ESRNumber"
             :rules="nameRules"
             :counter="50"
-            label="Project"
+            label="ESR"
             required
           ></v-text-field>
         </v-col>
@@ -24,7 +24,7 @@
             v-model="PEName"
             :rules="nameRules"
             :counter="50"
-            label="PE"
+            label="Requester name"
             required
           ></v-text-field>
         </v-col>
@@ -34,12 +34,32 @@
           md="4"
         >
           <v-text-field
-            v-model="email"
-            :rules="emailRules"
-            label="E-mail"
+            v-model="TeamName"
+            :rules="TeamnameRules"
+            label="Team name"
             required
           ></v-text-field>
         </v-col>
+
+        <v-col
+          cols="12"
+          md="4"
+        >
+          <v-text-field
+            v-model="ProjectCode"
+            :rules="ProjectCodeRules"
+            label="ProjectCode"
+            required
+          ></v-text-field>
+        </v-col>
+
+        <v-col
+          cols="24"
+          md="8"
+        >
+          <Datepick/>
+        </v-col>
+
       </v-row>
 
     </v-container>
@@ -60,25 +80,31 @@
     name : 'projectform1',
     components:{
         NextBackbtn: () => import('../NextBackbtn'),
+        Datepick: () => import('../../DatePick'),
     },
     data: () => ({
       info : '',
       valid: false,
-      ProjectName: '',
+      ESRNumber: 'ESR-',
       PEName: '',
       nameRules: [
         v => !!v || 'Name is required',
         v => v.length <= 50 || 'Name must be less than 50 characters',
       ],
-      email: '',
-      emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+/.test(v) || 'E-mail must be valid',
+      TeamName: '',
+      TeamnameRules: [
+        v => !!v || 'Name is required',
+        v => v.length <= 50 || 'Name must be less than 50 characters',
       ],
+      ProjectCode:"",
+      ProjectCodeRules :[
+        v => !!v || 'Name is required',
+        v => v.length <= 50 || 'Name must be less than 50 characters',
+      ]
     }),
     computed:{
         isError:function(){
-        if (this.ProjectName != '' && this.PEName != '' && this.email != ''){
+        if (this.ESRNumber != '' && this.PEName != '' && this.TeamName != ''){
             this.$store.commit('isNextStep')
             return false
         } else {
@@ -88,16 +114,7 @@
          }
     },
     methods:{
-     inforemit(){
-       this.info = ''
-       if (this.ProjectName != '' && this.PEName != '' && this.email != ''){
-           this.info =  this.ProjectName + this.PEName + this.email
-           console.log(this.info)
-           this.$store.commit('edit',this.info)
-       } else {
-          this.getalert()
-       }
-     },
+    
    }
   }
 </script>

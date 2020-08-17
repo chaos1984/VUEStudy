@@ -2,7 +2,8 @@
 <template>
   <v-form v-model="valid">
     <v-container>
-    
+    <v-file-input  multiple label="Upload the BOM FILE"></v-file-input>  
+    <v-file-input  multiple label="Upload the CAD FILE"></v-file-input>  
 
     </v-container>
         <v-alert
@@ -37,6 +38,9 @@
             return true
             }
          }
+    },
+    mounted() {
+      this.$store.commit('noNextStep');
     },
     methods:{
      inforemit(){

@@ -36,7 +36,7 @@
 
 <script>
   export default {
-    name : 'projectform1',
+    name : 'projectform',
     components:{
         NextBackbtn: () => import('../NextBackbtn'),
         CushionForm: () => import('./CushionForm/CushionForm'),
@@ -54,16 +54,11 @@
             }
          }
     },
+     mounted() {
+      this.$store.commit('noNextStep');
+  },
     methods:{
-     inforemit(){
-       this.info = ''
-       if (this.ProjectName != '' && this.PEName != '' && this.email != ''){
-           this.info =  this.ProjectName + this.PEName + this.email
-           this.$store.commit('edit',this.info)
-       } else {
-          this.getalert()
-       }
-     },
+     
    }
   }
 </script>

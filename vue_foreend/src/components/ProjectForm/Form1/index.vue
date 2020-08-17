@@ -53,19 +53,68 @@
           ></v-text-field>
         </v-col>
 
-        <v-col
-          cols="24"
-          md="8"
-        >
-          <Datepick/>
-        </v-col>
+
+      <v-col           
+        cols="12"
+        md="4">
+      <v-menu
+        ref="menu1"
+        v-model="menu1"
+        :close-on-content-click="false"
+        transition="scale-transition"
+        offset-y
+        min-width="290px"
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-text-field
+            v-model="date1"
+            label="Picker in menu"
+            prepend-icon="mdi-calendar"
+            readonly
+            v-bind="attrs"
+            v-on="on"
+          ></v-text-field>
+        </template>
+
+        <v-date-picker v-model="date1" @input="menu1 = false" no-title>
+        </v-date-picker>
+      </v-menu>
+      </v-col>
+
+      <v-col           
+        cols="12"
+        md="4">
+      <v-menu
+        ref="menu2"
+        v-model="menu2"
+        :close-on-content-click="false"
+        transition="scale-transition"
+        offset-y
+        min-width="290px"
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-text-field
+            v-model="date2"
+            label="Picker in menu"
+            prepend-icon="mdi-calendar"
+            readonly
+            v-bind="attrs"
+            v-on="on"
+          ></v-text-field>
+        </template>
+
+        <v-date-picker v-model="date2" :min='date1' no-title>
+        </v-date-picker>
+      </v-menu>
+      </v-col>
+
 
       </v-row>
 
     </v-container>
         <v-alert
       :value = "isError"
-      :dense =false
+      :dense = false
       outlined
       type="error"
     >
@@ -80,7 +129,6 @@
     name : 'projectform1',
     components:{
         NextBackbtn: () => import('../NextBackbtn'),
-        Datepick: () => import('../../DatePick'),
     },
     data: () => ({
       info : '',
@@ -100,19 +148,25 @@
       ProjectCodeRules :[
         v => !!v || 'Name is required',
         v => v.length <= 50 || 'Name must be less than 50 characters',
-      ]
+      ],
+      date1: new Date().toISOString().substr(0, 10),
+      date2: new Date().toISOString().substr(0, 10),
+      menu1: false,
+      menu2: false,
     }),
     computed:{
         isError:function(){
-        if (this.ESRNumber != '' && this.PEName != '' && this.TeamName != ''){
+        if (this.ESRNumber != '' && this.PEName != '' && this.TeamName != ''  && this.ProjectCode != '' && this.date2 > this.date1){
             this.$store.commit('isNextStep')
             return false
         } else {
             this.$store.commit('noNextStep')
             return true
             }
-         }
-    },
+         },
+
+      },
+
     methods:{
     
    }

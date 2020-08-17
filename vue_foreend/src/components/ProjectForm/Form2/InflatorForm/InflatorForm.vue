@@ -12,7 +12,7 @@
       label="New Inflator"
       ></v-checkbox>
       <v-row align="center">
-        <v-file-input :disabled="!enabled" multiple label="New inflator file"></v-file-input>
+        <v-file-input accept=".pdf" :disabled="!enabled" multiple label="New inflator file"></v-file-input>
       </v-row>
       <v-overflow-btn
           dens

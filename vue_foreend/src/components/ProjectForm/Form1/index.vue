@@ -76,7 +76,10 @@
           ></v-text-field>
         </template>
 
-        <v-date-picker v-model="date1" @input="menu1 = false" no-title>
+        <v-date-picker 
+        v-model="date1" 
+        @input="menu1 = false" 
+        no-title>
         </v-date-picker>
       </v-menu>
       </v-col>
@@ -95,10 +98,9 @@
         <template v-slot:activator="{ on, attrs }">
           <v-text-field
             v-model="date2"
-            label="Picker in menu"
             prepend-icon="mdi-calendar"
             readonly
-            :rules="[v => !!v || 'Required']"
+            :rules =  "Date1Rules"
             v-bind="attrs"
             v-on="on"
           ></v-text-field>
@@ -106,6 +108,7 @@
 
         <v-date-picker 
         v-model="date2" 
+        @input="menu2 = false" 
         :min='date1' 
         no-title>
         </v-date-picker>
@@ -116,14 +119,14 @@
       </v-row>
 
     </v-container>
-        <v-alert
+        <!-- <v-alert
       :value = "validate"
       :dense = false
       outlined
       type="error"
     >
        Information is not complete! Please check!
-       </v-alert>
+       </v-alert> -->
        <!-- <NextBackbtn></NextBackbtn> -->
        <v-btn
       :disabled="!valid"
@@ -133,6 +136,12 @@
       @click="validate"
     >
       Next
+    </v-btn>
+    <v-btn class= "mx-5"
+      color="primary"
+      @click="onBackStep"
+      >
+      Back
     </v-btn>
   </v-form>
 </template>
@@ -163,9 +172,11 @@
         v => v.length <= 50 || 'Name must be less than 50 characters',
       ],
       date1: new Date().toISOString().substr(0, 10),
+      date2:"",
       // date2: new Date().toISOString().substr(0, 10),
-
-
+      Date1Rules:[
+        v => !!v || 'Name is required',
+      ],
       menu1: false,
       menu2: false,
     }),
@@ -176,6 +187,9 @@
     validate () {
         this.$store.commit('nextStep')
       },
+    onBackStep(){
+          this.$store.commit('backStep')
+      },  
    }
   }
 </script>

@@ -40,18 +40,20 @@
             required
           ></v-text-field>
         </v-col>
+        <v-col
+          cols="12"
+          md="4"
+        >
+          <v-text-field
+            v-model="email"
+            :rules="emailRules"
+            label="E-mail"
+            required
+          ></v-text-field>
+        </v-col>
       </v-row>
 
     </v-container>
-        <v-alert
-      :value = "isError"
-      :dense =false
-      outlined
-      type="error"
-    >
-       Information is not complete! Please check!
-       </v-alert>
-       <NextBackbtn></NextBackbtn>
   </v-form>
 </template>
 
@@ -59,7 +61,7 @@
   export default {
     name : 'projectform1',
     components:{
-        NextBackbtn: () => import('./NextBackbtn'),
+        
     },
     data: () => ({
       info : '',
@@ -92,7 +94,6 @@
        this.info = ''
        if (this.ProjectName != '' && this.PEName != '' && this.email != ''){
            this.info =  this.ProjectName + this.PEName + this.email
-           console.log(this.info)
            this.$store.commit('edit',this.info)
        } else {
           this.getalert()

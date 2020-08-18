@@ -1,64 +1,73 @@
-<!-- ValidateForm -->
 <template>
-  <v-form v-model="valid">
-    <v-container fluid="true">
-      <v-row>
-        <v-col
-          flex
-          cols="12"
-          md="6"
-        >
-        
-        <CushionForm/>
-        </v-col>
 
-        <v-col
-          flex
-          cols="12"
-          md="6"
-        >
-        <InflatorForm/>
-        
-        </v-col>
+  <v-form v-model="valid">
+    <v-container>
+      <v-checkbox
+      v-model="enabled"
+      hide-details
+      class="shrink mr-2 mt-0"
+      label="New Cushion"
+      ></v-checkbox>
+      <v-row align="center">
+        <v-file-input v-model = "CushiondwgFile" accept=".dwg" :disabled="!enabled" multiple label="Cushion dwg file"></v-file-input>
+        <v-file-input v-model = "CushionFoldFile" accept=".pdf" :disabled="!enabled" multiple label="New cushion folding file"></v-file-input>
       </v-row>
-    </v-container>
-        <v-alert
-      :value = "isError"
-      :dense = false
-      outlined
-      type="error"
+      <v-text-field
+      v-model="OldCushion"
+      :disabled="enabled"
+      label= 'Please input your carryover cushion'
+      >
+      </v-text-field>
+    </v-container> 
+    <v-btn
+      :disabled="!valid"
+      color="success"
+      class="mr-4"
+      
+      @click="validate"
     >
-       Information is not complete! Please check!
-       </v-alert>
-       <NextBackbtn></NextBackbtn>
-  </v-form>
-</template>
+      Next
+    </v-btn>
+    <v-btn class= "mx-5"
+      color="primary"
+      @click="onBackStep"
+      >
+      Back
+    </v-btn>
+</v-form>
+  
+</template>>
 
 <script>
-  export default {
-    name : 'projectform',
-    components:{
-        NextBackbtn: () => import('../NextBackbtn'),
-        CushionForm: () => import('./CushionForm/CushionForm'),
-        InflatorForm: () => import('./InflatorForm/InflatorForm')
-    },
-
-    computed:{
-        isError:function(){
-        if (this.ProjectName != '' && this.PEName != '' && this.email != ''){
-            this.$store.commit('isNextStep')
-            return false
-        } else {
-            this.$store.commit('noNextStep')
-            return true
-            }
-         }
-    },
-     mounted() {
-      this.$store.commit('noNextStep');
-  },
+export default {
+    data: () => ({
+      valid:'false',
+      includeFiles: true,
+      enabled: false,
+      OldCushion:'',
+      CushiondwgFile:'',
+      CushionFoldFile:''
+    }),
     methods:{
-     
+      validate () {
+        this.$store.commit('nextStep')
+      },
+      onBackStep(){
+          this.$store.commit('backStep')
+      },
    }
-  }
+// computed:{
+//     isError:function(){
+//       if (this.enabled  === false && this.OldCushion != ''){
+//         this.$store.commit('isNextStep')
+//         return true
+//     } else if (this.enabled === true &&  this.CushiondwgFile != '' && this.CushionFoldFile !=''){
+//         this.$store.commit('isNextStep')
+//         return true
+//         } else {
+//           return 0
+//         }
+//       },
+// }
+}
 </script>

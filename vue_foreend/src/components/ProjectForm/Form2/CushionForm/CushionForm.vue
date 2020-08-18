@@ -1,6 +1,7 @@
 <template>
 
   <v-card height="250px">
+
     <v-card-title>
     Cushion Information
     </v-card-title>

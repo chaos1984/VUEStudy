@@ -98,12 +98,16 @@
             label="Picker in menu"
             prepend-icon="mdi-calendar"
             readonly
+            :rules="[v => !!v || 'Required']"
             v-bind="attrs"
             v-on="on"
           ></v-text-field>
         </template>
 
-        <v-date-picker v-model="date2" :min='date1' no-title>
+        <v-date-picker 
+        v-model="date2" 
+        :min='date1' 
+        no-title>
         </v-date-picker>
       </v-menu>
       </v-col>
@@ -113,14 +117,23 @@
 
     </v-container>
         <v-alert
-      :value = "isError"
+      :value = "validate"
       :dense = false
       outlined
       type="error"
     >
        Information is not complete! Please check!
        </v-alert>
-       <NextBackbtn></NextBackbtn>
+       <!-- <NextBackbtn></NextBackbtn> -->
+       <v-btn
+      :disabled="!valid"
+      color="success"
+      class="mr-4"
+      
+      @click="validate"
+    >
+      Next
+    </v-btn>
   </v-form>
 </template>
 
@@ -128,11 +141,11 @@
   export default {
     name : 'projectform1',
     components:{
-        NextBackbtn: () => import('../NextBackbtn'),
+        // NextBackbtn: () => import('../NextBackbtn'),
     },
     data: () => ({
       info : '',
-      valid: false,
+      valid: true,
       ESRNumber: 'ESR-',
       PEName: '',
       nameRules: [
@@ -150,25 +163,19 @@
         v => v.length <= 50 || 'Name must be less than 50 characters',
       ],
       date1: new Date().toISOString().substr(0, 10),
-      date2: new Date().toISOString().substr(0, 10),
+      // date2: new Date().toISOString().substr(0, 10),
+
+
       menu1: false,
       menu2: false,
     }),
     computed:{
-        isError:function(){
-        if (this.ESRNumber != '' && this.PEName != '' && this.TeamName != ''  && this.ProjectCode != '' && this.date2 > this.date1){
-            this.$store.commit('isNextStep')
-            return false
-        } else {
-            this.$store.commit('noNextStep')
-            return true
-            }
-         },
-
       },
 
     methods:{
-    
+    validate () {
+        this.$store.commit('nextStep')
+      },
    }
   }
 </script>

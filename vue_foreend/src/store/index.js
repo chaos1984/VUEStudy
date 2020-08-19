@@ -12,7 +12,18 @@ const store = new Vuex.Store({
         FormInfo:"",
         NextStepbtn: true,
         CurrentStep: 0,
-        StepsNum: 0
+        StepsNum: 0,
+        form :{
+            ESRNumber: 'ESR-',
+            PEName: '',
+            TeamName: '',
+            ProjectCode:"23123123",
+            date1: new Date().toISOString().substr(0, 10),
+            date2:"",
+            CushiondwgFile:[],
+            CushionFoldFile:[],
+            OldCushion:[]
+        }
     },
     getter:{
         combinFormInfo(state){

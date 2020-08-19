@@ -19,7 +19,7 @@
           ></v-divider>
         </template>
       </v-stepper-header>
-
+    
       <v-stepper-items>
         <v-stepper-content
           v-for="(title,n) in stepsNames"
@@ -32,6 +32,7 @@
 
         </v-stepper-content>
       </v-stepper-items>
+      
     </v-stepper>
   </div>
 </template>

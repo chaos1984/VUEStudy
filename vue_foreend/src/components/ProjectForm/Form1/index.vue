@@ -8,7 +8,7 @@
           md="4"
         >
           <v-text-field
-            v-model="ESRNumber"
+            v-model="CurrentForm.ESRNumber"
             :rules="nameRules"
             :counter="50"
             label="ESR"
@@ -21,7 +21,7 @@
           md="4"
         >
           <v-text-field
-            v-model="PEName"
+            v-model="CurrentForm.PEName"
             :rules="nameRules"
             :counter="50"
             label="Requester name"
@@ -34,7 +34,7 @@
           md="4"
         >
           <v-text-field
-            v-model="TeamName"
+            v-model="CurrentForm.TeamName"
             :rules="TeamnameRules"
             label="Team name"
             required
@@ -46,7 +46,7 @@
           md="4"
         >
           <v-text-field
-            v-model="ProjectCode"
+            v-model="CurrentForm.ProjectCode"
             :rules="ProjectCodeRules"
             label="ProjectCode"
             required
@@ -67,7 +67,7 @@
       >
         <template v-slot:activator="{ on, attrs }">
           <v-text-field
-            v-model="date1"
+            v-model="CurrentForm.date1"
             label="Picker in menu"
             prepend-icon="mdi-calendar"
             readonly
@@ -77,7 +77,7 @@
         </template>
 
         <v-date-picker 
-        v-model="date1" 
+        v-model="CurrentForm.date1" 
         @input="menu1 = false" 
         no-title>
         </v-date-picker>
@@ -97,7 +97,7 @@
       >
         <template v-slot:activator="{ on, attrs }">
           <v-text-field
-            v-model="date2"
+            v-model="CurrentForm.date2"
             prepend-icon="mdi-calendar"
             readonly
             :rules =  "Date1Rules"
@@ -107,9 +107,9 @@
         </template>
 
         <v-date-picker 
-        v-model="date2" 
+        v-model="CurrentForm.date2" 
         @input="menu2 = false" 
-        :min='date1' 
+        :min='CurrentForm.date1' 
         no-title>
         </v-date-picker>
       </v-menu>
@@ -147,32 +147,30 @@
 </template>
 
 <script>
+import {mapState} from 'vuex';
   export default {
     name : 'projectform1',
     components:{
         // NextBackbtn: () => import('../NextBackbtn'),
     },
     data: () => ({
+      
       info : '',
       valid: true,
-      ESRNumber: 'ESR-',
-      PEName: '',
+
       nameRules: [
         v => !!v || 'Name is required',
         v => v.length <= 50 || 'Name must be less than 50 characters',
       ],
-      TeamName: '',
       TeamnameRules: [
         v => !!v || 'Name is required',
         v => v.length <= 50 || 'Name must be less than 50 characters',
       ],
-      ProjectCode:"",
+
       ProjectCodeRules :[
         v => !!v || 'Name is required',
         v => v.length <= 50 || 'Name must be less than 50 characters',
       ],
-      date1: new Date().toISOString().substr(0, 10),
-      date2:"",
       // date2: new Date().toISOString().substr(0, 10),
       Date1Rules:[
         v => !!v || 'Name is required',
@@ -181,6 +179,9 @@
       menu2: false,
     }),
     computed:{
+      ...mapState({
+        CurrentForm : state => state.form,
+        })
       },
 
     methods:{

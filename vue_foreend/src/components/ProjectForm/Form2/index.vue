@@ -1,26 +1,41 @@
 <template>
 
-  <v-form v-model="valid">
-    <v-container>
-      <v-checkbox
-      v-model="enabled"
-      hide-details
-      class="shrink mr-2 mt-0"
-      label="New Cushion"
-      ></v-checkbox>
-      <v-row align="center">
-        <v-file-input v-model = "CushiondwgFile" accept=".dwg" :disabled="!enabled" multiple label="Cushion dwg file"></v-file-input>
-        <v-file-input v-model = "CushionFoldFile" accept=".pdf" :disabled="!enabled" multiple label="New cushion folding file"></v-file-input>
-      </v-row>
-      <v-text-field
-      v-model="OldCushion"
+<v-form >
+  <v-container>
+    <v-checkbox
+        v-model="enabled"
+        hide-details
+        class="shrink mr-2 mt-0"
+        label="New Cushion"
+        @change="onClearData"
+    ></v-checkbox>
+    <v-row align="center">
+      <v-file-input 
+        v-model="CurrentForm.CushiondwgFile" 
+        type = 'file'
+        accept=".dwg" 
+        :disabled="!enabled"  
+        label="Cushion dwg file"
+      >
+      </v-file-input>
+      <v-file-input 
+        v-model = "CurrentForm.CushionFoldFile" 
+        type = 'file'
+        accept=".pdf" 
+        :disabled="!enabled" 
+        label="New cushion folding file"
+      ></v-file-input>
+    </v-row>
+    <v-text-field
+      v-model="CurrentForm.OldCushion"
+      type = 'text'
       :disabled="enabled"
       label= 'Please input your carryover cushion'
-      >
-      </v-text-field>
+    >
+    </v-text-field>
     </v-container> 
     <v-btn
-      :disabled="!valid"
+      :disabled="isError"
       color="success"
       class="mr-4"
       
@@ -39,15 +54,24 @@
 </template>>
 
 <script>
+import {mapState} from 'vuex';
 export default {
     data: () => ({
-      valid:'false',
-      includeFiles: true,
       enabled: false,
-      OldCushion:'',
-      CushiondwgFile:'',
-      CushionFoldFile:''
     }),
+    computed:{
+      isError:function(){
+        if ((this.CurrentForm.CushiondwgFile != '' && this.CurrentForm.CushionFoldFile != '') || this.CurrentForm.OldCushion != ''){
+            return false
+        } else {
+            return true
+            }
+         },
+      ...mapState({
+        CurrentForm : state => state.form,
+        })
+    },
+
     methods:{
       validate () {
         this.$store.commit('nextStep')
@@ -55,19 +79,11 @@ export default {
       onBackStep(){
           this.$store.commit('backStep')
       },
+      onClearData(){
+        this.CurrentForm.CushiondwgFile = [],
+        this.CurrentForm.CushionFoldFile= [],
+        this.CurrentForm.OldCushion = []
+      }
    }
-// computed:{
-//     isError:function(){
-//       if (this.enabled  === false && this.OldCushion != ''){
-//         this.$store.commit('isNextStep')
-//         return true
-//     } else if (this.enabled === true &&  this.CushiondwgFile != '' && this.CushionFoldFile !=''){
-//         this.$store.commit('isNextStep')
-//         return true
-//         } else {
-//           return 0
-//         }
-//       },
-// }
 }
 </script>

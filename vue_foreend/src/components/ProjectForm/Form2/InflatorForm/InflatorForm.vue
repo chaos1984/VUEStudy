@@ -1,6 +1,6 @@
 <template>
 
-  <v-card height="250px">
+  <v-card dark>
     <v-card-title>
     Inflator Information
     </v-card-title>
@@ -18,7 +18,7 @@
           dens
           :disabled="enabled"
           class="my-2"
-          :items="dropdown_font"
+          :items="dropdown_inflator"
           menu-props="bottom"
           label="Please select the inflator in your ESR"
           target="#dropdown-example-1"
@@ -30,10 +30,11 @@
 
 <script>
 export default {
+      name : 'InflatorInfo',
       data: () => ({
       includeFiles: true,
       enabled: false,
-      dropdown_font: ["ADP1.3B_MP","ADP1.3B_HP","ADPS-1.5_210kPa_5ms"],
+      inflator: ["ADP1.3B_MP","ADP1.3B_HP","ADPS-1.5_210kPa_5ms"],
     }),
 }
 </script>

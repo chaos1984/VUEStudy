@@ -22,7 +22,10 @@ const store = new Vuex.Store({
             date2:"",
             CushiondwgFile:[],
             CushionFoldFile:[],
-            OldCushion:[]
+            OldCushion:[],
+            InflatorFile:[],
+            Inflator:[],
+            Case:[]
         }
     },
     getter:{

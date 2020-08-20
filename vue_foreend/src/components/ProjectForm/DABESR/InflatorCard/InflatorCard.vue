@@ -1,5 +1,5 @@
 <template>
-      <v-card>
+      <v-card height = "249px">
         <v-card-title>
           Inflator
         </v-card-title>

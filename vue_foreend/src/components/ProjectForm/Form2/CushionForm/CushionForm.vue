@@ -1,6 +1,6 @@
 <template>
 
-  <v-card height="250px">
+  <v-card >
 
     <v-card-title>
     Cushion Information
@@ -31,25 +31,12 @@
 
 <script>
 export default {
+    name : 'CushionInfo',
     data: () => ({
-      includeFiles: true,
       enabled: false,
       OldCushion:'',
       CushiondwgFile:'',
       CushionFoldFile:''
     }),
-// computed:{
-//     isError:function(){
-//       if (this.enabled  === false && this.OldCushion != ''){
-//         this.$store.commit('isNextStep')
-//         return true
-//     } else if (this.enabled === true &&  this.CushiondwgFile != '' && this.CushionFoldFile !=''){
-//         this.$store.commit('isNextStep')
-//         return true
-//         } else {
-//           return 0
-//         }
-//       },
-// }
 }
 </script>

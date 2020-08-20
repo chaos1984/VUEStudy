@@ -28,7 +28,7 @@
         >
            <v-main  class="d-flex pa-2">
                 <component :is="getCurrentForm" ></component>
-            </v-main>
+            </v-main>4
 
         </v-stepper-content>
       </v-stepper-items>
@@ -40,17 +40,14 @@
 <script>
   export default {
     components:{
-        ProjectForm1: () => import('@/components/ProjectForm/Form1'),
-        ProjectForm2: () => import('@/components/ProjectForm/Form2'),
-        ProjectForm3: () => import('@/components/ProjectForm/Form3'),
-        ProjectForm4: () => import('@/components/ProjectForm/Form4'),
+        ProjectForm: () => import('@/components/ProjectForm/DABESR'),
     },
     data () {
       return {
         e1: "",
-        stepsNames:[{title:'项目录入'},{title:'分析内容'},{title:'特殊分析'},{title:'截至时间'}],
+        stepsNames:[{title:'ESR Information'},{title:'Request form'}],
         steps:'',
-        Forms: ['ProjectForm1','ProjectForm2','ProjectForm3','ProjectForm4'],
+        Forms: ['ProjectForm','ProjectForm2'],
         CurrentForm:""
       }
     },

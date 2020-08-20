@@ -5,6 +5,12 @@
       Cushion
   </v-card-title>
   <v-card-text>
+    <v-checkbox
+      v-model="enabled"
+      hide-details
+      class="shrink mr-2 mt-0"
+      label="New Cushion"
+      ></v-checkbox>
     <v-row align="center">
       <v-file-input 
         v-model="CurrentForm.CushiondwgFile" 
@@ -38,7 +44,6 @@
 <script>
 import {mapState} from 'vuex';
 export default {
-    name : 'DABESRInfo',
     data: () => ({
       enabled: false,
     }),

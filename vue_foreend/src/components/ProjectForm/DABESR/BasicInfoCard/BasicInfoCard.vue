@@ -5,14 +5,18 @@
   </v-card-title>
   <v-card-text>
       <v-row>
+         <v-col
+          cols="12"
+          md="4"
+        >
           <v-text-field
             v-model="CurrentForm.ESRNumber"
-            :rules="nameRules"
+            :rules="ESRRules"
             :counter="50"
             label="ESR"
             required
           ></v-text-field>
-  
+        </v-col>
 
         <v-col
           cols="12"
@@ -44,6 +48,7 @@
           md="4"
         >
           <v-text-field
+            validate-on-blur
             v-model="CurrentForm.ProjectCode"
             :rules="ProjectCodeRules"
             label="ProjectCode"
@@ -66,7 +71,7 @@
         <template v-slot:activator="{ on, attrs }">
           <v-text-field
             v-model="CurrentForm.date1"
-            label="Picker in menu"
+            label="ESR created date"
             prepend-icon="mdi-calendar"
             readonly
             v-bind="attrs"
@@ -95,10 +100,12 @@
       >
         <template v-slot:activator="{ on, attrs }">
           <v-text-field
+            placeholder="Please select a  delivery date"
+            label="Preferred delivery date"
             v-model="CurrentForm.date2"
             prepend-icon="mdi-calendar"
             readonly
-            :rules =  "Date1Rules"
+            :rules =  "Date2Rules"
             v-bind="attrs"
             v-on="on"
           ></v-text-field>
@@ -135,21 +142,30 @@ export default {
       info : '',
       valid: true,
 
-      nameRules: [
-        v => !!v || 'Name is required',
+      ESRRules: [
+        v => !!v || 'Required',
         v => v.length <= 50 || 'Name must be less than 50 characters',
+        v => /[0-9]+$/.test(v)|| 'Must be a string'
+      ],
+
+      nameRules: [
+        v => !!v || 'Required',
+        v => v.length <= 50 || 'Name must be less than 50 characters',
+        v => /[A-z]+$/.test(v)|| 'Must be a string'
       ],
       TeamnameRules: [
-        v => !!v || 'Name is required',
+        v => !!v || 'Required',
         v => v.length <= 50 || 'Name must be less than 50 characters',
+        v => /[A-z]+$/.test(v)|| 'Must be a string'
       ],
 
       ProjectCodeRules :[
-        v => !!v || 'Name is required',
+        v => !!v || 'Required',
         v => v.length <= 50 || 'Name must be less than 50 characters',
+        v => /^\d+$/.test(v)|| 'Must be a number'
       ],
-      Date1Rules:[
-        v => !!v || 'Name is required',
+      Date2Rules:[
+        v => !!v || 'Date is required',
       ],
       menu1: false,
       menu2: false,

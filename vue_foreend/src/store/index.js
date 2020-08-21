@@ -14,10 +14,10 @@ const store = new Vuex.Store({
         CurrentStep: 0,
         StepsNum: 0,
         form :{
-            ESRNumber: 'ESR-',
+            ESRNumber: '',
             PEName: '',
             TeamName: '',
-            ProjectCode:"23123123",
+            ProjectCode:"",
             date1: new Date().toISOString().substr(0, 10),
             date2:"",
             CushiondwgFile:[],
@@ -25,7 +25,7 @@ const store = new Vuex.Store({
             OldCushion:[],
             InflatorFile:[],
             Inflator:[],
-            Case:[]
+            Case:[true,true,true,false,false,false,false,false,false]
         }
     },
     getter:{

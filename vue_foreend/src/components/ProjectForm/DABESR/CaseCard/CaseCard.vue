@@ -1,24 +1,39 @@
 <!-- ValidateForm -->
 <template>
-  <v-card>
+  <v-card dense>
    <v-card-title >
-      CaseInfo1
+      CaseInfo
   </v-card-title>
 
   <v-card-text>
- 
- 
-    <row>
+      <v-row > 
+        <v-col 
+          cols='12'
+          md='4'
+          >
+          <v-checkbox v-model="CurrentForm.Case[0]" label="UL-HT" ></v-checkbox>
+          <v-checkbox v-model="CurrentForm.Case[1]" label="UL-RT"></v-checkbox>
+          <v-checkbox v-model="CurrentForm.Case[2]" label="UL-LT"></v-checkbox>
+        </v-col>
+        <v-col 
+          cols='12'
+          md='4'
+          >
+          <v-checkbox v-model="CurrentForm.Case[3]" label="NL-HT"></v-checkbox>
+          <v-checkbox v-model="CurrentForm.Case[4]" label="NL-RT"></v-checkbox>
+          <v-checkbox v-model="CurrentForm.Case[5]" label="NL-LT"></v-checkbox>
+        </v-col>
+        <v-col 
+          cols='12'
+          md='4'
+          >
+          <v-checkbox disabled v-model="CurrentForm.Case[6]" label="LL-HT"></v-checkbox>
+          <v-checkbox disabled v-model="CurrentForm.Case[7]" label="LL-RT"></v-checkbox>
+          <v-checkbox v-model="CurrentForm.Case[8]" label="LL-LT"></v-checkbox>
+        </v-col>
+      </v-row>
 
-      <v-col
-      cols="12"
-      md="6"
-      >
-      
-      <v-checkbox v-model="CurrentForm.Case[1]" label="UL-HT"></v-checkbox>
  
-      </v-col>
-    </row>
 
       
   </v-card-text>
@@ -36,8 +51,6 @@ import {mapState} from 'vuex';
        
     },
     data: () => ({
-      enabled: false,
-      case : ['UL_HT','UL_LT']
     }),
     computed:{
       ...mapState({
@@ -45,6 +58,9 @@ import {mapState} from 'vuex';
         })
       },
     methods:{
+      aa(){
+        console.log(this.CurrentForm.Case)
+      }
    }
   }
 </script>

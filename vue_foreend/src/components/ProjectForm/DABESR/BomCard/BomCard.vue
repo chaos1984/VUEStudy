@@ -1,6 +1,6 @@
 <!-- ValidateForm -->
 <template>
-  <v-card>
+  <v-card height = "302px">
    <v-card-title >
       BomInfo
   </v-card-title>

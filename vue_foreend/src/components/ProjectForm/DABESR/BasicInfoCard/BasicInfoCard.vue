@@ -145,7 +145,7 @@ export default {
       ESRRules: [
         v => !!v || 'Required',
         v => v.length <= 50 || 'Name must be less than 50 characters',
-        v => /[0-9]+$/.test(v)|| 'Must be a string'
+        v => /[0-9]+$/.test(v)|| 'Must be a number'
       ],
 
       nameRules: [

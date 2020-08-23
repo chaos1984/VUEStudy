@@ -50,7 +50,7 @@
        </v-alert> -->
        <!-- <NextBackbtn></NextBackbtn> -->
     <v-btn
-      :disabled="!valid"
+      :disabled="valid"
       color="success"
       class="mr-4"
       
@@ -69,8 +69,9 @@
 
 <script>
 
-
+  // import {mapState} from 'vuex';
   export default {
+
     name : 'DABESR',
     components:{
         BasicInfoCard: () => import('./BasicInfoCard/BasicInfoCard'),
@@ -80,7 +81,7 @@
         CaseCard: () => import('./CaseCard/CaseCard')
     },
     data: () => ({
-      
+
       info : '',
       valid: true,
 
@@ -104,7 +105,11 @@
       menu1: false,
       menu2: false,
     }),
-
+    // computed:{
+    //   ...mapState({
+    //     CurrentForm : state => state.form,
+    //     }),
+    //   },
 
     methods:{
     validate () {

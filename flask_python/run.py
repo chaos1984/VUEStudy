@@ -37,6 +37,7 @@ def writejson():
 def upload():
     img_stream = ''
     file_obj = request.files['file']
+    print (file_obj)
     if file_obj is None:
         # 表示没有发送文件
         return "未上传文件"
@@ -47,26 +48,30 @@ def upload():
         直接使用上传的文件对象保存
     '''
 
-    file_path = os.path.join(app.config['UPLOAD_FOLDER'], "1.jpg")
+    file_path = os.path.join(app.config['UPLOAD_FOLDER'], "111")
     file_obj.save(file_path)
-    blend_pic = blend_two_images(file_obj)
+    # blend_pic = blend_two_images(file_obj)
 
-    img_stream = base64.b64encode(blend_pic)
+    # img_stream = base64.b64encode(blend_pic)
 
-    return img_stream 
+    return "Upload done"
 
 @app.route('/RequestForm',methods=["POST"])
 def RequestForm():  
-    a = ESRpdf.PDFGenerator('www')
     data = json.loads(request.get_data(as_text=True))
     print (data)
     home_data = {
         "ESR": data['ESRNumber'], 
         "PE": data['PEName'], 
+        "ProjectCode":data['ProjectCode'],
         "Team": data['TeamName'], 
-        "Date": data['date1']
+        "Date1": data['date1'],
+        "Date2": data['date2']
         }
+        
     task_data = [("BOM","1" ),("DAB CAD","123"),("Inflator",'B'),("CushionFile"),("Cases","123")]
+    a = ESRpdf.PDFGenerator(data['ESRNumber']+"_"+data['date1'])
+    
     a.genTaskPDF(home_data, task_data)
     return "OK"
     

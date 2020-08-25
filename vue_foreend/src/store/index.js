@@ -20,6 +20,8 @@ const store = new Vuex.Store({
             ProjectCode:"",
             date1: new Date().toISOString().substr(0, 10),
             date2:"",
+            CADFile:[],
+            BOMFile:[],
             CushiondwgFile:[],
             CushionFoldFile:[],
             OldCushion:[],

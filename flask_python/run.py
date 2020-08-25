@@ -37,7 +37,6 @@ def writejson():
 def upload():
     img_stream = ''
     file_obj = request.files['file']
-    print (file_obj)
     if file_obj is None:
         # 表示没有发送文件
         return "未上传文件"
@@ -48,7 +47,7 @@ def upload():
         直接使用上传的文件对象保存
     '''
 
-    file_path = os.path.join(app.config['UPLOAD_FOLDER'], "111")
+    file_path = os.path.join(app.config['UPLOAD_FOLDER'], file_obj.filename)
     file_obj.save(file_path)
     # blend_pic = blend_two_images(file_obj)
 

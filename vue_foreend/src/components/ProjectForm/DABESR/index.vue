@@ -113,10 +113,20 @@
 
     methods:{
     validate () {
+        this.update()
         this.$store.commit('nextStep')
       },
     onBackStep(){
           this.$store.commit('backStep')
+      },
+    update(){
+        this.$axios.post('/api/RequestForm',JSON.stringify(this.$store.state.form),{headers:{'Content-Type':'application/x-www-form-urlencoded'}})
+          .then(res=>{
+                console.log(res.data)
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
       },  
    }
   }

@@ -3,10 +3,10 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image, Page
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import mm
 from reportlab.lib import colors
+from reportlab.lib.styles import ParagraphStyle as PS
 from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
-import pandas as pd
 import json
 
 # 生成PDF文件
@@ -49,8 +49,6 @@ class PDFGenerator:
 
     def genTaskPDF(self, home_data, task_data):
         story = []
-        print (home_data)
-        print (task_data)
         # 首页内容
         story.append(Spacer(1, 20 * mm))
         # img = Image('/xxx/xxx.png')
@@ -96,5 +94,5 @@ if __name__ == "__main__":
     with open(r"jsonfortest.json", "r") as f:
         home_data = json.loads(f.read())
     a = PDFGenerator('www')
-    task_data =data=[("BOM","1" ),("DAB CAD",'A'),("Inflator",'B'),("CushionFile"),("Cases","123")]
+    task_data =data=[("BOM","1" ),("DAB CAD",Paragraph('<link href="' + 'http://www.hoboes.com/Mimsy/hacks/adding-links-to-pdf/' + '">' + 'Click here' + '</link>',PS('BODY'))),("Inflator",'B'),("CushionFile"),("Cases","123")]
     a.genTaskPDF(home_data, task_data)

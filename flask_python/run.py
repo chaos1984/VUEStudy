@@ -5,11 +5,12 @@ import json
 from io import BytesIO
 from PIL import Image
 import base64
+import ESRpdf
+
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = r".\upload"
-app.config['bkg_pic'] = r".\img\background.jpg"
-app.config['lb_pic'] = r".\img\Lable.png"
+app.config['img_pic'] = r".\img\background.jpg"
 CORS(app)
 
 @app.route('/')
@@ -48,51 +49,56 @@ def upload():
 
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], "1.jpg")
     file_obj.save(file_path)
-    
-    blend_pic = editPic(app.config['bkg_pic'])
-    blend_pic.pastPic(file_obj,(810,810),(132,300))
-    # blend_pic.pastPic(app.config['lb_pic'],(200,100),(45,254),rmbg=1)
-    print ('done')
-    img_stream = base64.b64encode(blend_pic.getBytesPic)
+    blend_pic = blend_two_images(file_obj)
+
+    img_stream = base64.b64encode(blend_pic)
+
     return img_stream 
 
-class editPic():
-    def __init__(self,pic):
-        backpic = Image.open(pic)
-        self.backpic = backpic.convert('RGBA') 
-        
-    def pastPic(self,pic,size=(100,100),pos=(100,100),rmbg=0):
-        forepic = Image.open(pic)
-        self.forepic = forepic.convert('RGBA') 
-        if rmbg == 1:
-            self.forepic = removeBackgroundColor(self.forepic)
-        self.forepic.show()
-        self.backpic.paste(self.forepic.resize(size),pos)
-        
-    def compositePic(self):
-        forepic = Image.open(pic)
-        self.forepic = forepic.convert('RGBA')
-        self.backpic.alpha_composite(self.backpic, self.forepic)
-               
-    @property    
-    def getBytesPic(self):
-        img_bytes = BytesIO()
-        self.backpic.save(img_bytes, format='png')
-        img_bytes = img_bytes.getvalue()
-        return img_bytes
-
-        
-def removeBackgroundColor(pic):
-    pixdata =pic.load()
-    for y in range(pic.size[1]):
-        for x in range(pic.size[0]):
-            if pixdata[x, y][0] > 220 and pixdata[x, y][1] > 220 and pixdata[x, y][2] > 220 and pixdata[x, y][3] > 220:
-                pixdata[x, y] = (255, 255, 255, 0)
-    return pic
+@app.route('/RequestForm',methods=["POST"])
+def RequestForm():  
+    a = ESRpdf.PDFGenerator('www')
+    data = json.loads(request.get_data(as_text=True))
+    print (data)
+    home_data = {
+        "ESR": data['ESRNumber'], 
+        "PE": data['PEName'], 
+        "Team": data['TeamName'], 
+        "Date": data['date1']
+        }
+    task_data = [("BOM","1" ),("DAB CAD","123"),("Inflator",'B'),("CushionFile"),("Cases","123")]
+    a.genTaskPDF(home_data, task_data)
+    return "OK"
     
+    
+def return_img_stream(img_local_path):
+  img_stream = ''
+  with open(img_local_path, 'rb') as img_f:
+    print ('ok')
+    img_stream = img_f.read()
+    img_stream = base64.b64encode(img_stream)
+  return img_stream 
+ 
+def blend_two_images(img,back=app.config['img_pic']):
+    img1 = Image.open(back)
+    print(img1)
+    img1 = img1.convert('RGBA')
+ 
+    img2 = Image.open(img)
+    print(img2)
+    img2 = img2.convert('RGBA')
+    # img2.resize((littlesize,littlesize))
+    img1.paste(img2,(300,300))
+    # img1.show()
+    img_bytes = BytesIO()
+    img1.save(img_bytes, format='png')
+    img_bytes = img_bytes.getvalue()
+    return img_bytes
+    
+
 if __name__ == "__main__":
         app.run(
-      host='0.0.0.0',
+      host='127.0.0.1',
       port= 5000,
       debug=True
     )

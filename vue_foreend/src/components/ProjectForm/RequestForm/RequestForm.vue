@@ -1,6 +1,6 @@
 <template>
 <v-card>
-<v-table width="500" height="300" bgcolor="green" cellspacing="1" >
+<table   >
       <tr bgcolor="white">
           <td>1</td>
           <td>2</td>
@@ -25,7 +25,7 @@
            <td></td>
            <td></td>
        </tr>
-   </v-table>
+   </table>
 </v-card> 
 </template>
 

@@ -59,7 +59,6 @@ import {mapState} from 'vuex';
         this.filedata = param.get('file')
         this.CurrentForm[id] = this.filedata['name']
         // console.log(e)
-        this.CurrentForm[e]= this.filedata['name']
         this.$axios.post('/api/upload',param,{headers:{'Content-Type':'application/x-www-form-urlencoded' }}, ) //请求头要为表单
           .then(response=>{
             console.log(response.data);

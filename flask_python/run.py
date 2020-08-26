@@ -52,7 +52,7 @@ def upload():
     # blend_pic = blend_two_images(file_obj)
 
     # img_stream = base64.b64encode(blend_pic)
-
+    print ("Upload done")
     return "Upload done"
 
 @app.route('/RequestForm',methods=["POST"])

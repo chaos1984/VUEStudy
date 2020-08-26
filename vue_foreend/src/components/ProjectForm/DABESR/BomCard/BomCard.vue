@@ -7,14 +7,14 @@
 
   <v-card-text>
       <v-file-input
-        v-model="CurrentForm.BOMFile"  
-        label="Upload the BOM FILE1"
+        id = "BOMFile"
+        label="Upload the BOM FILE"
         placeholder="Select a file"
         :rules="BOMFileRules"
         @change="uploadFile"
       ></v-file-input>  
-      <v-file-input
-        v-model="CurrentForm.CADFile"  
+      <v-file-input 
+        id = "CADFile"
         label="Upload the CAD FILE"
         placeholder="Select a file"
         :rules="CADFileRules"
@@ -31,8 +31,8 @@
 <script>
 import {mapState} from 'vuex';
   export default {
-    name : 'BomInfo',
     data: () => ({
+      filedata: null,
       enabled: false,
       BOMFileRules:[
         v => !!v || 'Required',
@@ -47,12 +47,19 @@ import {mapState} from 'vuex';
         })
       },
     methods:{
-      uploadFile(e,name){
+      uploadFile(e){
+        var clickedButtonDOM=event.target; //获取按钮的DOM元素
+        var id = clickedButtonDOM.getAttribute('id');//获取指定的元素
+        console.log(id);
         let param = new FormData(); //创建form对象
         param.append('file',e);//通过append向form对象添加数据
-        param.append('name',name)
         // param.append('file',this.CurrentForm.CADFile)
-        console.log(param.get('file')); //FormData私有类对象，访问不到，可以通过get判断值是否传进去
+        // console.log(param.get('file')); //FormData私有类对象，访问不到，可以通过get判断值是否传进去
+        
+        this.filedata = param.get('file')
+        this.CurrentForm[id] = this.filedata['name']
+        // console.log(e)
+        this.CurrentForm[e]= this.filedata['name']
         this.$axios.post('/api/upload',param,{headers:{'Content-Type':'application/x-www-form-urlencoded' }}, ) //请求头要为表单
           .then(response=>{
             console.log(response.data);

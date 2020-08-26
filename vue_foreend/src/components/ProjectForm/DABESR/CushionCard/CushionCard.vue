@@ -18,10 +18,11 @@
         accept=".dwg" 
         :disabled="!enabled"  
         label="Cushion dwg file"
+        @change="uploadFile"
       >
       </v-file-input>
       <v-file-input 
-        v-model = "CurrentForm.CushionFoldFile" 
+        id = 'CushionFoldFile'
         type = 'file'
         accept=".pdf" 
         :disabled="!enabled" 
@@ -30,11 +31,9 @@
       ></v-file-input>
     </v-row>
     <v-text-field
-      id = 'CushionFoldFile'
       type = 'text'
       :disabled="enabled"
       label= 'Please input your carryover cushion'
-      @change="uploadFile"
     >
     </v-text-field>
       </v-card-text>

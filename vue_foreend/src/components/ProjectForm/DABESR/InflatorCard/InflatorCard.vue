@@ -11,7 +11,14 @@
           label="New Inflator"
         ></v-checkbox>
         <v-row align="center">
-          <v-file-input id = 'InflatorFile' accept=".pdf" :disabled="!enabled" multiple label="New inflator file" @change="uploadFile"></v-file-input>
+          <v-file-input 
+          id = 'InflatorFile'
+          accept=".pdf" 
+          :disabled="!enabled" 
+          label="New inflator file" 
+          @change="uploadFile"
+          >
+          </v-file-input>
         </v-row>
         <v-overflow-btn
             v-model="CurrentForm.Inflator"

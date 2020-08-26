@@ -68,7 +68,7 @@ def RequestForm():
         "Date2": data['date2']
         }
         
-    task_data = [("BOM","1" ),("DAB CAD","123"),("Inflator",'B'),("CushionFile"),("Cases","123")]
+    task_data = [("BOM",data['BOMFile'] ),("DAB CAD",data['CADFile']),("Inflator",data['InflatorFile']),("CushionFoldFile",data['CushionFoldFile']),("Cases","123")]
     a = ESRpdf.PDFGenerator(data['ESRNumber']+"_"+data['date1'])
     
     a.genTaskPDF(home_data, task_data)

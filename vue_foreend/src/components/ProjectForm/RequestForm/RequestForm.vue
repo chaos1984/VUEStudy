@@ -15,7 +15,7 @@
         
 
 	</v-card>
-            <v-container>
+        <v-container>
             <v-row>
                 <v-spacer/>
                 <v-btn class="ma-2" color="orange darken-2" dark @click.stop="prePage">
@@ -28,6 +28,12 @@
                 <v-spacer/>
             </v-row>
         </v-container>
+    <v-btn class= "mx-5"
+      color="primary"
+      @click="onBackStep"
+      >
+      Back
+    </v-btn>
     </div>
 </template>
 
@@ -51,6 +57,9 @@
 		},
 		mounted: function() {},
 		methods: {
+            onBackStep(){
+                this.$store.commit('backStep')
+             },
             // 上一页函数，
 			prePage() {
 				var page = this.pageNum

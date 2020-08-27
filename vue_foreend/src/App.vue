@@ -2,7 +2,7 @@
    <v-app>
     <v-main>
 
-       <router-view></router-view>
+       <router-view>123</router-view>
 
 
     </v-main>

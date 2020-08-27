@@ -6,16 +6,16 @@ const routers = [
     component: Layout
   },
   {
-      path: '/Layout',
+      path: './Layout',
       name: 'Layout',
       component: Layout
   },
   {
-    path: '/Upload',
+    path: './Upload',
     component: () => import('./components/UploadFile'),
   },  
   {
-      path: '/Stepper',
+      path: './Stepper',
       component: () => import('./components/Stepper'),
   },
 ]

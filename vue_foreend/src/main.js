@@ -13,7 +13,7 @@ Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 
 const router = new VueRouter({
-  mode: 'history',
+  // mode: 'history',
   routes: routers
   })
 

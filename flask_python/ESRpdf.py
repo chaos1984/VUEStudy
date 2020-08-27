@@ -51,12 +51,12 @@ class PDFGenerator:
         story = []
         # 首页内容
         story.append(Spacer(1, 20 * mm))
-        # img = Image('/xxx/xxx.png')
-        # img.drawHeight = 20 * mm
-        # img.drawWidth = 40 * mm
-        # img.hAlign = TA_LEFT
-        # story.append(img)
-        # story.append(Spacer(1, 10 * mm))
+        img = Image('img/Logo.png')
+        img.drawHeight = 20 * mm
+        img.drawWidth = 40 * mm
+        img.hAlign = TA_LEFT
+        story.append(img)
+        story.append(Spacer(1, 10 * mm))
         story.append(Paragraph(u"DAB Deployment Simulation", self.title_style))
         story.append(Spacer(1, 20 * mm))
         story.append(Paragraph(u"ESR No.:" + home_data['ESR'], self.content_style))

@@ -14,9 +14,9 @@ app.config['img_pic'] = r".\img\background.jpg"
 CORS(app)
 
 @app.route('/')
-# @app.route('/index.html')
-# def index():
-    # return render_template('index.html')
+@app.route('/index.html')
+def index():
+    return render_template('//dist//index.html')
 
 
 @app.route('/addnumber')
@@ -101,7 +101,7 @@ def blend_two_images(img,back=app.config['img_pic']):
     
 
 if __name__ == "__main__":
-        app.run(
+    app.run(
       host='127.0.0.1',
       port= 5000,
       debug=True

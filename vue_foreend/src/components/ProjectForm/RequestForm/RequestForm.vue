@@ -18,12 +18,12 @@
         <v-container>
             <v-row>
                 <v-spacer/>
-                <v-btn class="ma-2" color="orange darken-2" dark @click.stop="prePage">
-                <v-icon dark left>mdi-arrow-left</v-icon>Back
+                <v-btn class="ma-1" color="orange darken-2" dark @click.stop="prePage">
+                <v-icon dark left>mdi-arrow-left</v-icon>
                 </v-btn>
                 <p class="ma-4" >{{pageNum}}/{{pageTotalNum}} </p>
-                <v-btn class="ma-2" color="green darken-2" dark @click.stop="nextPage">
-                <v-icon dark left>mdi-arrow-right</v-icon>NEXT
+                <v-btn class="ma-1" color="green darken-2" dark @click.stop="nextPage">
+                <v-icon dark left>mdi-arrow-right</v-icon>
                 </v-btn>
                 <v-spacer/>
             </v-row>

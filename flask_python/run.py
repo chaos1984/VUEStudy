@@ -55,7 +55,7 @@ def upload():
     print ("Upload done")
     return "Upload done"
 
-@app.route('/RequestForm',methods=["POST"])
+@app.route('/api/RequestForm',methods=["POST"])
 def RequestForm():  
     data = json.loads(request.get_data(as_text=True))
     print (data)
@@ -69,7 +69,7 @@ def RequestForm():
         }
         
     task_data = [("BOM",data['BOMFile'] ),("DAB CAD",data['CADFile']),("Inflator",data['InflatorFile']),("CushionFoldFile",data['CushionFoldFile']),("Cases","123")]
-    a = ESRpdf.PDFGenerator(data['ESRNumber']+"_"+data['date1'])
+    a = ESRpdf.PDFGenerator('ESR//'+data['ESRNumber']+"_"+data['date1'])
     
     a.genTaskPDF(home_data, task_data)
     return "OK"
@@ -102,7 +102,7 @@ def blend_two_images(img,back=app.config['img_pic']):
 
 if __name__ == "__main__":
     app.run(
-      host='127.0.0.1',
-      port= 5000,
+      host='10.123.20.255',
+      port= 8080,
       debug=True
     )

@@ -38,7 +38,8 @@
 </template>
 
 <script>
-	import pdf from 'vue-pdf'
+	import {mapState} from 'vuex';
+	import pdf from 'vue-pdf';
 	export default {
 		name: 'Home',
 		components: {
@@ -46,7 +47,7 @@
 		},
 		data() {
 			return {
-				url: "./static/www.pdf",
+				url: "",
 				pageNum: 1,
 				pageTotalNum: 1,
 				pageRotate: 0,
@@ -55,7 +56,12 @@
 				curPageNum: 0,
 			}
 		},
-		mounted: function() {},
+		created: function() {
+			this.getPDFurl()
+		},
+		computed:{
+			...mapState({CurrentForm : state => state.form,})
+        },
 		methods: {
             onBackStep(){
                 this.$store.commit('backStep')
@@ -88,6 +94,10 @@
 			pdfError(error) {
 				console.error(error)
 			},
+			getPDFurl(){
+				this.url = this.url + this.CurrentForm.ESRNumber + '_' + this.CurrentForm.date1 + '.pdf'
+				console.log(this.url)
+			}
 		}
 	}
 </script>

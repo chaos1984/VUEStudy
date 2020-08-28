@@ -2,9 +2,9 @@ module.exports = {
       // 公共路径(必须有的)
       publicPath: "./",
       // // 输出文件目录
-      outputDir: "dist",
+      outputDir: "templates",
       // // 静态资源存放的文件夹(相对于ouputDir)
-      // assetsDir: "assets",
+      assetsDir: "static",
       // eslint-loader 是否在保存的时候检查(果断不用，这玩意儿我都没装)
       // lintOnSave:false,
       // 我用的only，打包后小些
@@ -25,17 +25,17 @@ module.exports = {
         
     // webpack-dev-server 相关配置
 
-    devServer: {
-        //配置跨域
-        proxy: {
-            '/api': {
-                target: 'http://127.0.0.1:5000',
-                ws: true,
-                changeOrigin: true,
-                pathRewrite: {
-                    '^/api': ''  //通过pathRewrite重写地址，将前缀/api转为/
-                }
-            }
-        }
-    },
+    // devServer: {
+        // //配置跨域
+        // proxy: {
+            // '/api': {
+                // target: 'http://127.0.0.1:5000',
+                // ws: true,
+                // changeOrigin: true,
+                // pathRewrite: {
+                    // '^/api': ''  //通过pathRewrite重写地址，将前缀/api转为/
+                // }
+            // }
+        // }
+    // },
 }

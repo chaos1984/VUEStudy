@@ -16,7 +16,7 @@ CORS(app)
 @app.route('/')
 @app.route('/index.html')
 def index():
-    return render_template('//dist//index.html')
+    return render_template('index.html')
 
 
 @app.route('/addnumber')

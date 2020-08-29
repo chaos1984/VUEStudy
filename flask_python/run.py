@@ -69,7 +69,7 @@ def RequestForm():
         }
         
     task_data = [("BOM",data['BOMFile'] ),("DAB CAD",data['CADFile']),("Inflator",data['InflatorFile']),("CushionFoldFile",data['CushionFoldFile']),("Cases","123")]
-    a = ESRpdf.PDFGenerator('ESR//'+data['ESRNumber']+"_"+data['date1'])
+    a = ESRpdf.PDFGenerator('static//ESR//'+data['ESRNumber']+"_"+data['date1'])
     
     a.genTaskPDF(home_data, task_data)
     return "OK"
@@ -102,7 +102,7 @@ def blend_two_images(img,back=app.config['img_pic']):
 
 if __name__ == "__main__":
     app.run(
-      host='10.123.20.255',
+      host='192.168.1.7',
       port= 8080,
       debug=True
     )

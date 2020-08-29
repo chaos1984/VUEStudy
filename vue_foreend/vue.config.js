@@ -4,7 +4,7 @@ module.exports = {
       // // 输出文件目录
       outputDir: "templates",
       // // 静态资源存放的文件夹(相对于ouputDir)
-      assetsDir: "static",
+      assetsDir: "../static",
       // eslint-loader 是否在保存的时候检查(果断不用，这玩意儿我都没装)
       // lintOnSave:false,
       // 我用的only，打包后小些
@@ -24,7 +24,16 @@ module.exports = {
       // webpack-dev-server 相关配置
         
     // webpack-dev-server 相关配置
-
+    chainWebpack: (config) => {
+        config.module
+          .rule('worker')
+          .test(/\.worker\.js$/)
+          .use('worker-loader').loader('worker-loader')
+          .options({
+            inline: true,
+            fallback: false
+          }).end();
+      },
     devServer: {
         //配置跨域
         proxy: {

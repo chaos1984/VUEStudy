@@ -2,7 +2,7 @@ import Layout from './components/Layout'
 
 const routers = [
   {
-    path: '/',
+    path: '/', // 去掉前面的点，用于前端调试
     component: Layout
   },
   {

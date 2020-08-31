@@ -39,6 +39,7 @@ import {mapState} from 'vuex';
       ],
       CADFileRules:[
         v => !!v || 'Required',
+        v => /[0-9]+$/.test(v)|| 'Must be a number'
       ]  
     }),
     computed:{

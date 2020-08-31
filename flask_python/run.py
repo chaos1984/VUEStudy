@@ -102,7 +102,7 @@ def blend_two_images(img,back=app.config['img_pic']):
 
 if __name__ == "__main__":
     app.run(
-      host='192.168.1.7',
-      port= 8080,
+      host='10.123.20.248',
+      port= 5000,
       debug=True
     )

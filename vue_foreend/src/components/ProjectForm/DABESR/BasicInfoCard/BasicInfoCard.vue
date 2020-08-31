@@ -12,7 +12,7 @@
           <v-text-field
             v-model="CurrentForm.ESRNumber"
             :rules="ESRRules"
-            :counter="50"
+            :counter="6"
             label="ESR"
             required
           ></v-text-field>
@@ -25,7 +25,7 @@
           <v-text-field
             v-model="CurrentForm.PEName"
             :rules="nameRules"
-            :counter="50"
+            :counter="20"
             label="Requester name"
             required
           ></v-text-field>
@@ -39,6 +39,7 @@
             v-model="CurrentForm.TeamName"
             :rules="TeamnameRules"
             label="Team name"
+            :counter="20"
             required
           ></v-text-field>
         </v-col>
@@ -51,7 +52,8 @@
             validate-on-blur
             v-model="CurrentForm.ProjectCode"
             :rules="ProjectCodeRules"
-            label="ProjectCode"
+            label="ProjectCode(AFIS)"
+            :counter="5"
             required
           ></v-text-field>
         </v-col>
@@ -82,6 +84,7 @@
         <v-date-picker 
         v-model="CurrentForm.date1" 
         @input="menu1 = false" 
+        :min='today'
         no-title>
         </v-date-picker>
       </v-menu>
@@ -138,31 +141,31 @@ import {mapState} from 'vuex';
 export default {
     name : 'BasicInfo',
     data: () => ({
-      
+      today: new Date().toISOString().substr(0, 10),
       info : '',
       valid: true,
 
       ESRRules: [
         v => !!v || 'Required',
-        v => v.length <= 50 || 'Name must be less than 50 characters',
+        v => v.length <= 6 || 'ESR No. must be six-digit',
         v => /[0-9]+$/.test(v)|| 'Must be a number'
       ],
 
       nameRules: [
         v => !!v || 'Required',
-        v => v.length <= 50 || 'Name must be less than 50 characters',
+        v => v.length <= 20 || 'Name must be less than 20 characters',
         v => /[A-z]+$/.test(v)|| 'Must be a string'
       ],
       TeamnameRules: [
         v => !!v || 'Required',
-        v => v.length <= 50 || 'Name must be less than 50 characters',
+        v => v.length <= 20 || 'Name must be less than 20 characters',
         v => /[A-z]+$/.test(v)|| 'Must be a string'
       ],
 
       ProjectCodeRules :[
         v => !!v || 'Required',
-        v => v.length <= 50 || 'Name must be less than 50 characters',
-        v => /^\d+$/.test(v)|| 'Must be a number'
+        v => v.length <= 50 || 'AFIS No. must be five-digit',
+        v => /[0-9]+$/.test(v)|| 'Must be a number'
       ],
       Date2Rules:[
         v => !!v || 'Date is required',

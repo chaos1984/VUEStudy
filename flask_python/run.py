@@ -9,7 +9,7 @@ import ESRpdf
 
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = r".\upload"
+app.config['UPLOAD_FOLDER'] = r"./static/ESR/"
 app.config['img_pic'] = r".\img\background.jpg"
 CORS(app)
 
@@ -33,7 +33,7 @@ def writejson():
     json.dump(ProjectData,fout)
     return "OK"
 
-@app.route('/upload',methods=["POST"])
+@app.route('/api/upload',methods=["POST"])
 def upload():
     img_stream = ''
     file_obj = request.files['file']
@@ -69,7 +69,7 @@ def RequestForm():
         }
         
     task_data = [("BOM",data['BOMFile'] ),("DAB CAD",data['CADFile']),("Inflator",data['InflatorFile']),("CushionFoldFile",data['CushionFoldFile']),("Cases","123")]
-    a = ESRpdf.PDFGenerator('static//ESR//'+data['ESRNumber']+"_"+data['date1'])
+    a = ESRpdf.PDFGenerator(app.config['UPLOAD_FOLDER'] +data['ESRNumber']+"_"+data['date1'])
     
     a.genTaskPDF(home_data, task_data)
     return "OK"
@@ -102,7 +102,8 @@ def blend_two_images(img,back=app.config['img_pic']):
 
 if __name__ == "__main__":
     app.run(
-      host='10.123.20.248',
+      host='192.168.1.7',
+      # host='10.123.20.248',
       port= 5000,
       debug=True
     )

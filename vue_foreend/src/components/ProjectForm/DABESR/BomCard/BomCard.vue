@@ -36,10 +36,11 @@ import {mapState} from 'vuex';
       enabled: false,
       BOMFileRules:[
         v => !!v || 'Required',
+        v => /[A-z]+$/.test(v)|| 'Must be a string'
       ],
       CADFileRules:[
         v => !!v || 'Required',
-        v => /[0-9]+$/.test(v)|| 'Must be a number'
+        v => /[A-z]+$/.test(v)|| 'Must be a string'
       ]  
     }),
     computed:{

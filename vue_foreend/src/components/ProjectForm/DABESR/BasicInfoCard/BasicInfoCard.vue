@@ -147,7 +147,7 @@ export default {
 
       ESRRules: [
         v => !!v || 'Required',
-        v => v.length <= 6 || 'ESR No. must be six-digit',
+        v => v.length == 6 || 'ESR No. must be six-digit',
         v => /[0-9]+$/.test(v)|| 'Must be a number'
       ],
 
@@ -164,7 +164,7 @@ export default {
 
       ProjectCodeRules :[
         v => !!v || 'Required',
-        v => v.length <= 50 || 'AFIS No. must be five-digit',
+        v => v.length == 5 || 'AFIS No. must be five-digit',
         v => /[0-9]+$/.test(v)|| 'Must be a number'
       ],
       Date2Rules:[

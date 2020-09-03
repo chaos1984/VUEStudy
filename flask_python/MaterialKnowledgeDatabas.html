@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <!-- 引入 echarts.js -->
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script></script>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 1200px;height:800px;"></div>
+
+<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+var app = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+var posList = [
+    'left', 'right', 'top', 'bottom',
+    'inside',
+    'insideTop', 'insideLeft', 'insideRight', 'insideBottom',
+    'insideTopLeft', 'insideTopRight', 'insideBottomLeft', 'insideBottomRight'
+];
+
+app.configParameters = {
+    rotate: {
+        min: -90,
+        max: 90
+    },
+    align: {
+        options: {
+            left: 'left',
+            center: 'center',
+            right: 'right'
+        }
+    },
+    verticalAlign: {
+        options: {
+            top: 'top',
+            middle: 'middle',
+            bottom: 'bottom'
+        }
+    },
+    position: {
+        options: echarts.util.reduce(posList, function (map, pos) {
+            map[pos] = pos;
+            return map;
+        }, {})
+    },
+    distance: {
+        min: 0,
+        max: 100
+    }
+};
+
+app.config = {
+    rotate: 90,
+    align: 'left',
+    verticalAlign: 'middle',
+    position: 'insideBottom',
+    distance: 15,
+    onChange: function () {
+        var labelOption = {
+            normal: {
+                rotate: app.config.rotate,
+                align: app.config.align,
+                verticalAlign: app.config.verticalAlign,
+                position: app.config.position,
+                distance: app.config.distance
+            }
+        };
+        app.setOption({
+            series: [{
+                label: labelOption
+            }, {
+                label: labelOption
+            }, {
+                label: labelOption
+            }, {
+                label: labelOption
+            }]
+        });
+    }
+};
+
+
+
+
+var labelOption = {
+    show: true,
+    position: app.config.position,
+    distance: app.config.distance,
+    align: app.config.align,
+    verticalAlign: app.config.verticalAlign,
+    rotate: app.config.rotate,
+    formatter: '{c}  {name|{a}}',
+    fontSize: 32,
+    rich: {
+        name: {
+            textBorderColor: '#fff'
+        }
+    }
+};
+
+option = {
+    color: ['#003366', '#006699', '#4cabce', '#e5323e'],
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'shadow'
+        }
+    },
+    legend: {
+        data: ['Forest', 'Steppe', 'Desert', 'Wetland'],
+        show:true
+    },
+    toolbox: {
+        show: true,
+        orient: 'vertical',
+        left: 'right',
+        top: 'center',
+        feature: {
+            mark: {show: true},
+            dataView: {show: true, readOnly: false},
+            magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+            restore: {show: true},
+            saveAsImage: {show: true}
+        }
+    },
+    xAxis: [
+        {
+            type: 'category',
+            axisTick: {show: false},
+            data: ['E', 'Ro', 'Toughness_LT','Toughness_RT','Toughness_RT'],
+            axisLabel: {
+                textStyle: {
+                fontSize :20
+                }
+            }
+        }
+    ],
+    yAxis: [
+        {
+            type: 'value',
+            axisLabel: {
+                textStyle: {
+                fontSize :20
+                }
+            }
+        }
+    ],
+    series: [
+        {
+            name: 'TA4003BE',
+            type: 'bar',
+            barGap: 0,
+            label: labelOption,
+            data: [1, 1, 1,1,1 ]
+            //data: [1, 1, 1, 1]
+            //data: [1, 1, 1, 1]
+        },
+        {
+            name: 'TT1081',
+            type: 'bar',
+            label: labelOption,
+            data: [1, 0.99, 0.82,1.02,0.52]
+            //data: [1, 1.1, 1.2,1.5 ]
+            //data: [1, 1.1, 1.2,1.5 ]
+        },
+        {
+            name: 'TT990',
+            type: 'bar',
+            label: labelOption,
+            data: [1, .99, 2.39,3.27,1.06]
+           // data: [1, 1.1, 1.2,1.5 ]
+           // data: [1, 1.1, 1.2,1.5 ]
+        }
+    ]
+};
+
+
+        // 使用刚指定的配置项和数据显示图表。
+        app.setOption(option);
+    </script>
+</body>
+</html>

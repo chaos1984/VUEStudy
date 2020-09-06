@@ -1,0 +1,51 @@
+{
+  "id": "2049134",
+  "name": "esr",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "902749",
+      "name": "方向盘",
+      "font_class": "fangxiangpan",
+      "unicode": "e64a",
+      "unicode_decimal": 58954
+    },
+    {
+      "icon_id": "1695418",
+      "name": "气囊",
+      "font_class": "qinang",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    },
+    {
+      "icon_id": "7404293",
+      "name": "知识",
+      "font_class": "zhishi",
+      "unicode": "e76b",
+      "unicode_decimal": 59243
+    },
+    {
+      "icon_id": "14321945",
+      "name": "材料",
+      "font_class": "shouyetubiao-09",
+      "unicode": "e622",
+      "unicode_decimal": 58914
+    },
+    {
+      "icon_id": "15950963",
+      "name": "材料高分子成分",
+      "font_class": "cailiaogaofenzichengfen",
+      "unicode": "e631",
+      "unicode_decimal": 58929
+    },
+    {
+      "icon_id": "16731005",
+      "name": "开放生态-icon256",
+      "font_class": "kaifangshengtai-icon256",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    }
+  ]
+}

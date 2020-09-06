@@ -7,23 +7,36 @@
       left
     >
       <v-list dense>
-        <v-list-item 
-          v-for="term in ListTerm"
-          :key=term.id
-          @click= callEvent(term.action)>
-        <v-list-item-action>
-            <!-- <img src = term.icon /> -->
-            <!-- <i class="el-icon-edit"></i> -->
-            <!-- <el-image :src= term.icon></el-image> -->
-            <!-- <span class="iconfont icon-fangxiangpan"></span> -->
-            <span :class=term.icon></span>
-        </v-list-item-action>
+        <v-list-item @click='onDAB'>
+          <v-list-item-action>
+            <v-icon >mdi-home</v-icon>
+          </v-list-item-action>
 
           <v-list-item-content>
-            <v-list-item-title>{{term.title}}</v-list-item-title>
+            <v-list-item-title>DAB</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-       
+
+        <v-list-item @click='onPAB'>
+          <v-list-item-action>
+            <v-icon>mdi-email</v-icon>
+          </v-list-item-action>
+
+          <v-list-item-content>
+            <v-list-item-title>PAB</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>        
+        
+        <v-list-item @click='onESRinfo'>
+          <v-list-item-action>
+            <v-icon>mdi-email</v-icon>
+          </v-list-item-action>
+
+          <v-list-item-content>
+            <v-list-item-title>ESR</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        
 
       </v-list>
     </v-navigation-drawer>
@@ -96,19 +109,12 @@
       infor:'No infor',      
       currentvue:'',
       drawer: null,
-      
       links: [
         'Home',
         'About Us',
         'Team',
         'Services',
         'Contact Us',
-      ],
-      ListTerm:[
-        {id:1,title:'DAB',action:'onDAB',icon:"iconfont icon-fangxiangpan"},
-        {id:2,title:'PAB',action:'onPAB',icon:"iconfont icon-qinang"},
-        {id:3,title:'Cover Material',action:'onESRinfo',icon:"iconfont icon-shouyetubiao-09"},
-        {id:4,title:'Inflator',action:'onESRinfo',icon:"iconfont icon-kaifangshengtai-icon256"}
       ],
     }),
     mounted(){
@@ -127,10 +133,6 @@
       onESRinfo(){
          this.currentvue = 'ProjectTable';
          },
-      callEvent(e){
-        this[e]()
-      }
-      
     }
   }
 </script>

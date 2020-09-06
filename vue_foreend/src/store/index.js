@@ -8,7 +8,6 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
     state:{
         //存放的键值对就是所要管理的状态
-        ESRInfo:'helloVueX',
         FormInfo:"",
         NextStepbtn: true,
         CurrentStep: 0,
@@ -36,9 +35,6 @@ const store = new Vuex.Store({
         }
     },
     mutations:{
-        edit(state,info){
-            state.ESRInfo = state.ESRInfo + info
-        },
         getStepsNum (state,val){
             state.StepsNum = val 
         },

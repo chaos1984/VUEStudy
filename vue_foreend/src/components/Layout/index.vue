@@ -50,7 +50,7 @@
       
 
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>Autoliv ESR Submit</v-toolbar-title>
+      <v-toolbar-title>Autoliv ESR Request</v-toolbar-title>
     </v-app-bar>
 <!-- 操作区域 -->
     <v-main  class="d-flex pa-2">
@@ -59,7 +59,7 @@
     
       <v-banner >
           <p >
-          项目信息：{{$store.state.ESRInfo}}
+          Beta Version
           </p>
       </v-banner>
   
@@ -101,6 +101,7 @@
     components:{
         Stepper: () => import('@/components/Stepper'),
         ProjectTable: () => import('@/components/ProjectTable'),
+        SlideShow: () => import('@/components/SlideShow/SlideShow'),
     },
  
 
@@ -116,7 +117,13 @@
         'Contact Us',
       ],
     }),
+    mounted(){
+      this.FrontPage()
+    },
     methods:{
+      FrontPage(){
+        this.currentvue = 'SlideShow';
+      },
       onDAB(){
          this.currentvue = 'Stepper';
          },

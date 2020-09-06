@@ -7,36 +7,19 @@
       left
     >
       <v-list dense>
-        <v-list-item @click='onDAB'>
-          <v-list-item-action>
-            <v-icon >mdi-home</v-icon>
-          </v-list-item-action>
+        <v-list-item 
+          v-for="term in ListTerm"
+          :key=term.id
+          @click= callEvent(term.action)>
+        <v-list-item-action>
+            <v-icon >{{term.icon}}</v-icon>
+        </v-list-item-action>
 
           <v-list-item-content>
-            <v-list-item-title>DAB</v-list-item-title>
+            <v-list-item-title>{{term.action}}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-
-        <v-list-item @click='onPAB'>
-          <v-list-item-action>
-            <v-icon>mdi-email</v-icon>
-          </v-list-item-action>
-
-          <v-list-item-content>
-            <v-list-item-title>PAB</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>        
-        
-        <v-list-item @click='onESRinfo'>
-          <v-list-item-action>
-            <v-icon>mdi-email</v-icon>
-          </v-list-item-action>
-
-          <v-list-item-content>
-            <v-list-item-title>ESR</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        
+       
 
       </v-list>
     </v-navigation-drawer>
@@ -116,6 +99,12 @@
         'Services',
         'Contact Us',
       ],
+      ListTerm:[
+        {id:1,name:'DAB',action:'onDAB',icon:"mdi-home"},
+        {id:2,name:'PAB',action:'onPAB',icon:"mdi-cake"},
+        {id:3,name:'Cover Material',action:'onESRinfo',icon:"mdi-handyman"},
+        {id:4,name:'Inflator',action:'onESRinfo',icon:""}
+      ],
     }),
     mounted(){
       this.FrontPage()
@@ -133,6 +122,10 @@
       onESRinfo(){
          this.currentvue = 'ProjectTable';
          },
+      callEvent(e){
+        this[e]()
+      }
+      
     }
   }
 </script>

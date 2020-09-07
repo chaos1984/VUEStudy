@@ -12,10 +12,6 @@
           :key=term.id
           @click= callEvent(term.action)>
         <v-list-item-action>
-            <!-- <img src = term.icon /> -->
-            <!-- <i class="el-icon-edit"></i> -->
-            <!-- <el-image :src= term.icon></el-image> -->
-            <!-- <span class="iconfont icon-fangxiangpan"></span> -->
             <span :class=term.icon></span>
         </v-list-item-action>
 
@@ -89,6 +85,7 @@
         Stepper: () => import('@/components/Stepper'),
         ProjectTable: () => import('@/components/ProjectTable'),
         SlideShow: () => import('@/components/SlideShow/SlideShow'),
+        Echart: () => import('@/components/Echart/Echart'),
     },
  
 
@@ -105,10 +102,11 @@
         'Contact Us',
       ],
       ListTerm:[
-        {id:1,title:'DAB',action:'onDAB',icon:"iconfont icon-fangxiangpan"},
-        {id:2,title:'PAB',action:'onPAB',icon:"iconfont icon-qinang"},
-        {id:3,title:'Cover Material',action:'onESRinfo',icon:"iconfont icon-shouyetubiao-09"},
-        {id:4,title:'Inflator',action:'onESRinfo',icon:"iconfont icon-kaifangshengtai-icon256"}
+        {id:1,title:'HOME',action:'FrontPage',icon:"iconfont icon-home"},
+        {id:2,title:'DAB',action:'onDAB',icon:"iconfont icon-fangxiangpan"},
+        {id:3,title:'PAB',action:'onPAB',icon:"iconfont icon-qinang"},
+        {id:4,title:'Cover Material',action:'onCover',icon:"iconfont icon-shouyetubiao-09"},
+        {id:5,title:'Inflator',action:'onESRinfo',icon:"iconfont icon-kaifangshengtai-icon256"}
       ],
     }),
     mounted(){
@@ -126,7 +124,10 @@
       },
       onESRinfo(){
          this.currentvue = 'ProjectTable';
-         },
+      },
+      onCover(){
+          this.currentvue = 'Echart';
+      },
       callEvent(e){
         this[e]()
       }

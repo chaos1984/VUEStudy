@@ -1,23 +1,105 @@
 <template>
-  <ve-radar :data="chartData"></ve-radar>
+  <div id="app">
+    <h1>Common Cover Material Properties Comparison </h1>
+    <v-divider/>
+    <v-chart class="my-chart" :options="bar"/>
+  </div>
 </template>
-
 <script>
-  export default {
-    data () {
-      return {
-        chartData: {
-          columns: ['日期', '访问用户', '下单用户', '下单率'],
-          rows: [
-            { '日期': '1/1', '访问用户': 1393, '下单用户': 1093, '下单率': 0.32 },
-            { '日期': '1/2', '访问用户': 3530, '下单用户': 3230, '下单率': 0.26 },
-            { '日期': '1/3', '访问用户': 2923, '下单用户': 2623, '下单率': 0.76 },
-            { '日期': '1/4', '访问用户': 1723, '下单用户': 1423, '下单率': 0.49 },
-            { '日期': '1/5', '访问用户': 3792, '下单用户': 3492, '下单率': 0.323 },
-            { '日期': '1/6', '访问用户': 4593, '下单用户': 4293, '下单率': 0.78 }
-          ]
+import ECharts from "vue-echarts/components/ECharts";
+import "echarts/lib/chart/bar";
+import 'echarts/lib/component/tooltip'
+export default {
+  name: "App",
+  components: {
+    "v-chart": ECharts
+  },
+  data: function() {
+    return {
+      bar: {
+        title: {
+          text: "ECharts 入门示例"
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow'
         }
+    },
+     legend: {
+        data: ['Forest', 'Steppe', 'Desert', 'Wetland'],
+        show:true
+    },
+    toolbox: {
+        show: true,
+        orient: 'vertical',
+        left: 'right',
+        top: 'center',
+        feature: {
+            mark: {show: true},
+            dataView: {show: true, readOnly: false},
+            magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+            restore: {show: true},
+            saveAsImage: {show: true}
+        }
+    },
+    xAxis: [
+        {
+            type: 'category',
+            axisTick: {show: false},
+            data: ['E', 'Ro', 'Toughness_LT','Toughness_RT','Toughness_RT'],
+            axisLabel: {
+                textStyle: {
+                fontSize :14
+                }
+            }
+        }
+    ],
+    yAxis: [
+        {
+            type: 'value',
+            axisLabel: {
+                textStyle: {
+                fontSize :14
+                }
+            }
+        }
+    ],
+    series: [
+        {
+            name: 'TA4003BE',
+            type: 'bar',
+            barGap: 0,
+  
+            data: [1, 1, 1,1,1 ]
+            //data: [1, 1, 1, 1]
+            //data: [1, 1, 1, 1]
+        },
+        {
+            name: 'TT1081',
+            type: 'bar',
+
+            data: [1, 0.99, 0.82,1.02,0.52]
+            //data: [1, 1.1, 1.2,1.5 ]
+            //data: [1, 1.1, 1.2,1.5 ]
+        },
+        {
+            name: 'TT990',
+            type: 'bar',
+
+            data: [1, .99, 2.39,3.27,1.06]
+           // data: [1, 1.1, 1.2,1.5 ]
+           // data: [1, 1.1, 1.2,1.5 ]
+        }
+    ]
       }
-    }
+    };
   }
+};
 </script>
+<style>
+.my-chart {
+  width: 800px;
+  height: 500px;
+}
+</style>

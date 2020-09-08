@@ -6,22 +6,76 @@
       app
       left
     >
+    
       <v-list dense>
-        <v-list-item 
-          v-for="term in ListTerm"
-          :key=term.id
-          @click= callEvent(term.action)>
-        <v-list-item-action>
-            <span :class=term.icon></span>
-        </v-list-item-action>
-
-          <v-list-item-content>
-            <v-list-item-title>{{term.title}}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-       
-
-      </v-list>
+          <template v-for="item in ListTerm">
+            <v-row
+              v-if="item.heading"
+              :key="item.id"
+              align="center"
+            >
+              <v-col cols="6">
+                <v-subheader v-if="item.heading">
+                  {{ item.heading }}
+                </v-subheader>
+              </v-col>
+              <v-col
+                cols="6"
+                class="text-center"
+              >
+                <a
+                  href="#!"
+                  class="body-2 black--text"
+                >EDIT</a>
+              </v-col>
+            </v-row>
+            <v-list-group
+              v-else-if="item.children"
+              :key="item.title"
+              v-model="item.model"
+              :prepend-icon="item.model ? item.icon : item.icon"
+              append-icon=""
+            >
+              <template v-slot:activator>
+                <v-list-item-content>
+                  <v-list-item-title>
+                    {{ item.title }}
+                  </v-list-item-title>
+                </v-list-item-content>
+              </template>
+              <v-list-item
+                v-for="(child, i) in item.children"
+                :key="i"
+                link
+                @click="callEvent(child.action)"
+              >
+                <v-list-item-action v-if="child.icon">
+                  <v-icon>{{ child.icon }}</v-icon>
+                </v-list-item-action>
+                <v-list-item-content>
+                  <v-list-item-title>
+                    {{ child.title }}
+                  </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list-group>
+            <v-list-item
+              v-else
+              :key="item.id"
+              link
+              @click =  callEvent(item.action)
+            >
+              <v-list-item-action>
+                <v-icon>{{ item.icon }}</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>
+                  {{ item.title }}
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </template>
+        </v-list>
     </v-navigation-drawer>
     
 <!-- bar设置 -->
@@ -105,7 +159,13 @@
         {id:1,title:'HOME',action:'FrontPage',icon:"iconfont icon-home"},
         {id:2,title:'DAB',action:'onDAB',icon:"iconfont icon-fangxiangpan"},
         {id:3,title:'PAB',action:'onPAB',icon:"iconfont icon-qinang"},
-        {id:4,title:'Cover Material',action:'onCover',icon:"iconfont icon-shouyetubiao-09"},
+        {id:4,title:'Cover Material',action:'',icon:"iconfont icon-shouyetubiao-09",model: false,
+        children: [
+          { title: 'TA4003BE',action:'' },
+          { title: 'TT1081B',action:''  },
+          { title: 'TT990',action:'' },
+          { title: 'Common material comparison',action:'onCoverMat' },
+        ],},
         {id:5,title:'Inflator',action:'onESRinfo',icon:"iconfont icon-kaifangshengtai-icon256"}
       ],
     }),
@@ -125,7 +185,7 @@
       onESRinfo(){
          this.currentvue = 'ProjectTable';
       },
-      onCover(){
+      onCoverMat(){
           this.currentvue = 'Echart';
       },
       callEvent(e){

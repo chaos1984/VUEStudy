@@ -132,6 +132,7 @@
 </template>
 
 <script>
+import {mapState} from 'vuex';
   export default {
     name: 'Layout',
 
@@ -140,6 +141,7 @@
         ProjectTable: () => import('@/components/ProjectTable'),
         SlideShow: () => import('@/components/SlideShow/SlideShow'),
         Echart: () => import('@/components/Echart/Echart'),
+        MatPage: () => import('@/components/MatPage/MatPage'),
     },
  
 
@@ -161,9 +163,9 @@
         {id:3,title:'PAB',action:'onPAB',icon:"iconfont icon-qinang"},
         {id:4,title:'Cover Material',action:'',icon:"iconfont icon-shouyetubiao-09",model: false,
         children: [
-          { title: 'TA4003BE',action:'' },
-          { title: 'TT1081B',action:''  },
-          { title: 'TT990',action:'' },
+          { title: 'TA4003BE',action:"onMatPage" },
+          { title: 'TT1081B',action:'onMatPage'},
+          { title: 'TT990',action:'onMatPage' },
           { title: 'Common material comparison',action:'onCoverMat' },
         ],},
         {id:5,title:'Inflator',action:'onESRinfo',icon:"iconfont icon-kaifangshengtai-icon256"}
@@ -172,6 +174,9 @@
     mounted(){
       this.FrontPage()
     },
+    computed:{
+			...mapState({CurrentForm : state => state.form,})
+      },
     methods:{
       FrontPage(){
         this.currentvue = 'SlideShow';
@@ -187,6 +192,11 @@
       },
       onCoverMat(){
           this.currentvue = 'Echart';
+      },
+      onMatPage(){
+        this.CurrentForm.CurrentMatPage = event.currentTarget.innerText
+        console.log(this.CurrentForm.CurrentMatPage)
+        this.currentvue = 'MatPage';
       },
       callEvent(e){
         this[e]()

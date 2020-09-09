@@ -12,6 +12,7 @@ const store = new Vuex.Store({
         NextStepbtn: true,
         CurrentStep: 0,
         StepsNum: 0,
+        CurrentMatPage:'',
         form :{
             ESRNumber: '',
             PEName: '',

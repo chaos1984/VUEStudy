@@ -1,18 +1,14 @@
 <!-- ValidateForm -->
 <template>
   <v-form v-model="valid">
-    <v-row>
-        <v-col mx="4">
-          <BasicInfoCard/>
-        </v-col>
-    </v-row>
     <v-divider/>
+    <v-card >
     <v-row >
       <v-col
         cols="12"
         md="6"
       >
-      <CushionCard/>
+      <CushionCard />
       </v-col>
       <v-col
           cols="12"
@@ -39,6 +35,7 @@
           <CaseCard/>
       </v-col>
     </v-row>
+    </v-card>
 
         <!-- <v-alert
       :value = "validate"
@@ -50,7 +47,7 @@
        </v-alert> -->
        <!-- <NextBackbtn></NextBackbtn> -->
     <v-btn
-      :disabled="valid"
+      :disabled="!valid"
       color="success"
       class="mr-4"
       
@@ -74,14 +71,13 @@
 
     name : 'DABESR',
     components:{
-        BasicInfoCard: () => import('./BasicInfoCard/BasicInfoCard'),
         CushionCard: () => import('./CushionCard/CushionCard'),
         InflatorCard: () => import('./InflatorCard/InflatorCard'),
         BomCard: () => import('./BomCard/BomCard'),
         CaseCard: () => import('./CaseCard/CaseCard')
     },
     data: () => ({
-
+      enabled :'false',
       info : '',
       valid: true,
 

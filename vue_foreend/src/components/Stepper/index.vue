@@ -40,15 +40,16 @@
 <script>
   export default {
     components:{
-        ProjectForm: () => import('@/components/ProjectForm/DABESR'),
-        RequestForm: () => import('@/components/ProjectForm/RequestForm/RequestForm'),
+        ProjectForm: () => import('@/components/ProjectForm/BasicInfo'),
+        RequestInfo: () => import('@/components/ProjectForm/RequestInfo'),
+        RequestForm: () => import('@/components/ProjectForm/RequestForm'),
     },
     data () {
       return {
         e1: "",
-        stepsNames:[{title:'ESR Information'},{title:'Request Form'}],
+        stepsNames:[{title:'Basic Information'},{title:'Request Information'},{title:'Request Form'}],
         steps:'',
-        Forms: ['ProjectForm','RequestForm'],
+        Forms: ['ProjectForm','RequestInfo','RequestForm'],
         CurrentForm:""
       }
     },

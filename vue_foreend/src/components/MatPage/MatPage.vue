@@ -1,8 +1,8 @@
 <template>
     <div>
-	<v-card >
+	<v-card class='mx-10'>
 		<pdf ref="pdf" 
-
+		v-model="url"
 		:src="url" 
 		:page="pageNum"
 		:rotate="pageRotate"  
@@ -10,30 +10,26 @@
 		@page-loaded="pageLoaded($event)" 
 		@num-pages="pageTotalNum=$event" 
 		@error="pdfError($event)" 
-		@link-clicked="page = $event">
+		@link-clicked="page = $event"
+		:style="{scale:'10%'}">
 		</pdf>
-        
-
-	</v-card>
-        <v-container>
+              <v-container>
             <v-row>
                 <v-spacer/>
-                <v-btn class="ma-1" color="orange darken-2" dark @click.stop="prePage">
+                <v-btn class="mx-1" color="orange darken-2" dark @click.stop="prePage">
                 <v-icon dark left>mdi-arrow-left</v-icon>
                 </v-btn>
-                <p class="ma-4" >{{pageNum}}/{{pageTotalNum}} </p>
-                <v-btn class="ma-1" color="green darken-2" dark @click.stop="nextPage">
+                <p class="ma-2" >{{pageNum}}/{{pageTotalNum}} </p>
+                <v-btn class="mx-1" color="green darken-2" dark @click.stop="nextPage">
                 <v-icon dark left>mdi-arrow-right</v-icon>
                 </v-btn>
                 <v-spacer/>
             </v-row>
-        </v-container>
-    <v-btn class= "mx-5"
-      color="primary"
-      @click="onBackStep"
-      >
-      Back
-    </v-btn>
+        </v-container>  
+
+	</v-card>
+
+
     </div>
 </template>
 

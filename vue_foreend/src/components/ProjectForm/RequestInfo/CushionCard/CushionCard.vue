@@ -1,6 +1,6 @@
 <template>
 
-<v-card>
+<v-card >
   <v-card-title>
       Cushion
   </v-card-title>
@@ -34,6 +34,7 @@
       type = 'text'
       :disabled="enabled"
       label= 'Please input your carryover cushion'
+      @blur = "getInfo"
     >
     </v-text-field>
       </v-card-text>
@@ -49,29 +50,33 @@ export default {
       enabled: false,
     }),
     computed:{
-      isError:function(){
-        if ((this.CurrentForm.CushiondwgFile != '' && this.CurrentForm.CushionFoldFile != '') || this.CurrentForm.OldCushion != ''){
-            return false
-        } else {
-            return true
-            }
-         },
+      // isError:function(){
+      //   if ((this.CurrentForm.CushiondwgFile != '' && this.CurrentForm.CushionFoldFile != '') || this.CurrentForm.OldCushion != ''){
+      //       return false
+      //   } else {
+      //       return true
+      //       }
+      //    },
       ...mapState({
         CurrentForm : state => state.form,
         })
     },
 
     methods:{
-      validate () {
-        this.$store.commit('nextStep')
-      },
-      onBackStep(){
-          this.$store.commit('backStep')
-      },
-      onClearData(){
-        this.CurrentForm.CushiondwgFile = [],
-        this.CurrentForm.CushionFoldFile= [],
-        this.CurrentForm.OldCushion = []
+      // validate () {
+      //   this.$store.commit('nextStep')
+      // },
+      // onBackStep(){
+      //     this.$store.commit('backStep')
+      // },
+      // onClearData(){
+      //   this.CurrentForm.CushiondwgFile = [],
+      //   this.CurrentForm.CushionFoldFile= [],
+      //   this.CurrentForm.OldCushion = []
+      // },
+      getInfo(e){
+        console.log(e.currentTarget.value)
+        this.CurrentForm['CushionFoldFile'] = e.currentTarget.value
       },
       uploadFile(e){
         var clickedButtonDOM=event.target; //获取按钮的DOM元素
@@ -84,6 +89,7 @@ export default {
         
         this.filedata = param.get('file')
         this.CurrentForm[id] = this.filedata['name']
+        console.log(this.CurrentForm[id])
         // console.log(e)
         this.$axios.post('/api/upload',param,{headers:{'Content-Type':'application/x-www-form-urlencoded' }}, ) //请求头要为表单
           .then(response=>{

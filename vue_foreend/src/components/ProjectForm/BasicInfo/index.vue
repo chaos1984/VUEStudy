@@ -1,4 +1,5 @@
 <template>
+  <v-form v-model="valid">
     <v-card >
   <v-card-title >
       BasicInfo
@@ -134,7 +135,24 @@
       </v-col >
     </v-row>
     </v-card-text>
+
   </v-card>  
+      <v-btn
+      :disabled="!valid"
+      color="success"
+      class="ma-4"
+      
+      @click="validate"
+    >
+      Next
+    </v-btn>
+    <v-btn class= "ma-4"
+      color="primary"
+      @click="onBackStep"
+      >
+      Back
+    </v-btn>
+  </v-form>
 </template>
 <script>
 import {mapState} from 'vuex';
@@ -180,7 +198,12 @@ export default {
       },
 
     methods:{
- 
+    validate () {
+        this.$store.commit('nextStep')
+      },
+    onBackStep(){
+          this.$store.commit('backStep')
+      },
    }
   }
 </script>

@@ -92,7 +92,10 @@
 <!-- 操作区域 -->
     <v-main  class="d-flex pa-2">
     <!-- <appmain/> -->
-    <component :is="currentvue" ></component>
+    <component 
+      :is="currentvue" 
+      v-if="hackReset">
+    </component>
     
       <v-banner >
           <p >
@@ -149,7 +152,7 @@ import {mapState} from 'vuex';
       infor:'No infor',      
       currentvue:'',
       drawer: null,
-      
+      hackReset : true,
       links: [
         'Home',
         'About Us',
@@ -196,6 +199,10 @@ import {mapState} from 'vuex';
       onMatPage(){
         this.CurrentForm.CurrentMatPage = event.currentTarget.innerText
         console.log(this.CurrentForm.CurrentMatPage)
+        this.hackReset = false
+        this.$nextTick(() => {
+        this.hackReset = true
+        })
         this.currentvue = 'MatPage';
       },
       callEvent(e){

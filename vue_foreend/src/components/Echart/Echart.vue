@@ -2,7 +2,7 @@
   <div id="app">
     <h1>Common Cover Material Properties Comparison </h1>
     <v-divider/>
-    <v-chart class="my-chart" :options="bar"/>
+    <v-chart  class="my-chart" :options="bar"/>
   </div>
 </template>
 <script>
@@ -14,7 +14,8 @@ export default {
   components: {
     "v-chart": ECharts
   },
-  data: function() {
+  data :
+    function() {
     return {
       bar: {
         title: {
@@ -47,7 +48,7 @@ export default {
         {
             type: 'category',
             axisTick: {show: false},
-            data: ['E', 'Ro', 'Toughness_LT','Toughness_RT','Toughness_RT'],
+            data: ['E', 'Ro', 'Toughness_LT','Toughness_RT','Toughness_HT'],
             axisLabel: {
                 textStyle: {
                 fontSize :14
@@ -65,37 +66,29 @@ export default {
             }
         }
     ],
-    series: [
-        {
-            name: 'TA4003BE',
-            type: 'bar',
-            barGap: 0,
-  
-            data: [1, 1, 1,1,1 ]
-            //data: [1, 1, 1, 1]
-            //data: [1, 1, 1, 1]
-        },
-        {
-            name: 'TT1081',
-            type: 'bar',
-
-            data: [1, 0.99, 0.82,1.02,0.52]
-            //data: [1, 1.1, 1.2,1.5 ]
-            //data: [1, 1.1, 1.2,1.5 ]
-        },
-        {
-            name: 'TT990',
-            type: 'bar',
-
-            data: [1, .99, 2.39,3.27,1.06]
-           // data: [1, 1.1, 1.2,1.5 ]
-           // data: [1, 1.1, 1.2,1.5 ]
-        }
-    ]
+    series:[]
       }
     };
+  },
+
+    mounted(){
+      this.getData()
+    },
+    methods: {
+      getData() {
+      this.$axios.get("/static/json/echart.json").then(
+        response => {
+          console.log(response.data);
+          this.bar.series = JSON.parse(response.data);
+          console.log(this.bar.series)
+        },
+        error => {  
+          console.log(error);
+        }
+      );
+    },
+    }
   }
-};
 </script>
 <style>
 .my-chart {

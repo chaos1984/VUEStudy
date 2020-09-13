@@ -9,12 +9,13 @@ import ESRpdf
 
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = r"./static/ESR/"
+
 app.config['img_pic'] = r".\img\background.jpg"
+app.config['ESR'] = r"../ESR"
 CORS(app)
 
 @app.route('/')
-@app.route('/index.html')
+# @app.route('/index.html')
 def index():
     return render_template('index.html')
 
@@ -33,7 +34,20 @@ def writejson():
     json.dump(ProjectData,fout)
     return "OK"
 
-@app.route('/api/upload',methods=["POST"])
+@app.route('/makedir',methods=['POST'])
+def makedir():
+    global ESRpath
+    data = json.loads(request.get_data(as_text=True))
+    ESRpath = app.config['ESR']+'/'+data['ESRNumber']
+    try:
+        os.remove(ESRpath)
+    except:
+        pass
+    os.mkdir(ESRpath)
+    return (ESRpath)
+
+
+@app.route('/upload',methods=["POST"])
 def upload():
     img_stream = ''
     file_obj = request.files['file']
@@ -47,7 +61,7 @@ def upload():
         直接使用上传的文件对象保存
     '''
 
-    file_path = os.path.join(app.config['UPLOAD_FOLDER'], file_obj.filename)
+    file_path = os.path.join(ESRpath, file_obj.filename)
     file_obj.save(file_path)
     # blend_pic = blend_two_images(file_obj)
 
@@ -55,7 +69,7 @@ def upload():
     print ("Upload done")
     return "Upload done"
 
-@app.route('/api/RequestForm',methods=["POST"])
+@app.route('/RequestForm',methods=["POST"])
 def RequestForm():  
     data = json.loads(request.get_data(as_text=True))
     print (data)
@@ -69,7 +83,8 @@ def RequestForm():
         }
         
     task_data = [("BOM",data['BOMFile'] ),("DAB CAD",data['CADFile']),("Inflator",data['InflatorFile']),("CushionFoldFile",data['CushionFoldFile']),("Cases","123")]
-    a = ESRpdf.PDFGenerator(app.config['UPLOAD_FOLDER'] +data['ESRNumber']+"_"+data['date1'])
+    print(ESRpath + '/'+ data['ESRNumber']+"_"+data['date1'])
+    a = ESRpdf.PDFGenerator(ESRpath + '/'+ data['ESRNumber']+"_"+data['date1'])
     
     a.genTaskPDF(home_data, task_data)
     return "OK"
@@ -102,7 +117,7 @@ def blend_two_images(img,back=app.config['img_pic']):
 
 if __name__ == "__main__":
     app.run(
-      host='192.168.1.7',
+      host='127.0.0.1',
       # host='10.123.20.248',
       port= 5000,
       debug=True

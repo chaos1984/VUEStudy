@@ -47,7 +47,7 @@
 		},
 		data() {
 			return {
-				url: "./static/ESR/",
+				url: "../../ESR/",
 				pageNum: 1,
 				pageTotalNum: 1,
 				pageRotate: 0,
@@ -95,7 +95,7 @@
 				console.error(error)
 			},
 			getPDFurl(){
-				this.url = this.url + this.CurrentForm.ESRNumber + '_' + this.CurrentForm.date1 + '.pdf'
+				this.url = this.url + this.CurrentForm.ESRNumber +'/' + this.CurrentForm.ESRNumber + '_' + this.CurrentForm.date1 + '.pdf'
 				console.log(this.url)
 				console.log(window.location.href)
 			}

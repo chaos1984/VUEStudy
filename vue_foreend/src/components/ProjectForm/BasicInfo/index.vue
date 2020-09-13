@@ -198,12 +198,23 @@ export default {
       },
 
     methods:{
-    validate () {
-        this.$store.commit('nextStep')
+      makedir(){
+        this.$axios.post('/api/makedir',JSON.stringify(this.$store.state.form),{headers:{'Content-Type':'application/x-www-form-urlencoded'}})
+          .then(res=>{
+                console.log(res.data)
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
       },
-    onBackStep(){
-          this.$store.commit('backStep')
-      },
+      validate () {
+          this.makedir()
+          this.$store.commit('nextStep')
+
+        },
+      onBackStep(){
+            this.$store.commit('backStep')
+        },
    }
   }
 </script>

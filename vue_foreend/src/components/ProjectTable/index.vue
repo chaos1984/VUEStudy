@@ -9,7 +9,7 @@
   >
     <template v-slot:top>
       <v-toolbar flat color="white">
-        <v-toolbar-title>My CRUD</v-toolbar-title>
+        <v-toolbar-title>ESR Table</v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
@@ -106,16 +106,20 @@
       dialog: false,
       headers: [
         {
-          text: 'Dessert (100g serving)',
+          text: 'Prj.',
           align: 'start',
           sortable: false,
           value: 'name',
         },
-        { text: 'Calories', value: 'calories' },
-        { text: 'Fat (g)', value: 'fat' },
-        { text: 'Carbs (g)', value: 'carbs' },
-        { text: 'Protein (g)', value: 'protein' },
-        { text: 'Actions', value: 'actions', sortable: false },
+        { text: 'PE', value: 'calories' },
+        { text: 'Cover Mat.', value: 'fat' },
+        { text: 'Housing Mat', value: 'carbs' },
+        { text: 'Emblem Mat', value: 'protein' },
+        { text: 'Cushion Mat', value: 'protein' },
+        { text: 'Cushion fold', value: 'protein' },
+        { text: 'Cushion type', value: 'protein' },
+        { text: 'Testing result', value: 'protein' },
+        { text: 'Option', value: 'actions', sortable: false },
       ],
       desserts: [],
       editedIndex: -1,

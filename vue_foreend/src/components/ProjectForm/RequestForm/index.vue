@@ -102,7 +102,7 @@
 			postRequest(){
 				this.$axios.post('/api/RequestForm',JSON.stringify(this.$store.state.form),{headers:{'Content-Type':'application/x-www-form-urlencoded'}})
 					.then(res=>{
-						const blob = this.base64ToBlob2(res.data,'application/pdf')
+						const blob = this.base64ToBlob(res.data,'application/pdf')
 						console.log(blob)
 						this.PDFfile= window.URL.createObjectURL(blob)
 						console.log('here')
@@ -111,16 +111,8 @@
 						console.log(error);
 						})
 				},
-			base64ToBlob(base64){
-					console.log(base64)
-					let bstr = window.atob(base64), n = bstr.length, u8arr = new Uint8Array(n);
-					while(n--){
-						u8arr[n] = bstr.charCodeAt(n);
-					}
-					return new Blob([u8arr],{ type: 'application/pdf' })
 
-			},
-			base64ToBlob2(b64Data, contentType='', sliceSize=512) {
+			base64ToBlob(b64Data, contentType='', sliceSize=512) {
 				const byteCharacters = atob(b64Data);
 				const byteArrays = [];
 

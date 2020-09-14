@@ -3,7 +3,7 @@
 	<v-card >
 		<pdf ref="pdf" 
 
-		:src="url" 
+		:src = "PDFfile" 
 		:page="pageNum"
 		:rotate="pageRotate"  
 		@progress="loadedRatio = $event"
@@ -12,8 +12,6 @@
 		@error="pdfError($event)" 
 		@link-clicked="page = $event">
 		</pdf>
-        
-
 	</v-card>
         <v-container>
             <v-row>
@@ -40,6 +38,7 @@
 <script>
 	import {mapState} from 'vuex';
 	import pdf from 'vue-pdf';
+
 	export default {
 		name: 'Home',
 		components: {
@@ -47,7 +46,7 @@
 		},
 		data() {
 			return {
-				url: "../../ESR/",
+				PDFfile:'',
 				pageNum: 1,
 				pageTotalNum: 1,
 				pageRotate: 0,
@@ -56,9 +55,9 @@
 				curPageNum: 0,
 			}
 		},
-		created: function() {
-			this.getPDFurl()
-		},
+        mounted() {
+			this.postRequest()
+        },
 		computed:{
 			...mapState({CurrentForm : state => state.form,})
         },
@@ -94,11 +93,52 @@
 			pdfError(error) {
 				console.error(error)
 			},
-			getPDFurl(){
-				this.url = this.url + this.CurrentForm.ESRNumber +'/' + this.CurrentForm.ESRNumber + '_' + this.CurrentForm.date1 + '.pdf'
-				console.log(this.url)
-				console.log(window.location.href)
-			}
+			// getPDFurl(){
+			// 	// this.url = this.url + this.CurrentForm.ESRNumber +'/' + this.CurrentForm.ESRNumber + '_' + this.CurrentForm.date1 + '.pdf'
+			// 	this.url = this.url + this.CurrentForm.ESRNumber +'/' + this.CurrentForm.ESRNumber + '_' + this.CurrentForm.date1 + '.pdf'
+			// 	console.log(this.url)
+			// 	console.log(window.location.href)
+			// },
+			postRequest(){
+				this.$axios.post('/api/RequestForm',JSON.stringify(this.$store.state.form),{headers:{'Content-Type':'application/x-www-form-urlencoded'}})
+					.then(res=>{
+						const blob = this.base64ToBlob2(res.data,'application/pdf')
+						console.log(blob)
+						this.PDFfile= window.URL.createObjectURL(blob)
+						console.log('here')
+							})
+					.catch(function (error) {
+						console.log(error);
+						})
+				},
+			base64ToBlob(base64){
+					console.log(base64)
+					let bstr = window.atob(base64), n = bstr.length, u8arr = new Uint8Array(n);
+					while(n--){
+						u8arr[n] = bstr.charCodeAt(n);
+					}
+					return new Blob([u8arr],{ type: 'application/pdf' })
+
+			},
+			base64ToBlob2(b64Data, contentType='', sliceSize=512) {
+				const byteCharacters = atob(b64Data);
+				const byteArrays = [];
+
+				for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+					const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+					const byteNumbers = new Array(slice.length);
+					for (let i = 0; i < slice.length; i++) {
+					byteNumbers[i] = slice.charCodeAt(i);
+					}
+
+					const byteArray = new Uint8Array(byteNumbers);
+					byteArrays.push(byteArray);
+				}
+
+				const blob = new Blob(byteArrays, {type: contentType});
+				return blob;
+				}
 		}
 	}
 </script>

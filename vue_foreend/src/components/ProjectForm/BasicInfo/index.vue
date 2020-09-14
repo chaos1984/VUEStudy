@@ -11,10 +11,10 @@
           md="4"
         >
           <v-text-field
+            label="ESR"
             v-model="CurrentForm.ESRNumber"
             :rules="ESRRules"
             :counter="6"
-            label="ESR"
             required
           ></v-text-field>
         </v-col>
@@ -90,7 +90,7 @@
         </v-date-picker>
       </v-menu>
       </v-col>
-
+      
       <v-col           
         cols="12"
         md="4">

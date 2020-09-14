@@ -18,19 +18,11 @@ CORS(app)
 # @app.route('/index.html')
 def index():
     return render_template('index.html')
-
-
-@app.route('/addnumber')
-def add():
-    a = request.args.get('a', 0, type=float)
-    b = request.args.get('b', 0, type=float)
-    return jsonify(result=a + b)
     
 @app.route('/ProjectTable')
 def writejson():
     fout = open(r"C:\Users\yujin.wang\Desktop\Vuejs\10_MyApp\vuetify-app\public\static\data.json",'w')
     ProjectData = request.args.get('ProjectTableData')
-    # print (json.load(ProjectData))
     json.dump(ProjectData,fout)
     return "OK"
 
@@ -83,11 +75,12 @@ def RequestForm():
         }
         
     task_data = [("BOM",data['BOMFile'] ),("DAB CAD",data['CADFile']),("Inflator",data['InflatorFile']),("CushionFoldFile",data['CushionFoldFile']),("Cases","123")]
-    print(ESRpath + '/'+ data['ESRNumber']+"_"+data['date1'])
+    filedir = ESRpath + '/'+ data['ESRNumber']+"_"+data['date1']
     a = ESRpdf.PDFGenerator(ESRpath + '/'+ data['ESRNumber']+"_"+data['date1'])
     
     a.genTaskPDF(home_data, task_data)
-    return "OK"
+    print ('filestream')
+    return return_img_stream(filedir+'.pdf')
     
     
 def return_img_stream(img_local_path):

@@ -145,6 +145,7 @@ import {mapState} from 'vuex';
         SlideShow: () => import('@/components/SlideShow/SlideShow'),
         Echart: () => import('@/components/Echart/Echart'),
         MatPage: () => import('@/components/MatPage/MatPage'),
+        ESRCalendars: () => import('@/components//ESRCalendars/ESRCalendars'),
     },
  
 
@@ -171,7 +172,8 @@ import {mapState} from 'vuex';
           { title: 'TT990',action:'onMatPage' },
           { title: 'Common material comparison',action:'onCoverMat' },
         ],},
-        {id:5,title:'Inflator',action:'onESRinfo',icon:"iconfont icon-kaifangshengtai-icon256"}
+        {id:5,title:'Inflator',action:'onESRinfo',icon:"iconfont icon-kaifangshengtai-icon256"},
+        {id:6,title:'ESR Calendars',action:'onESRCalendars',icon:"iconfont icon-kaifangshengtai-icon256"}
       ],
     }),
     mounted(){
@@ -195,6 +197,9 @@ import {mapState} from 'vuex';
       },
       onCoverMat(){
           this.currentvue = 'Echart';
+      },
+      onESRCalendars(){
+          this.currentvue = 'ESRCalendars';
       },
       onMatPage(){
         this.CurrentForm.CurrentMatPage = event.currentTarget.innerText

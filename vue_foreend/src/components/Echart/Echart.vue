@@ -1,14 +1,31 @@
 <template>
-  <div id="app">
-    <h1>Common Cover Material Properties Comparison </h1>
-    <v-divider/>
-    <v-chart  class="my-chart" :options="bar"/>
-  </div>
+    <v-container fluid >
+      <h1>Common Cover Material Properties Comparison </h1>
+      <v-divider/>        
+        <v-row>
+      <v-col cols="12">
+        <v-row
+          align="stretch"
+          justify="center"
+          class="grey lighten-5"
+          style="height: 400px;"
+        >
+          <v-chart   :options="bar"/>
+          <v-chart   :options="bar"/>
+        </v-row>
+      </v-col>
+    </v-row>
+      </v-container>
+
+
 </template>
 <script>
 import ECharts from "vue-echarts/components/ECharts";
 import "echarts/lib/chart/bar";
 import 'echarts/lib/component/tooltip'
+import 'echarts/lib/component/title'
+import 'echarts/lib/component/legend'
+import 'echarts/lib/component/toolbox'
 export default {
   name: "App",
   components: {
@@ -18,29 +35,23 @@ export default {
     function() {
     return {
       bar: {
-        title: {
-          text: "ECharts 入门示例"
-        },
         tooltip: {
             trigger: 'axis',
             axisPointer: {
                 type: 'shadow'
         }
     },
-     legend: {
-        data: ['Forest', 'Steppe', 'Desert', 'Wetland'],
-        show:true
-    },
+    // color: ['#003366', '#006699', '#4cabce', '#e5323e','#003366'],
     toolbox: {
         show: true,
         orient: 'vertical',
         left: 'right',
         top: 'center',
         feature: {
-            mark: {show: true},
-            dataView: {show: true, readOnly: false},
-            magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
-            restore: {show: true},
+            // mark: {show: true},
+            // dataView: {show: true, readOnly: false},
+            // magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+            // restore: {show: true},
             saveAsImage: {show: true}
         }
     },
@@ -66,6 +77,14 @@ export default {
             }
         }
     ],
+    title: {
+          left: 'center',
+          text: '应变率 100/s',
+        },
+    legend: {
+        show:true,
+        bottom: 10
+    },
     series:[]
       }
     };
@@ -76,6 +95,7 @@ export default {
     },
     methods: {
       getData() {
+        
       this.$axios.get("/static/json/echart.json").then(
         response => {
           console.log(response.data);
@@ -92,7 +112,7 @@ export default {
 </script>
 <style>
 .my-chart {
-  width: 800px;
+  width: 400px;
   height: 500px;
 }
 </style>

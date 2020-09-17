@@ -62,7 +62,7 @@ export default {
             data: ['E', 'Ro', 'Toughness_LT','Toughness_RT','Toughness_HT'],
             axisLabel: {
                 textStyle: {
-                fontSize :14
+                fontSize :10
                 }
             }
         }

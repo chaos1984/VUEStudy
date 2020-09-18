@@ -145,7 +145,8 @@ import {mapState} from 'vuex';
         SlideShow: () => import('@/components/SlideShow/SlideShow'),
         Echart: () => import('@/components/Echart/Echart'),
         MatPage: () => import('@/components/MatPage/MatPage'),
-        ESRCalendars: () => import('@/components//ESRCalendars/ESRCalendars'),
+        ESRCalendars: () => import('@/components/ESRCalendars/ESRCalendars'),
+        test: () => import('@/components/Tinymce'),
     },
  
 
@@ -173,7 +174,8 @@ import {mapState} from 'vuex';
           { title: 'Common material comparison',action:'onCoverMat' },
         ],},
         {id:5,title:'Inflator',action:'onESRinfo',icon:"iconfont icon-kaifangshengtai-icon256"},
-        {id:6,title:'ESR Calendars',action:'onESRCalendars',icon:"iconfont icon-kaifangshengtai-icon256"}
+        {id:6,title:'ESR Calendars',action:'onESRCalendars',icon:"iconfont icon-kaifangshengtai-icon256"},
+        {id:6,title:'test',action:'onTest',icon:"iconfont icon-kaifangshengtai-icon256"}
       ],
     }),
     mounted(){
@@ -200,6 +202,9 @@ import {mapState} from 'vuex';
       },
       onESRCalendars(){
           this.currentvue = 'ESRCalendars';
+      },
+      onTest(){
+        this.currentvue = 'test';
       },
       onMatPage(){
         this.CurrentForm.CurrentMatPage = event.currentTarget.innerText

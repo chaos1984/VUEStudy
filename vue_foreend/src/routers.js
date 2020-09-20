@@ -9,11 +9,7 @@ const routers = [
       path: './Layout',
       name: 'Layout',
       component: Layout
-  },
-  {
-    path: './Upload',
-    component: () => import('./components/UploadFile'),
-  },  
+  }, 
   {
       path: './Stepper',
       component: () => import('./components/Stepper'),

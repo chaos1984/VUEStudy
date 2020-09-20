@@ -32,13 +32,18 @@
       >
       Back
     </v-btn>
+	
     </div>
+	
 </template>
+
+
+
 
 <script>
 	import {mapState} from 'vuex';
 	import pdf from 'vue-pdf';
-
+	
 	export default {
 		name: 'Home',
 		components: {
@@ -63,6 +68,7 @@
         },
 		methods: {
             onBackStep(){
+				
                 this.$store.commit('backStep')
              },
             // 上一页函数，
@@ -134,3 +140,5 @@
 		}
 	}
 </script>
+
+

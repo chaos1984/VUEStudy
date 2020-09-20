@@ -2,32 +2,12 @@
 <template>
   <v-card height = "302px">
    <v-card-title >
-      BomInfo
+      BOM Info
   </v-card-title>
 
   <v-card-text>
-      <v-file-input
-        id = "BOMFile"
-        ref="BOMFile"
-        label="Upload the BOM FILE"
-        placeholder="Select a file"
-        persistent-hint
-        hint = "Format:BO1-V3.xls"
-        accept=".xls" 
-        :rules="BOMFileRules"
-        @change="uploadFile"
-      ></v-file-input>
-      <v-file-input
-        id = "CADFile"
-        ref="CADFile"
-        persistent-hint
-        hint = "Format:BO1-V3.CATPart"
-        label="Upload the CAD FILE"
-        placeholder="Select a file"
-        accept=".CatiaPart,.stp,.x_t" 
-        :rules="CADFileRules"
-        @change="uploadFile"
-      ></v-file-input>
+      <uploadfile :data = "uploadinfo"/>
+      <uploadfile :data = "uploadinfo"/>
       <!-- <v-btn color="primary" text @click="uploadFile">test</v-btn> -->
     </v-card-text>
 
@@ -40,6 +20,14 @@
 import {mapState} from 'vuex';
   export default {
     data: () => ({
+        uploadinfo : {
+              disabled:false,
+              fileList : [],
+              label : 'upload',
+              action : 'http://127.0.0.1:5000/upload',
+              filenum : 1,
+              accepttype : ".jpg,.jpeg,.png,.gif,.bmp,.pdf,.JPG,.JPEG,.PBG,.GIF,.BMP,.PDF"
+        },
       filedata: null,
       enabled: false,
       BOMFileRules:[

@@ -87,7 +87,7 @@
       
 
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>Autoliv ESR Request</v-toolbar-title>
+      <v-toolbar-title>Autoliv CTC CAE</v-toolbar-title>
     </v-app-bar>
 <!-- 操作区域 -->
     <v-main  class="d-flex pa-2">
@@ -175,12 +175,10 @@ import {mapState} from 'vuex';
         ],},
         {id:5,title:'Inflator',action:'onESRinfo',icon:"iconfont icon-kaifangshengtai-icon256"},
         {id:6,title:'ESR Calendars',action:'onESRCalendars',icon:"iconfont icon-kaifangshengtai-icon256"},
-        {id:6,title:'test',action:'onTest',icon:"iconfont icon-kaifangshengtai-icon256"}
+        {id:7,title:'test',action:'onTest',icon:"iconfont icon-kaifangshengtai-icon256"}
       ],
     }),
-    mounted(){
-      this.FrontPage()
-    },
+    
     computed:{
 			...mapState({CurrentForm : state => state.form,})
       },

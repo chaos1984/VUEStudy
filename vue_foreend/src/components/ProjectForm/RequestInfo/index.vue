@@ -2,7 +2,7 @@
 <template>
   <v-form v-model="valid">
     <v-divider/>
-    <v-card >
+    <v-container>
     <v-row >
       <v-col
         cols="12"
@@ -35,7 +35,7 @@
           <CaseCard/>
       </v-col>
     </v-row>
-    </v-card>
+    </v-container>
 
         <!-- <v-alert
       :value = "validate"

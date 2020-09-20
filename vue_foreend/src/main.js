@@ -11,9 +11,11 @@ import 'element-ui/lib/theme-chalk/index.css';
 
 import './assets/icon/iconfont.css'
 
+import uploadfile from './components/UploadFile/index.js'
 
 Vue.use(VueRouter);
 Vue.use(ElementUI);
+Vue.use(uploadfile);
 
 Vue.prototype.$axios = axios
 

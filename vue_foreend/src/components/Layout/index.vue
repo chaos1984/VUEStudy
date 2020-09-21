@@ -19,15 +19,7 @@
                   {{ item.heading }}
                 </v-subheader>
               </v-col>
-              <v-col
-                cols="6"
-                class="text-center"
-              >
-                <a
-                  href="#!"
-                  class="body-2 black--text"
-                >EDIT</a>
-              </v-col>
+
             </v-row>
             <v-list-group
               v-else-if="item.children"
@@ -97,17 +89,18 @@
       v-if="hackReset">
     </component>
     
-      <v-banner >
+      <!-- <v-banner >
           <p >
           Beta Version
           </p>
-      </v-banner>
+      </v-banner> -->
   
     </v-main>
 <!-- footer设置 -->
     <v-footer
     color="cyan"
     padless
+    fixed="true"
   >
     <v-row
       justify="center"
@@ -146,7 +139,7 @@ import {mapState} from 'vuex';
         Echart: () => import('@/components/Echart/Echart'),
         MatPage: () => import('@/components/MatPage/MatPage'),
         ESRCalendars: () => import('@/components/ESRCalendars/ESRCalendars'),
-        test: () => import('@/components/Tinymce'),
+        test: () => import('@/components/TestData/TestData'),
     },
  
 
@@ -163,8 +156,8 @@ import {mapState} from 'vuex';
         'Contact Us',
       ],
       ListTerm:[
-        {id:1,title:'HOME',action:'FrontPage',icon:"iconfont icon-home"},
-        {id:2,title:'DAB',action:'onDAB',icon:"iconfont icon-fangxiangpan"},
+        {id:1,title:'HOME',action:'FrontPage',icon:"mdi-home"},
+        {id:2,title:'DAB',action:'onDAB',icon:"mdi-steering"},
         {id:3,title:'PAB',action:'onPAB',icon:"iconfont icon-qinang"},
         {id:4,title:'Cover Material',action:'',icon:"iconfont icon-shouyetubiao-09",model: false,
         children: [
@@ -173,15 +166,18 @@ import {mapState} from 'vuex';
           { title: 'TT990',action:'onMatPage' },
           { title: 'Common material comparison',action:'onCoverMat' },
         ],},
-        {id:5,title:'Inflator',action:'onESRinfo',icon:"iconfont icon-kaifangshengtai-icon256"},
-        {id:6,title:'ESR Calendars',action:'onESRCalendars',icon:"iconfont icon-kaifangshengtai-icon256"},
-        {id:7,title:'test',action:'onTest',icon:"iconfont icon-kaifangshengtai-icon256"}
+        {id:5,title:'Inflator',action:'onESRinfo',icon:"mdi-bomb"},
+        {id:6,title:'ESR Calendars',action:'onESRCalendars',icon:"mdi-calendar"},
+        {id:7,title:'test',action:'onTest',icon:"mdi-calendar mdi-spin"}
       ],
     }),
     
     computed:{
 			...mapState({CurrentForm : state => state.form,})
       },
+    created () {
+      this.currentvue = 'SlideShow';
+    },
     methods:{
       FrontPage(){
         this.currentvue = 'SlideShow';

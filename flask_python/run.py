@@ -42,7 +42,7 @@ def makedir():
 @app.route('/upload',methods=["POST"])
 def upload():
     # test
-    ESRpath = app.config['ESR']+"//123123"
+    # ESRpath = app.config['ESR']+"//123123"
     img_stream = ''
     file_obj = request.files['file']
     if file_obj is None:
@@ -54,7 +54,7 @@ def upload():
         将文件保存到本地（即当前目录）
         直接使用上传的文件对象保存
     '''
-
+    
     file_path = os.path.join(ESRpath, file_obj.filename)
     file_obj.save(file_path)
     # blend_pic = blend_two_images(file_obj)

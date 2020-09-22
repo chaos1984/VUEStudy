@@ -6,8 +6,8 @@
   </v-card-title>
 
   <v-card-text>
-      <uploadfile :data = "uploadinfo"/>
-      <uploadfile :data = "uploadinfo"/>
+      <uploadfile :data = "uploadinfo1"/>
+      <uploadfile :data = "uploadinfo2"/>
       <!-- <v-btn color="primary" text @click="uploadFile">test</v-btn> -->
     </v-card-text>
 
@@ -20,23 +20,32 @@
 import {mapState} from 'vuex';
   export default {
     data: () => ({
-        uploadinfo : {
+        uploadinfo1 : {
               disabled:false,
               fileList : [],
+              btnlabel: 'BOM FILE',
               label : 'upload',
-              action : 'http://127.0.0.1:5000/upload',
+              action : 'api/upload',
               filenum : 1,
-              accepttype : ".jpg,.jpeg,.png,.gif,.bmp,.pdf,.JPG,.JPEG,.PBG,.GIF,.BMP,.PDF"
+              accepttype : ".xls",
+              FileRules:[
+              v => !!v || 'Required',
+                  ],
+              Hint : "EX11_BOM_V1.xls",
         },
-      filedata: null,
-      enabled: false,
-      BOMFileRules:[
-        v => !!v || 'Required',
-      ],
-      CADFileRules:[
-        v => !!v || 'Required',
-      ],
-      displayText : 'Select a file'
+        uploadinfo2 : {
+              disabled:false,
+              fileList : [],
+              btnlabel: 'CATIA FILE',
+              label : 'upload',
+              action : 'api/upload',
+              filenum : 1,
+              accepttype : ".stp,.x_t,.CatiaPart",
+              FileRules:[
+                  v => !!v || 'Required',
+                  ],
+              Hint : "EX11_DABModule_V1.stp",
+        },
     }),
 
     computed:{

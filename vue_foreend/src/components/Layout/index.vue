@@ -6,7 +6,7 @@
       app
       left
     >
-    
+
       <v-list dense>
           <template v-for="item in ListTerm">
             <v-row
@@ -69,14 +69,14 @@
           </template>
         </v-list>
     </v-navigation-drawer>
-    
+
 <!-- bar设置 -->
     <v-app-bar
       app
       color="cyan"
       dark
     >
-      
+
 
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>Autoliv CTC CAE</v-toolbar-title>
@@ -84,23 +84,23 @@
 <!-- 操作区域 -->
     <v-main  class="d-flex pa-2">
     <!-- <appmain/> -->
-    <component 
-      :is="currentvue" 
+    <component
+      :is="currentvue"
       v-if="hackReset">
     </component>
-    
+
       <!-- <v-banner >
           <p >
           Beta Version
           </p>
       </v-banner> -->
-  
+
     </v-main>
 <!-- footer设置 -->
     <v-footer
     color="cyan"
     padless
-    fixed="true"
+
   >
     <v-row
       justify="center"
@@ -141,10 +141,10 @@ import {mapState} from 'vuex';
         ESRCalendars: () => import('@/components/ESRCalendars/ESRCalendars'),
         test: () => import('@/components/TestData/TestData'),
     },
- 
+
 
     data: () => ({
-      infor:'No infor',      
+      infor:'No infor',
       currentvue:'',
       drawer: null,
       hackReset : true,
@@ -171,7 +171,7 @@ import {mapState} from 'vuex';
         {id:7,title:'test',action:'onTest',icon:"mdi-calendar mdi-spin"}
       ],
     }),
-    
+
     computed:{
 			...mapState({CurrentForm : state => state.form,})
       },
@@ -212,7 +212,7 @@ import {mapState} from 'vuex';
       callEvent(e){
         this[e]()
       }
-      
+
     }
   }
 </script>

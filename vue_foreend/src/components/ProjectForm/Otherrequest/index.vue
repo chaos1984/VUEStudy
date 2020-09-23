@@ -1,25 +1,55 @@
 <template>
-    <div>
-        <uploadfile :data = "uploadinfo"/>
-        <uploadfile :data = "uploadinfo"/>
-    </div>
+    <v-form>
+      <uploadfile  @getFileName = "getFileName" :data = "uploadinfo1"/>
+      <uploadfile  @getFileName = "getFileName" :data = "uploadinfo2"/>
+        <stepperbtn :data = "btnsettings"/>
+    </v-form>
 </template>
 
 <script>
     export default {
         data() {
             return {
-                uploadinfo : {
-                    disabled:false,
-                    fileList : [],
-                    label : 'upload',
-                    action : 'http://127.0.0.1:5000/upload',
-                    filenum : 1,
-                    accepttype : ".doc",
-                    drag : true
+                enabled :'false',
+      info : '',
+      valid: true,
+            uploadinfo1 : {
+              disabled:false,
+              fileList : [],
+              inputlabel: 'BOM FILE',
+              btnlabel : 'upload',
+              action : 'api/upload',
+              filenum : 1,
+              accepttype : ".xls",
+              FileRules:[
+              v => !!v || 'Required',
+                  ],
+              Hint : "EX11_BOM_V1.xls",
+        },
+        uploadinfo2 : {
+              disabled:false,
+              fileList : [],
+              inputlabel: 'CATIA FILE',
+              btnlabel : 'upload',
+              action : 'api/upload',
+              filenum : 1,
+              accepttype : ".stp,.x_t,.CatiaPart",
+              FileRules:[
+                  v => !!v || 'Required',
+                  ],
+              Hint : "EX11_DABModule_V1.stp",
+        },
+        btnsettings : {
+                ismkdir:false
         },
             }
         },
+        methods:{
+            getFileName(data){
+            console.log('1111:',data)
+            return data
+      }
+   }
     }
 </script>
 

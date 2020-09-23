@@ -23,8 +23,8 @@ import {mapState} from 'vuex';
         uploadinfo1 : {
               disabled:false,
               fileList : [],
-              btnlabel: 'BOM FILE',
-              label : 'upload',
+              inputlabel: 'BOM FILE',
+              btnlabel : 'upload',
               action : 'api/upload',
               filenum : 1,
               accepttype : ".xls",
@@ -36,8 +36,8 @@ import {mapState} from 'vuex';
         uploadinfo2 : {
               disabled:false,
               fileList : [],
-              btnlabel: 'CATIA FILE',
-              label : 'upload',
+              inputlabel: 'CATIA FILE',
+              btnlabel : 'upload',
               action : 'api/upload',
               filenum : 1,
               accepttype : ".stp,.x_t,.CatiaPart",

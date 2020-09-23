@@ -12,10 +12,13 @@ import 'element-ui/lib/theme-chalk/index.css';
 import './assets/icon/iconfont.css'
 
 import uploadfile from './components/UploadFile/index.js'
+import stepperbtn from './components/StepperBtn/index.js'
 
 Vue.use(VueRouter);
 Vue.use(ElementUI);
 Vue.use(uploadfile);
+Vue.use(stepperbtn);
+
 
 Vue.prototype.$axios = axios
 

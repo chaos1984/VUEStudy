@@ -8,11 +8,9 @@
         >
           <v-text-field
             :value = "filename"
-            :label = "uploadinfo.btnlabel"
+            :label = "uploadinfo.inputlabel"
             :rules = "uploadinfo.FileRules"
-
             :hint = "uploadinfo.Hint"
-            
             persistent-hint
             outlined
             filled
@@ -26,7 +24,7 @@
         >
     <el-upload
     :disabled = "uploadinfo.disabled"
-    :label = "uploadinfo.label"
+    :label = "uploadinfo.btnlabel"
     :action = "uploadinfo.action"
     :on-preview = "handlePreview"
     :on-remove = "handleRemove"
@@ -37,7 +35,8 @@
     :accept = "uploadinfo.accepttype"
     :limit= "uploadinfo.filenum"
     :on-exceed = "handleExceed"
-    :file-list = "uploadinfo.fileList">
+    :file-list = "uploadinfo.fileList"
+    >
     <el-button size="small" type="primary">UPLOAD</el-button>
    <!-- <i class="el-icon-upload"></i>
     <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div> -->
@@ -66,8 +65,8 @@
         uploadinfo : {
           disabled: true,
           fileList : [],
-          btnlabel:'123',
-          label : '',
+          inputlabel:'',
+          btnlabel : '',
           action : '',
           filenum : 1,
           accepttype : "",
@@ -80,9 +79,9 @@
     },
 
     methods: {
-      handleRemove(file, fileList) {
+      handleRemove(file) {
         this.filename = ""
-        console.log('1231231',file.name, fileList);
+
         this.$axios.post('/api/delete',file.name ) //请求头要为表单
           .then(response=>{
             console.log(response.data);
@@ -109,7 +108,7 @@
       },
       emitfilename(){
         this.$emit('getFileName',this.filename)
-      }
+      },
       
     },
     mounted () {

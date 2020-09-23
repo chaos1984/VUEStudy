@@ -11,14 +11,7 @@
           label="New Inflator"
         ></v-checkbox>
         <v-row align="center">
-          <v-file-input 
-          id = 'InflatorFile'
-          accept=".pdf" 
-          :disabled="!enabled" 
-          label="New inflator file" 
-          @change="uploadFile"
-          >
-          </v-file-input>
+          <uploadfile  @getFileName = "getFileName" :data = "uploadinfo1"/>
         </v-row>
         <v-overflow-btn
             v-model="CurrentForm.Inflator"
@@ -40,6 +33,19 @@ export default {
       data: () => ({
         enabled: false,
         dropdown_font: ["ADP1.3B_MP","ADP1.3B_HP","ADPS-1.5_210kPa_5ms"],
+        uploadinfo1 : {
+              disabled:false,
+              fileList : [],
+              inputlabel: 'Inflator',
+              btnlabel : 'upload',
+              action : 'api/upload',
+              filenum : 1,
+              accepttype : ".pdf",
+              FileRules:[
+              v => !!v || 'Required',
+                  ],
+              Hint : "EX11_Cushion_V1.pdf",
+        },
     }),
     computed:{
       ...mapState({

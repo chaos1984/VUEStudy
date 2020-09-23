@@ -13,14 +13,9 @@
       label="New Cushion"
       ></v-checkbox>
     <v-card
-    dens
     :disabled="!enabled">
- 
-      <uploadfile @emitfilename = "getFileName" :data = "uploadinfo1"/>
-    
-      <uploadfile @emitfilename = "getFileName" :data = "uploadinfo2"/>
-
-
+      <uploadfile  @getFileName = "getFileName" :data = "uploadinfo1"/>
+      <uploadfile  @getFileName = "getFileName" :data = "uploadinfo2"/>
     </v-card >
 
     <v-text-field
@@ -40,11 +35,11 @@
 import {mapState} from 'vuex';
 export default {
     data: () => ({
-      uploadinfo1 : {
+        uploadinfo1 : {
               disabled:false,
               fileList : [],
-              btnlabel: 'Cushion part',
-              label : 'upload',
+              inputlabel: 'Cushion part',
+              btnlabel : 'upload',
               action : 'api/upload',
               filenum : 1,
               accepttype : ".pdf",
@@ -56,8 +51,8 @@ export default {
         uploadinfo2 : {
               disabled:false,
               fileList : [],
-              btnlabel: 'Cushion Foled',
-              label : 'upload',
+              inputlabel: 'Cushion Foled',
+              btnlabel : 'upload',
               action : 'api/upload',
               filenum : 1,
               accepttype : ".stp,.x_t,.CatiaPart",
@@ -71,12 +66,13 @@ export default {
     computed:{
       ...mapState({
         CurrentForm : state => state.form,
-        })
+        }),
     },
-
+    
     methods:{
       getFileName(data){
-        console.log(data)
+        console.log('1111:',data)
+        return data
       }
    }
 }

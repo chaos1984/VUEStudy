@@ -4,6 +4,7 @@
   <v-card-title>
       Cushion
   </v-card-title>
+  <keep-alive>
   <v-card-text>
     <v-checkbox
       
@@ -14,8 +15,8 @@
       ></v-checkbox>
     <v-card
     :disabled="!enabled">
-      <uploadfile  @getFileName = "getFileName" :data = "uploadinfo1"/>
-      <uploadfile  @getFileName = "getFileName" :data = "uploadinfo2"/>
+      <uploadfile id = "CushiondwgFile" @getFileName = "getFileName" :data = "CushiondwgFile"/>
+      <uploadfile id = "CushionFoldFile" @getFileName = "getFileName" :data = "CushionFoldFile"/>
     </v-card >
 
     <v-text-field
@@ -26,6 +27,7 @@
     >
     </v-text-field>
       </v-card-text>
+      </keep-alive>
   </v-card>  
 
   
@@ -35,7 +37,8 @@
 import {mapState} from 'vuex';
 export default {
     data: () => ({
-        uploadinfo1 : {
+        CushiondwgFile : {
+              name :'CushiondwgFile',
               disabled:false,
               fileList : [],
               inputlabel: 'Cushion part',
@@ -48,13 +51,14 @@ export default {
                   ],
               Hint : "EX11_Cushion_V1.pdf",
         },
-        uploadinfo2 : {
+        CushionFoldFile : {
+              name :'CushionFoldFile',
               disabled:false,
               fileList : [],
               inputlabel: 'Cushion Foled',
               btnlabel : 'upload',
               action : 'api/upload',
-              filenum : 1,
+              filenum : 2,
               accepttype : ".stp,.x_t,.CatiaPart",
               FileRules:[
                   v => !!v || 'Required',
@@ -67,12 +71,25 @@ export default {
       ...mapState({
         CurrentForm : state => state.form,
         }),
+
     },
-    
+    mounted () {
+      this.initialization()
+    },
     methods:{
-      getFileName(data){
-        console.log('1111:',data)
-        return data
+      getFileName(filename,domname){
+          this.CurrentForm[domname] = filename
+          this._data[domname].fileList =[{name:filename,url:''}]
+          console.log(this._data[domname].fileList)
+          console.log(this.CushiondwgFile.fileList[0].name)
+      },
+      initialization(){
+        if (this.CurrentForm.CushiondwgFile != ""){
+          this.CushiondwgFile.fileList=[{name:this.CurrentForm.CushiondwgFile,url:''}];
+        }
+        if (this.CurrentForm.CushionFoldFile != ""){
+          this.CushionFoldFile.fileList=[{name:this.CurrentForm.CushionFoldFile,url:''}];
+        }
       }
    }
 }

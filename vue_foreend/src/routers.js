@@ -10,9 +10,9 @@ const routers = [
       name: 'Layout',
       component: Layout
   }, 
-  {
-      path: './Stepper',
-      component: () => import('./components/Stepper'),
-  },
+  // {
+  //     path: './Stepper',
+  //     component: () => import('./components/Stepper'),
+  // },
 ]
 export default routers

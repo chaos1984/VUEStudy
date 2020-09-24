@@ -50,7 +50,7 @@
         e1: "",
         stepsNames:[{title:'Basic Information'},{title:'Request Information'},{title:'Other Request'},{title:'Request Form'}],
         steps:'',
-        Forms: ['Otherrequest','ProjectForm','RequestInfo','RequestForm'],
+        Forms: ['ProjectForm','RequestInfo','Otherrequest','RequestForm'],
         CurrentForm:""
       }
     },

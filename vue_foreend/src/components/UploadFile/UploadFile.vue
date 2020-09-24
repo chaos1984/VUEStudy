@@ -63,6 +63,7 @@
         valid: true,
         filename :'',
         uploadinfo : {
+          name:"",
           disabled: true,
           fileList : [],
           inputlabel:'',
@@ -80,6 +81,8 @@
 
     methods: {
       handleRemove(file) {
+
+        
         this.filename = ""
 
         this.$axios.post('/api/delete',file.name ) //请求头要为表单
@@ -101,15 +104,15 @@
       },
       beforeUpload(file) {
         this.filename = file.name
-        return this.$confirm(`确定上传 ${ file.name }？`);
+        // return this.$confirm(`确定上传 ${ file.name }？`);
       },
       printuploadinfo(){
         console.log(this.uploadinfo)
       },
       emitfilename(){
-        this.$emit('getFileName',this.filename)
+        this.$emit('getFileName',this.filename,this.uploadinfo.name)
+
       },
-      
     },
     mounted () {
       this.uploadinfo = this.data
@@ -118,6 +121,7 @@
     },
     created () {
       this.printuploadinfo;
+      
     },
   }
 </script>

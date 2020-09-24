@@ -53,26 +53,10 @@ export default {
       })
     },
     methods:{
-        uploadFile(e){
-          var clickedButtonDOM=event.target; //获取按钮的DOM元素
-          var id = clickedButtonDOM.getAttribute('id');//获取指定的元素
-          console.log(id);
-          let param = new FormData(); //创建form对象
-          param.append('file',e);//通过append向form对象添加数据
-          // param.append('file',this.CurrentForm.CADFile)
-          // console.log(param.get('file')); //FormData私有类对象，访问不到，可以通过get判断值是否传进去
-          
-          this.filedata = param.get('file')
-          this.CurrentForm[id] = this.filedata['name']
-          // console.log(e)
-          this.$axios.post('/api/upload',param,{headers:{'Content-Type':'application/x-www-form-urlencoded' }}, ) //请求头要为表单
-            .then(response=>{
-              console.log(response.data);
-            })
-            .catch(function (error) {
-              console.log(error);
-            })
-      }
+        getFileName(data){
+             console.log("uploadfile:",data)   
+            return data
+          }
    }
 }
 </script>

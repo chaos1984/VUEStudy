@@ -46,7 +46,7 @@
         },
         methods:{
             getFileName(data){
-            console.log('1111:',data)
+                console.log("uploadfile:",data)
             return data
       }
    }

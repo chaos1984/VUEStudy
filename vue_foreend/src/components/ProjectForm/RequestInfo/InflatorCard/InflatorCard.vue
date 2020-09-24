@@ -1,5 +1,5 @@
 <template>
-      <v-card height = "249px">
+      <v-card height = "430px">
         <v-card-title>
           Inflator
         </v-card-title>
@@ -7,17 +7,17 @@
         <v-checkbox
           v-model="enabled"
           hide-details
-          class="shrink mr-2 mt-0"
+          class="shrink ma-5 mt-0"
           label="New Inflator"
-        ></v-checkbox>
-        <v-row align="center">
-          <uploadfile  @getFileName = "getFileName" :data = "uploadinfo1"/>
-        </v-row>
+       ></v-checkbox>
+        <v-card
+        :disabled="!enabled">
+          <uploadfile  @getFileName = "getFileName" :data = "InflatorFile"/>
+       </v-card>
         <v-overflow-btn
             v-model="CurrentForm.Inflator"
-            dens
-            :disabled="enabled"
-            class="my-2"
+            :disabled="!enabled"
+            class="mt-8"
             :items="dropdown_font"
             menu-props="bottom"
             label="Please select the inflator in your ESR"
@@ -33,7 +33,8 @@ export default {
       data: () => ({
         enabled: false,
         dropdown_font: ["ADP1.3B_MP","ADP1.3B_HP","ADPS-1.5_210kPa_5ms"],
-        uploadinfo1 : {
+        InflatorFile : {
+              name : "InflatorFile",
               disabled:false,
               fileList : [],
               inputlabel: 'Inflator',
@@ -44,7 +45,7 @@ export default {
               FileRules:[
               v => !!v || 'Required',
                   ],
-              Hint : "EX11_Cushion_V1.pdf",
+              Hint : "EX11_Inflator_V1.pdf",
         },
     }),
     computed:{
@@ -52,11 +53,19 @@ export default {
         CurrentForm : state => state.form,
       })
     },
+    mounted () {
+      this.initialization()
+    },
     methods:{
-        getFileName(data){
-             console.log("uploadfile:",data)   
-            return data
-          }
+      getFileName(uploadinfo){
+          this._data[uploadinfo.name] =uploadinfo
+          this.CurrentForm[uploadinfo.name] = uploadinfo.fileList[0].name
+      },
+      initialization(){
+        if (this.CurrentForm.InflatorFile != ""){
+          this.InflatorFile.fileList=[{name:this.CurrentForm.InflatorFile,url:''}];
+        }
+      }
    }
 }
 </script>

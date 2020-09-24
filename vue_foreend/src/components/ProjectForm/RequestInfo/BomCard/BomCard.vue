@@ -7,8 +7,8 @@
 
   <v-card-text>
 
-      <uploadfile @getFileName = "getFileName" :data = "uploadinfo1"/>
-      <uploadfile @getFileName = "getFileName" :data = "uploadinfo2"/>
+      <uploadfile @getFileName = "getFileName" :data = "BOMFile"/>
+      <uploadfile @getFileName = "getFileName" :data = "CADFile"/>
       
       <!-- <v-btn color="primary" text @click="uploadFile">test</v-btn> -->
     </v-card-text>
@@ -22,7 +22,8 @@
 import {mapState} from 'vuex';
   export default {
     data: () => ({
-        uploadinfo1 : {
+        BOMFile : {
+              name : "BOMFile",
               disabled:false,
               fileList : [],
               inputlabel: 'BOM FILE',
@@ -35,7 +36,8 @@ import {mapState} from 'vuex';
                   ],
               Hint : "EX11_BOM_V1.xls",
         },
-        uploadinfo2 : {
+        CADFile : {
+              name : "CADFile",
               disabled:false,
               fileList : [],
               inputlabel: 'CATIA FILE',
@@ -55,14 +57,24 @@ import {mapState} from 'vuex';
         CurrentForm : state => state.form,
         })
       },
+    mounted () {
+      this.initialization()
+    },
     methods:{
       emitalert(){
            console.log(this.CurrentForm.BOMFile)
          },
-      getFileName(data){
-            
-            console.log("uploadfile:",data)
-          return data
+      getFileName(uploadinfo){
+          this._data[uploadinfo.name] =uploadinfo
+          this.CurrentForm[uploadinfo.name] = uploadinfo.fileList[0].name
+      },
+      initialization(){
+        if (this.CurrentForm.BOMFile != ""){
+          this.BOMFile.fileList=[{name:this.CurrentForm.BOMFile,url:''}];
+        }
+        if (this.CurrentForm.CADFile != ""){
+          this.CADFile.fileList=[{name:this.CurrentForm.CADFile,url:''}];
+        }
       }
    }
   }

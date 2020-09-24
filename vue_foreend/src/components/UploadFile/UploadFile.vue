@@ -7,7 +7,7 @@
           md="8"
         >
           <v-text-field
-            :value = "filename"
+            :value = "changefilename"
             :label = "uploadinfo.inputlabel"
             :rules = "uploadinfo.FileRules"
             :hint = "uploadinfo.Hint"
@@ -61,7 +61,7 @@
     data() {
       return {
         valid: true,
-        filename :'',
+        filename:"",
         uploadinfo : {
           name:"",
           disabled: true,
@@ -81,17 +81,14 @@
 
     methods: {
       handleRemove(file) {
-
-        
-        this.filename = ""
-
-        this.$axios.post('/api/delete',file.name ) //请求头要为表单
+          this.$axios.post('/api/delete',file.name ) //请求头要为表单
           .then(response=>{
             console.log(response.data);
           })
           .catch(function (error) {
             console.log(error);
           })
+          this.uploadinfo.fileList =[]
       },
       handlePreview(file) {
         console.log(file);
@@ -110,18 +107,32 @@
         console.log(this.uploadinfo)
       },
       emitfilename(){
-        this.$emit('getFileName',this.filename,this.uploadinfo.name)
+        this.uploadinfo.fileList.push({name:this.filename,url:''})
+        this.$emit('getFileName',this.uploadinfo)
 
       },
+    },
+    computed: {
+      changefilename() {
+        if (this.uploadinfo.fileList.length == 0){
+          return ""
+      } else {
+        // console.log(this.uploadinfo.fileList)
+        // this.filename = this.uploadinfo.fileList[0].name
+        return this.uploadinfo.fileList[0].name
+      }
+        
+      }
     },
     mounted () {
       this.uploadinfo = this.data
       this.printuploadinfo;
-
+      this.uploadinfo.fileList
+      
     },
     created () {
       this.printuploadinfo;
-      
+
     },
   }
 </script>

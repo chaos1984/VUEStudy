@@ -15,8 +15,8 @@
       ></v-checkbox>
     <v-card
     :disabled="!enabled">
-      <uploadfile id = "CushiondwgFile" @getFileName = "getFileName" :data = "CushiondwgFile"/>
-      <uploadfile id = "CushionFoldFile" @getFileName = "getFileName" :data = "CushionFoldFile"/>
+      <uploadfile  @getFileName = "getFileName" :data = "CushiondwgFile"/>
+      <uploadfile  @getFileName = "getFileName" :data = "CushionFoldFile"/>
     </v-card >
 
     <v-text-field
@@ -77,11 +77,9 @@ export default {
       this.initialization()
     },
     methods:{
-      getFileName(filename,domname){
-          this.CurrentForm[domname] = filename
-          this._data[domname].fileList =[{name:filename,url:''}]
-          console.log(this._data[domname].fileList)
-          console.log(this.CushiondwgFile.fileList[0].name)
+      getFileName(uploadinfo){
+          this._data[uploadinfo.name] =uploadinfo
+          this.CurrentForm[uploadinfo.name] = uploadinfo.fileList[0].name
       },
       initialization(){
         if (this.CurrentForm.CushiondwgFile != ""){

@@ -125,12 +125,13 @@
       }
     },
     mounted () {
-      this.uploadinfo = this.data
+  
       this.printuploadinfo;
       this.uploadinfo.fileList
       
     },
     created () {
+      this.uploadinfo = this.data
       this.printuploadinfo;
 
     },

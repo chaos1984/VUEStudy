@@ -1,5 +1,6 @@
 <template>
     <div>
+	<el-button :disabled="false" size='mini' type="success" @click='downloadPDF'>Dowload PDF</el-button>
 	<v-card >
 		<pdf ref="pdf" 
 
@@ -10,7 +11,9 @@
 		@page-loaded="pageLoaded($event)" 
 		@num-pages="pageTotalNum=$event" 
 		@error="pdfError($event)" 
-		@link-clicked="page = $event">
+		@link-clicked="page = $event"
+		:style="{ width: 100+ '%' }"
+		>
 		</pdf>
 	</v-card>
         <v-container>
@@ -136,7 +139,16 @@
 
 				const blob = new Blob(byteArrays, {type: contentType});
 				return blob;
-				}
+				},
+			downloadPDF(){
+				// location.href =  this.url
+				let routeData = this.$router.resolve({
+
+				});
+				routeData.url = this.PDFfile
+				
+				window.open(routeData.url, '_blank');
+			}
 		}
 	}
 </script>

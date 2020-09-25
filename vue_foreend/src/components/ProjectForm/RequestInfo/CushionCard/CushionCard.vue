@@ -76,6 +76,7 @@ export default {
     mounted () {
       this.initialization()
     },
+    
     methods:{
       getFileName(uploadinfo){
           this._data[uploadinfo.name] =uploadinfo
@@ -87,6 +88,12 @@ export default {
         }
         if (this.CurrentForm.CushionFoldFile != ""){
           this.CushionFoldFile.fileList=[{name:this.CurrentForm.CushionFoldFile,url:''}];
+        }
+      },
+      validatecheck(){
+        if (this.enabled == false){
+          this.CushionFoldFile.v = !!this.CushionFoldFile.v
+          this.CushiondwgFile.v =!!this.CushiondwgFile.v
         }
       }
    }

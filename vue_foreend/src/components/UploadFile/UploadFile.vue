@@ -7,6 +7,7 @@
           md="8"
         >
           <v-text-field
+            :disabled = "uploadinfo.disabled"
             :value = "changefilename"
             :label = "uploadinfo.inputlabel"
             :rules = "uploadinfo.FileRules"
@@ -125,10 +126,15 @@
       }
     },
     mounted () {
-  
+      // if (this.uploadinfo.disabled== true){
+      //     this.uploadinfo = this.data
+          
+      // } else {
+      //   this.uploadinfo.FileRules = ""
+      // }
       this.printuploadinfo;
       this.uploadinfo.fileList
-      
+
     },
     created () {
       this.uploadinfo = this.data

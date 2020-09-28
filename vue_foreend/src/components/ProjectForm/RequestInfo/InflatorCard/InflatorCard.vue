@@ -16,12 +16,13 @@
        </v-card>
         <v-overflow-btn
             v-model="CurrentForm.Inflator"
-            :disabled="!enabled"
+            :disabled = "enabled"
             class="mt-8"
             :items="dropdown_font"
             menu-props="bottom"
             label="Please select the inflator in your ESR"
             target="#dropdown-example-1"
+            
           ></v-overflow-btn>
         </v-card-text>
       </v-card>  
@@ -31,7 +32,8 @@
 import {mapState} from 'vuex';
 export default {
       data: () => ({
-        enabled: false,
+        enabled: true,
+        SelectRules :"",
         dropdown_font: ["ADP1.3B_MP","ADP1.3B_HP","ADPS-1.5_210kPa_5ms"],
         InflatorFile : {
               name : "InflatorFile",
@@ -48,6 +50,22 @@ export default {
               Hint : "EX11_Inflator_V1.pdf",
         },
     }),
+    watch: {
+      enable(newValue, oldValue) {
+        if (newValue == false) {
+            this.InflatorFile.FileRules = ""
+            this.SelectRules = [
+                v => !!v || 'Required',
+                ]
+        } else if (newValue == true) {
+            this.InflatorFile.FileRules = [
+                  v => !!v || 'Required',
+                  ]
+            this.SelectRules = ""
+        console.log(oldValue)
+        }
+      }
+    },
     computed:{
       ...mapState({
         CurrentForm : state => state.form,

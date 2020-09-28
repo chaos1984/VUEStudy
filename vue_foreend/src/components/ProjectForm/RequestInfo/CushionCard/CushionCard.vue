@@ -12,18 +12,19 @@
       hide-details
       class="shrink ma-5 mt-0"
       label="New Cushion"
+      @change = "validenable"
       ></v-checkbox>
     <v-card
     :disabled="!enabled">
-      <uploadfile  @getFileName = "getFileName" :data = "CushiondwgFile"/>
-      <uploadfile  @getFileName = "getFileName" :data = "CushionFoldFile"/>
+      <uploadfile  ref="child1" @getFileName = "getFileName" :data = "CushiondwgFile"/>
+      <uploadfile ref="child2" @getFileName = "getFileName" :data = "CushionFoldFile"/>
     </v-card >
 
     <v-text-field
       type = 'text'
       :disabled="enabled"
       label= 'Please input your carryover cushion'
-      
+      :rules = "InputRules"
     >
     </v-text-field>
       </v-card-text>
@@ -47,7 +48,7 @@ export default {
               filenum : 1,
               accepttype : ".pdf",
               FileRules:[
-              v => !!v || 'Required',
+              v => !!v  || 'Required',
                   ],
               Hint : "EX11_Cushion_V1.pdf",
         },
@@ -65,16 +66,43 @@ export default {
                   ],
               Hint : "EX11_CushionFold_V1.pdf",
         },
-      enabled: false,
+      InputRules:[
+                  v => !!v || 'Required',
+                  ],
+      enabled: true
     }),
+    // watch: {
+    //   enable(newValue, oldValue) {
+    //     if (newValue == false) {
+    //         this.$res.child1.getenable("")
+    //         this.$res.child2.getenable("")
+    //         this.InputRules = [
+    //             v => !!v || 'Required',
+    //             v => v.length <= 50 || 'Name must be less than 20 characters',
+    //             v => /[A-z]+$/.test(v)|| 'Must be a string',
+    //             ]
+    //     } else if (newValue == true) {
+    //         this.$res.child1.getenable([
+    //               v => !!v || 'Required',
+    //               ])
+    //         this.$res.child1.getenable([
+    //               v => !!v || 'Required',
+    //               ])
+    //         this.InputRules = ""
+    //     console.log(oldValue)
+    //     }
+    //   }
+    // },
     computed:{
       ...mapState({
         CurrentForm : state => state.form,
         }),
-
+      
+ 
     },
     mounted () {
       this.initialization()
+      
     },
     
     methods:{
@@ -90,10 +118,24 @@ export default {
           this.CushionFoldFile.fileList=[{name:this.CurrentForm.CushionFoldFile,url:''}];
         }
       },
-      validatecheck(){
-        if (this.enabled == false){
-          this.CushionFoldFile.v = !!this.CushionFoldFile.v
-          this.CushiondwgFile.v =!!this.CushiondwgFile.v
+      validenable(){
+        if (this.enabled == false) {
+            this.$refs.child1.getenable("")
+            this.$refs.child2.getenable("")
+            this.InputRules = [
+                v => !!v || 'Required',
+                v => v.length <= 50 || 'Name must be less than 20 characters',
+                v => /[A-z]+$/.test(v)|| 'Must be a string',
+                ]
+        } else if (this.enabled  == true) {
+            this.$refs.child1.getenable([
+                  v => !!v || 'Required',
+                  ])
+            this.$refs.child1.getenable([
+                  v => !!v || 'Required',
+                  ])
+            this.InputRules = ""
+        
         }
       }
    }

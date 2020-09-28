@@ -110,7 +110,10 @@
       emitfilename(){
         this.uploadinfo.fileList.push({name:this.filename,url:''})
         this.$emit('getFileName',this.uploadinfo)
-
+      },
+      getenable(rules){
+        this.uploadinfo.FileRules = rules
+        console.log("rules")
       },
     },
     computed: {

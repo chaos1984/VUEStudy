@@ -164,6 +164,7 @@ import {mapState} from 'vuex';
           { title: 'TA4003BE',action:"onMatPage" },
           { title: 'TT1081B',action:'onMatPage'},
           { title: 'TT990',action:'onMatPage' },
+          { title: 'CAE_capability',action:'onMatPage' },
           { title: 'Common material comparison',action:'onCoverMat' },
         ],},
         {id:5,title:'Inflator',action:'onESRinfo',icon:"mdi-bomb"},

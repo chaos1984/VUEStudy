@@ -12,7 +12,7 @@
        ></v-checkbox>
         <v-card
         :disabled="!enabled">
-          <uploadfile  @getFileName = "getFileName" :data = "InflatorFile"/>
+          <uploadfile ref="child1" @getFileName = "getFileName" :data = "InflatorFile"/>
        </v-card>
         <v-overflow-btn
             v-model="CurrentForm.Inflator"
@@ -22,7 +22,7 @@
             menu-props="bottom"
             label="Please select the inflator in your ESR"
             target="#dropdown-example-1"
-            
+            :rules="overflowbtnrules"
           ></v-overflow-btn>
         </v-card-text>
       </v-card>  
@@ -49,23 +49,10 @@ export default {
                   ],
               Hint : "EX11_Inflator_V1.pdf",
         },
-    }),
-    watch: {
-      enable(newValue, oldValue) {
-        if (newValue == false) {
-            this.InflatorFile.FileRules = ""
-            this.SelectRules = [
-                v => !!v || 'Required',
-                ]
-        } else if (newValue == true) {
-            this.InflatorFile.FileRules = [
+        overflowbtnrules:[
                   v => !!v || 'Required',
-                  ]
-            this.SelectRules = ""
-        console.log(oldValue)
-        }
-      }
-    },
+                  ],
+    }),
     computed:{
       ...mapState({
         CurrentForm : state => state.form,
@@ -83,7 +70,22 @@ export default {
         if (this.CurrentForm.InflatorFile != ""){
           this.InflatorFile.fileList=[{name:this.CurrentForm.InflatorFile,url:''}];
         }
-      }
-   }
+      },
+      validenable(){
+        if (this.enabled == false) {
+            this.$refs.child1.getenable("")
+            this.InputRules = [
+                v => !!v || 'Required',
+                v => v.length <= 50 || 'Name must be less than 20 characters',
+                v => /[A-z]+$/.test(v)|| 'Must be a string',
+                ]
+        } else if (this.enabled  == true) {
+            this.$refs.child1.getenable([
+                  v => !!v || 'Required',
+                  ])
+            this.InputRules = ""
+        }
+    }
+  }
 }
 </script>

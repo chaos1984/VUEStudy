@@ -131,7 +131,7 @@ export default {
             this.$refs.child1.getenable([
                   v => !!v || 'Required',
                   ])
-            this.$refs.child1.getenable([
+            this.$refs.child2.getenable([
                   v => !!v || 'Required',
                   ])
             this.InputRules = ""

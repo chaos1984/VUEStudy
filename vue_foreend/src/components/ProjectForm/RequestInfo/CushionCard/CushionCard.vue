@@ -7,22 +7,21 @@
   <keep-alive>
   <v-card-text>
     <v-checkbox
-      
-      v-model="enabled"
+      v-model="CurrentForm.CushionCarryoverflag"
       hide-details
       class="shrink ma-5 mt-0"
       label="New Cushion"
       @change = "validenable"
       ></v-checkbox>
     <v-card
-    :disabled="!enabled">
+    :disabled="!CurrentForm.CushionCarryoverflag">
       <uploadfile  ref="child1" @getFileName = "getFileName" :data = "CushiondwgFile"/>
       <uploadfile ref="child2" @getFileName = "getFileName" :data = "CushionFoldFile"/>
     </v-card >
 
     <v-text-field
       type = 'text'
-      :disabled="enabled"
+      :disabled="CurrentForm.CushionCarryoverflag"
       label= 'Please input your carryover cushion'
       :rules = "InputRules"
     >
@@ -71,28 +70,6 @@ export default {
                   ],
       enabled: true
     }),
-    // watch: {
-    //   enable(newValue, oldValue) {
-    //     if (newValue == false) {
-    //         this.$res.child1.getenable("")
-    //         this.$res.child2.getenable("")
-    //         this.InputRules = [
-    //             v => !!v || 'Required',
-    //             v => v.length <= 50 || 'Name must be less than 20 characters',
-    //             v => /[A-z]+$/.test(v)|| 'Must be a string',
-    //             ]
-    //     } else if (newValue == true) {
-    //         this.$res.child1.getenable([
-    //               v => !!v || 'Required',
-    //               ])
-    //         this.$res.child1.getenable([
-    //               v => !!v || 'Required',
-    //               ])
-    //         this.InputRules = ""
-    //     console.log(oldValue)
-    //     }
-    //   }
-    // },
     computed:{
       ...mapState({
         CurrentForm : state => state.form,
@@ -119,22 +96,24 @@ export default {
         }
       },
       validenable(){
-        if (this.enabled == false) {
-            this.$refs.child1.getenable("")
-            this.$refs.child2.getenable("")
+        if (this.CurrentForm.CushionCarryoverflag == false) {
+            this.$refs.child1.getenable([])
+            this.$refs.child2.getenable([])
             this.InputRules = [
-                v => !!v || 'Required',
-                v => v.length <= 50 || 'Name must be less than 20 characters',
-                v => /[A-z]+$/.test(v)|| 'Must be a string',
+              v => !!v || 'Required'
                 ]
-        } else if (this.enabled  == true) {
+        } else if (this.CurrentForm.CushionCarryoverflag  == true) {
             this.$refs.child1.getenable([
-                  v => !!v || 'Required',
+                v => !!v || 'Required',
+                // v => v.length <= 50 || 'Name must be less than 20 characters',
+                // v => /[A-z]+$/.test(v)|| 'Must be a string',
                   ])
             this.$refs.child2.getenable([
-                  v => !!v || 'Required',
+                v => !!v || 'Required',
+                // v => v.length <= 50 || 'Name must be less than 20 characters',
+                // v => /[A-z]+$/.test(v)|| 'Must be a string',
                   ])
-            this.InputRules = ""
+            this.InputRules = []
         
         }
       }

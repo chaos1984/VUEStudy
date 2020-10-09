@@ -42,15 +42,14 @@
     components:{
         ProjectForm: () => import('@/components/ProjectForm/BasicInfo'),
         RequestInfo: () => import('@/components/ProjectForm/RequestInfo'),
-        Otherrequest:() => import('@/components/ProjectForm/Otherrequest'),
         RequestForm: () => import('@/components/ProjectForm/RequestForm'),
     },
     data () {
       return {
         e1: "",
-        stepsNames:[{title:'Basic Information'},{title:'Request Information'},{title:'Other Request'},{title:'Request Form'}],
+        stepsNames:[{title:'Basic Information'},{title:'Request Information'},{title:'Request Form'}],
         steps:'',
-        Forms: ['ProjectForm','RequestInfo','Otherrequest','RequestForm'],
+        Forms: ['ProjectForm','RequestInfo','RequestForm'],
         CurrentForm:""
       }
     },

@@ -22,9 +22,11 @@ const store = new Vuex.Store({
             date2:"",
             CADFile:"",
             BOMFile:"",
+            CushionCarryoverflag:true,
             CushiondwgFile:"",
             CushionFoldFile:"",
             OldCushion:"",
+            InflatorCarryoverflag:false,
             InflatorFile:"",
             Inflator:"",
             Case:[true,true,true,false,false,false,false,false,false]

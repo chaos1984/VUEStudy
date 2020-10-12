@@ -46,12 +46,12 @@ export default {
               filenum : 1,
               accepttype : ".pdf",
               FileRules:[
-              v => !!v || 'Required',
+              
                   ],
               Hint : "EX11_Inflator_V1.pdf",
         },
         overflowbtnrules:[
-                  v => !!v || 'Required',
+                  
                   ],
     }),
     computed:{

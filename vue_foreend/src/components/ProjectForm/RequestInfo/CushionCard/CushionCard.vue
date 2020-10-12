@@ -61,12 +61,12 @@ export default {
               filenum : 2,
               accepttype : ".stp,.x_t,.CatiaPart",
               FileRules:[
-                  v => !!v || 'Required',
+                  
                   ],
               Hint : "EX11_CushionFold_V1.pdf",
         },
       InputRules:[
-                  v => !!v || 'Required',
+                  
                   ],
       enabled: true
     }),

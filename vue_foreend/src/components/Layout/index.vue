@@ -167,7 +167,7 @@ import {mapState} from 'vuex';
           { title: 'CAE_capability',action:'onMatPage' },
           { title: 'Common material comparison',action:'onCoverMat' },
         ],},
-        {id:5,title:'Inflator',action:'onESRinfo',icon:"mdi-bomb"},
+        {id:5,title:'ESRinfo',action:'onESRinfo',icon:"mdi-bomb"},
         {id:6,title:'ESR Calendars',action:'onESRCalendars',icon:"mdi-calendar"},
         {id:7,title:'test',action:'onTest',icon:"mdi-calendar mdi-spin"}
       ],

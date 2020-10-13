@@ -4,12 +4,20 @@
   <v-data-table
     :headers="headers"
     :items="desserts"
-    sort-by="calories"
     class="elevation-1"
+    multi-sort
+    :search="search"
+    :custom-filter="filterOnlyCapsText"
   >
+
     <template v-slot:top>
       <v-toolbar flat color="white">
         <v-toolbar-title>ESR Table</v-toolbar-title>
+        <v-text-field
+          v-model="search"
+          label="Search (UPPER CASE ONLY)"
+          class="mx-4"
+        ></v-text-field>
         <v-divider
           class="mx-4"
           inset
@@ -104,7 +112,15 @@
   export default {
     data: () => ({
       dialog: false,
+      ESR:"",
+      search: '',
       headers: [
+        {
+          text: 'ESR',
+          align: 'start',
+          sortable: false,
+          value: 'name',
+        },
         {
           text: 'Prj.',
           align: 'start',
@@ -137,6 +153,11 @@
         carbs: 0,
         protein: 0,
       },
+      filter: value => {
+              if (!this.ESR) return true
+
+              return value < parseInt(this.ESR)
+            },
     }),
 
     computed: {
@@ -155,6 +176,12 @@
       this.getData();
      },
     methods: {
+      filterOnlyCapsText (value, search) {
+        return value != null &&
+          search != null &&
+          typeof value === 'string' &&
+          value.toString().indexOf(search) !== -1
+      },
       getData() {
       this.$axios.get("/static/data.json").then(
         response => {
@@ -213,3 +240,7 @@
     },
   }
 </script>
+
+<style scoped>
+
+</style>

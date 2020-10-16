@@ -20,6 +20,7 @@
     </v-card >
 
     <v-text-field
+      v-model = "CurrentForm.CarryoverText"
       type = 'text'
       :disabled="CurrentForm.CushionCarryoverflag"
       label= 'Please input your carryover cushion'
@@ -68,7 +69,7 @@ export default {
       InputRules:[
                   
                   ],
-      enabled: true
+      enabled: true,
     }),
     computed:{
       ...mapState({
@@ -94,6 +95,7 @@ export default {
         if (this.CurrentForm.CushionFoldFile != ""){
           this.CushionFoldFile.fileList=[{name:this.CurrentForm.CushionFoldFile,url:''}];
         }
+        console.log(this.CurrentForm.CushionCarryover)
       },
       validenable(){
         if (this.CurrentForm.CushionCarryoverflag == false) {

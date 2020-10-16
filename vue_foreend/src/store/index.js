@@ -25,6 +25,7 @@ const store = new Vuex.Store({
             CushionCarryoverflag:true,
             CushiondwgFile:"",
             CushionFoldFile:"",
+            CushionCarryover:"",
             OldCushion:"",
             InflatorCarryoverflag:true,
             InflatorFile:"",

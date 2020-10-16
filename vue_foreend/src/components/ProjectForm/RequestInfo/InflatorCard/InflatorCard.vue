@@ -76,7 +76,8 @@ export default {
         console.log(this.CurrentForm.InflatorCarryoverflag)
         if (this.CurrentForm.InflatorCarryoverflag == false) {
             this.$refs.child1.getenable([])
-            this.overflowbtnrules = [v => !!v || 'Required']                
+            this.overflowbtnrules = [v => !!v || 'Required']  
+            console.log(this.CurrentForm.Inflator)
         } else if (this.CurrentForm.InflatorCarryoverflag  == true) {
             this.$refs.child1.getenable([
                 v => !!v || 'Required',

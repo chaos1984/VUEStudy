@@ -2,8 +2,8 @@
 
 
   <v-data-table
-    :headers="headers"
-    :items="desserts"
+    :headers="ESRTable.headers"
+    :items="ESRTable.data"
     class="elevation-1"
     multi-sort
     :search="search"
@@ -108,6 +108,7 @@
 </template>
 
 <script>
+import {mapState} from 'vuex';
 // import qs from 'qs'
   export default {
     data: () => ({
@@ -164,6 +165,9 @@
       formTitle () {
         return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
       },
+      ...mapState({
+        ESRTable : state => state.ESRTable,
+        }),
     },
 
     watch: {
@@ -186,7 +190,7 @@
       this.$axios.get("/static/data.json").then(
         response => {
           console.log(response.data);
-          this.desserts = JSON.parse(response.data);
+          this.ESRTable.data = JSON.parse(response.data);
         },
         error => {  
           console.log(error);
@@ -195,14 +199,14 @@
     },
 
       editItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
+        this.editedIndex = this.ESRTable.data.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialog = true
       },
 
       deleteItem (item) {
-        const index = this.desserts.indexOf(item)
-        confirm('Are you sure you want to delete this item?') && this.desserts.splice(index, 1)
+        const index = this.ESRTable.data.indexOf(item)
+        confirm('Are you sure you want to delete this item?') && this.ESRTable.data.splice(index, 1)
       },
 
       close () {
@@ -215,17 +219,17 @@
 
       save () {
         if (this.editedIndex > -1) {
-          Object.assign(this.desserts[this.editedIndex], this.editedItem)
+          Object.assign(this.ESRTable.data[this.editedIndex], this.editedItem)
         } else {
-          this.desserts.push(this.editedItem)
+          this.ESRTable.data.push(this.editedItem)
         }
-        console.log(this.desserts)
+        console.log(this.ESRTable.data)
         this.close()
       },
       SaveData() {
           this.$axios.get("/api/ProjectTable",{
           params:{
-            ProjectTableData : JSON.stringify(this.desserts)
+            ProjectTableData : JSON.stringify(this.ESRTable.data)
           }
           })
           .then(

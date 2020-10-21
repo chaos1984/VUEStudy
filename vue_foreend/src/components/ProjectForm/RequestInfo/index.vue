@@ -51,7 +51,8 @@
       color="success"
       class="mr-4"
       
-      @click="validate"
+      @click.native="validate()"
+      
     >
       Next
     </v-btn>
@@ -65,7 +66,7 @@
 </template>
 
 <script>
-
+import {mapState} from 'vuex';
   // import {mapState} from 'vuex';
   export default {
 
@@ -101,19 +102,35 @@
       menu1: false,
       menu2: false,
     }),
-    // computed:{
-    //   ...mapState({
-    //     CurrentForm : state => state.form,
-    //     }),
-    //   },
+    computed:{
+      ...mapState({
+        CurrentForm : state => state.form,
+        }),
+      },
 
     methods:{
     validate () {
         this.$store.commit('nextStep')
+        this.SaveData()
       },
     onBackStep(){
           this.$store.commit('backStep')
       },  
+    SaveData() {
+          this.$axios.get("/api/ProjectTable",{
+          params:{
+            ProjectTableData : JSON.stringify(this.CurrentForm)
+          }
+          })
+          .then(
+            response => {
+              console.log(response);
+            },
+            error => {  
+              console.log(error);
+            }
+          );
+    },
    }
   }
 </script>

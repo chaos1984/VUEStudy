@@ -31,6 +31,32 @@ const store = new Vuex.Store({
             InflatorFile:"",
             Inflator:"",
             Case:[true,true,true,false,false,false,false,false,false]
+        },
+        ESRTable:{
+            headers: [
+                    {
+                      text: 'ESR',
+                      align: 'start',
+                      sortable: false,
+                      value: 'name',
+                    },
+                    {
+                      text: 'Prj.',
+                      align: 'start',
+                      sortable: false,
+                      value: 'name',
+                    },
+                    { text: 'PE', value: 'calories' },
+                    { text: 'Cover Mat.', value: 'fat' },
+                    { text: 'Housing Mat', value: 'carbs' },
+                    { text: 'Emblem Mat', value: 'protein' },
+                    { text: 'Cushion Mat', value: 'protein' },
+                    { text: 'Cushion fold', value: 'protein' },
+                    { text: 'Cushion type', value: 'protein' },
+                    { text: 'Testing result', value: 'protein' },
+                    { text: 'Option', value: 'actions', sortable: false },
+            ],
+            data: []
         }
     },
     getter:{

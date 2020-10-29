@@ -2,8 +2,8 @@
 
 
   <v-data-table
-    :headers="ESRTable.headers"
-    :items="ESRTable.data"
+    :headers="ESRheaders"
+    :items="ESRTable"
     class="elevation-1"
     multi-sort
     :search="search"
@@ -108,37 +108,35 @@
 </template>
 
 <script>
-import {mapState} from 'vuex';
+
 // import qs from 'qs'
   export default {
     data: () => ({
       dialog: false,
-      ESR:"",
       search: '',
-      headers: [
+      ESRheaders: [
         {
           text: 'ESR',
           align: 'start',
           sortable: false,
-          value: 'name',
+          value: 'esr',
         },
         {
           text: 'Prj.',
           align: 'start',
           sortable: false,
-          value: 'name',
+          value: 'proj',
         },
-        { text: 'PE', value: 'calories' },
-        { text: 'Cover Mat.', value: 'fat' },
-        { text: 'Housing Mat', value: 'carbs' },
-        { text: 'Emblem Mat', value: 'protein' },
-        { text: 'Cushion Mat', value: 'protein' },
-        { text: 'Cushion fold', value: 'protein' },
-        { text: 'Cushion type', value: 'protein' },
-        { text: 'Testing result', value: 'protein' },
+        { text: 'PE', value: 'pe' },
+        { text: 'Cover Mat.', value: 'cover_mat' },
+        { text: 'Housing Mat', value: 'housing_mat' },
+        { text: 'Emblem Mat', value: 'emblem_mat' },
+        { text: 'Cushion Mat', value: 'cushion_mat' },
+        { text: 'Cushion type', value: 'cushion_type' },
+        { text: 'Testing result', value: 'test_res' },
         { text: 'Option', value: 'actions', sortable: false },
       ],
-      desserts: [],
+      ESRTable: [],
       editedIndex: -1,
       editedItem: {
         name: '',
@@ -165,9 +163,6 @@ import {mapState} from 'vuex';
       formTitle () {
         return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
       },
-      ...mapState({
-        ESRTable : state => state.ESRTable,
-        }),
     },
 
     watch: {
@@ -187,10 +182,13 @@ import {mapState} from 'vuex';
           value.toString().indexOf(search) !== -1
       },
       getData() {
-      this.$axios.get("/static/data.json").then(
+        this.$axios.get("/api/getdatabase").then(
         response => {
-          console.log(response.data);
-          this.ESRTable.data = JSON.parse(response.data);
+          // console.log(response.data);
+          // this.ESRTable.data = JSON.parse(response.data);
+          this.ESRTable = response.data;
+          // console.log('look')
+          // console.log(this.ESRTable.data)
         },
         error => {  
           console.log(error);

@@ -111,26 +111,54 @@ import {mapState} from 'vuex';
     methods:{
     validate () {
         this.$store.commit('nextStep')
-        this.SaveData()
+        // this.SaveData()
       },
     onBackStep(){
           this.$store.commit('backStep')
       },  
-    SaveData() {
-          this.$axios.get("/api/ProjectTable",{
-          params:{
-            ProjectTableData : JSON.stringify(this.CurrentForm)
-          }
-          })
-          .then(
-            response => {
-              console.log(response);
-            },
-            error => {  
-              console.log(error);
-            }
-          );
-    },
+    addDB(){
+      this.$axios.post('/api/addESR2DB',JSON.stringify(this.$store.state.form),{headers:{'Content-Type':'application/x-www-form-urlencoded'}})
+					.then(res=>{
+						const blob = this.base64ToBlob(res.data,'application/pdf')
+						this.PDFfile= window.URL.createObjectURL(blob)
+							})
+					.catch(function (error) {
+						console.log(error);
+						})
+				},
+  
+    // SaveData() {
+    //       this.$axios.get("/api/ProjectTable",{
+    //       params:{
+    //         ProjectTableData : JSON.stringify(this.CurrentForm)
+    //       }
+    //       })
+    //       .then(
+    //         response => {
+    //           console.log(response);
+    //         },
+    //         error => {  
+    //           console.log(error);
+    //         }
+    //       );
+    //       this.saveDB()
+    // },
+  // saveDB(){
+  //       this.$axios.post("/api/addESR2DB",{
+  //         params:{
+  //           ProjectTableData : JSON.stringify(this.CurrentForm)
+  //         }
+  //         })
+  //         .then(
+  //           response => {
+  //             console.log(response);
+  //           },
+  //           error => {  
+  //             console.log(error);
+  //           }
+  //         );
+
+  // }
    }
   }
 </script>

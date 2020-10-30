@@ -63,7 +63,8 @@
 				curPageNum: 0,
 			}
 		},
-        mounted() {
+
+        created() {
 			this.postRequest()
         },
 		computed:{
@@ -112,9 +113,7 @@
 				this.$axios.post('/api/RequestForm',JSON.stringify(this.$store.state.form),{headers:{'Content-Type':'application/x-www-form-urlencoded'}})
 					.then(res=>{
 						const blob = this.base64ToBlob(res.data,'application/pdf')
-						console.log(blob)
 						this.PDFfile= window.URL.createObjectURL(blob)
-						console.log('here')
 							})
 					.catch(function (error) {
 						console.log(error);

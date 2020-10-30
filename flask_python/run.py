@@ -4,26 +4,34 @@ import os
 import json
 from io import BytesIO
 from PIL import Image
+
+from flask_sqlalchemy import SQLAlchemy
 import base64
 import ESRpdf
 
+from ESRDB import app
+from ESRDB import db
+from ESRDB import ESR
 
-app = Flask(__name__)
-
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['img_pic'] = r".\img\background.jpg"
 app.config['ESR'] = r"../ESR"
+app.config['ESRDB'] = r"../DB"
 CORS(app)
 
 @app.route('/')
 # @app.route('/index.html')
 def index():
     return render_template('index.html')
-    
+
 @app.route('/ProjectTable')
 def writejson():
-    fout = open(r"C:\Users\yujin.wang\Desktop\Vuejs\10_MyApp\vuetify-app\public\static\data.json",'w')
-    ProjectData = request.args.get('ProjectTableData')
+    fout = open(r"C:\Users\yujin.wang\Desktop\Vuejs\10_MyApp\Autoliv_ESR_Foreend\public\static\data.json","r+")
+    ProjectData = json.load(fout)
+    ProjectData.append(request.args.get('ProjectTableData'))
     json.dump(ProjectData,fout)
+    fout.close()
+    
     return "OK"
 
 @app.route('/makedir',methods=['POST'])
@@ -32,10 +40,9 @@ def makedir():
     data = json.loads(request.get_data(as_text=True))
     ESRpath = app.config['ESR']+'/'+data['ESRNumber']
     try:
-        os.remove(ESRpath)
+        os.mkdir(ESRpath)
     except:
         pass
-    os.mkdir(ESRpath)
     return (ESRpath)
 
 
@@ -89,9 +96,9 @@ def delete():
     return "Delete done"
 
 @app.route('/RequestForm',methods=["POST"])
-def RequestForm():  
+def RequestForm():
+    print ('RequestForm')
     data = json.loads(request.get_data(as_text=True))
-    print (data)
     home_data = {
         "ESR": data['ESRNumber'], 
         "PE": data['PEName'], 
@@ -100,15 +107,55 @@ def RequestForm():
         "Date1": data['date1'],
         "Date2": data['date2']
         }
-        
     task_data = [("BOM",data['BOMFile'] ),("DAB CAD",data['CADFile']),("Inflator",data['InflatorFile']),("CushionFoldFile",data['CushionFoldFile']),("Cases","123")]
     filedir = ESRpath + '/'+ data['ESRNumber']+"_"+data['date1']
     a = ESRpdf.PDFGenerator(ESRpath + '/'+ data['ESRNumber']+"_"+data['date1'])
-    
     a.genTaskPDF(home_data, task_data)
-    print ('filestream')
+    #添加数据到ESR DB
+    data = ESR(caer='yujin.wang1',pe=data['PEName'],oem="GWM",esr=data['ESRNumber'],date="2020-10-25", \
+                    proj="B01",afis=data['ProjectCode'],cushion_type="DRR",cushion_mat="470",cover_mat="TT1081B",housing_mat="DC04", \
+                         emblem_mat = "T45M",test_res="good")
+    addESRDB(data)
     return return_img_stream(filedir+'.pdf')
+
+# @app.route('/addESR',methods=["POST"])
+# def addESR():
+#     data = json.loads(request.get_data(as_text=True))
+#     print (data)
+#     home_data = {
+#         "ESR": data['ESRNumber'], 
+#         "PE": data['PEName'], 
+#         "ProjectCode":data['ProjectCode'],
+#         "Team": data['TeamName'], 
+#         "Date1": data['date1'],
+#         "Date2": data['date2']
+#         }
+#     admin = ESR(caer='yujin.wang',pe="haiming.chen",oem="GWM",esr="123456",date="2020-10-25", \
+#                         proj="B01",afis="12345",cushion_type="DRR",cushion_mat="470",cover_mat="TT1081B",housing_mat="DC04", \
+#                             emblem_mat = "T45M",test_res="good")
+#     db.session.add(admin)
+#     db.session.commit()
+#     db.session.close()   
+
     
+@app.route('/getdatabase', methods = ['GET'])
+def getdatabase():
+    if request.method == 'GET':
+        a = []
+        for u in ESR.query.all():
+            u.__dict__.pop('_sa_instance_state')
+            a.append(u.__dict__)
+        print(jsonify(a))
+        return jsonify(a)
+##############################################################################################################################
+################################################################ FUNCTION ####################################################
+##############################################################################################################################
+def addESRDB(data):
+    db.create_all()
+    db.session.add(data)
+    db.session.commit()
+    db.session.close()
+    print ('ok')
     
 def return_img_stream(img_local_path):
   img_stream = ''

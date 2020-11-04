@@ -9,9 +9,8 @@ from flask_sqlalchemy import SQLAlchemy
 import base64
 import ESRpdf
 
-from ESRDB import app
-from ESRDB import db
-from ESRDB import ESR
+from ESRDB import *
+
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['img_pic'] = r".\img\background.jpg"
@@ -97,7 +96,6 @@ def delete():
 
 @app.route('/RequestForm',methods=["POST"])
 def RequestForm():
-    print ('RequestForm')
     data = json.loads(request.get_data(as_text=True))
     home_data = {
         "ESR": data['ESRNumber'], 
@@ -137,7 +135,7 @@ def RequestForm():
 #     db.session.commit()
 #     db.session.close()   
 
-    
+###############################################################DataBase #################################################### 
 @app.route('/getdatabase', methods = ['GET'])
 def getdatabase():
     if request.method == 'GET':
@@ -145,8 +143,19 @@ def getdatabase():
         for u in ESR.query.all():
             u.__dict__.pop('_sa_instance_state')
             a.append(u.__dict__)
-        print(jsonify(a))
+       
         return jsonify(a)
+        
+@app.route('/findDB', methods = ['POST'])
+def findDB():
+    obj = request.get_data(as_text=True)
+    print ('*****************************')
+    print (obj)
+    a  = ESR.query.filter_by(esr= obj).count()
+    if a >0:
+        return "1"
+    else :
+        return "0"
 ##############################################################################################################################
 ################################################################ FUNCTION ####################################################
 ##############################################################################################################################
@@ -160,7 +169,6 @@ def addESRDB(data):
 def return_img_stream(img_local_path):
   img_stream = ''
   with open(img_local_path, 'rb') as img_f:
-    print ('ok')
     img_stream = img_f.read()
     img_stream = base64.b64encode(img_stream)
   return img_stream 

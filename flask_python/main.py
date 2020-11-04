@@ -2,6 +2,7 @@ from flask import jsonify
 from ESRDB import db
 from ESRDB import ESR
 from flask import g
+from ESRDB import findDB
 import json
 # db.create_all()
 # admin = ESR(caer='yujin.wang',pe="haiming.chen",oem="GWM",esr="123456",date="2020-10-25", \
@@ -13,7 +14,8 @@ import json
 # db.session.close()
 # print (ESR.query.all())
 a = []
-for u in ESR.query.all():
-    u.__dict__.pop('_sa_instance_state')
-    a.append(u)
-print(a)
+# for u in ESR.query.all():
+    # u.__dict__.pop('_sa_instance_state')
+    # a.append(u)
+c = ESR.query.filter_by(esr= "123456").first_or_404(description='There is no data with')
+print(c)

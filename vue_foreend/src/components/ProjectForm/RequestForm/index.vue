@@ -1,5 +1,6 @@
 <template>
     <div>
+
 	<el-button :disabled="false" size='mini' type="success" @click='downloadPDF'>Dowload PDF</el-button>
 	<v-card >
 		<pdf ref="pdf" 
@@ -29,13 +30,55 @@
                 <v-spacer/>
             </v-row>
         </v-container>
-    <v-btn class= "mx-5"
+		
+	<!-- <v-btn
+      color="success"
+      class="mr-4"
+      
+      @click.native = "validate()"
+      
+    >
+      Next
+    </v-btn> -->
+
+ <v-bottom-sheet
+      v-model="sheet"
+      persistent
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          color="green"
+          dark
+          v-bind="attrs"
+          v-on="on"
+			@click.native = "validate()"
+        >
+          Next
+        </v-btn>
+      </template>
+      <v-sheet
+        class="text-center"
+        height="200px"
+      >
+        <v-btn
+          class="mt-6"
+          text
+          color="error"
+          @click="sheet = !sheet"
+        >
+          close
+        </v-btn>
+        <div class="py-3">
+          The ESR is already created, do you want to rupdate!
+        </div>
+      </v-sheet>
+    </v-bottom-sheet>
+	<v-btn class= "mx-5"
       color="primary"
       @click="onBackStep"
       >
       Back
     </v-btn>
-	
     </div>
 	
 </template>
@@ -61,12 +104,14 @@
 				// 加载进度
 				loadedRatio: 0,
 				curPageNum: 0,
+				checkESR:1,
+				sheet: false,
 			}
 		},
 
-        created() {
-			this.postRequest()
-        },
+        // created() {
+		// 	this.postRequest()
+        // },
 		computed:{
 			...mapState({CurrentForm : state => state.form,})
         },
@@ -147,9 +192,39 @@
 				routeData.url = this.PDFfile
 				
 				window.open(routeData.url, '_blank');
-			}
+			},
+			validate(){
+				// this.$store.commit('nextStep')
+				this.checkesr()
+				console.log('adasdad')
+				console.log(this,this.checkESR)
+				if (this.checkESR == 0){
+					this.sheet = false
+					console.log(this.checkESR)
+					this.postRequest()
+				} else {
+					this.sheet = true
+					console.log('Find duplicate ESR')
+				}
+
+			// this.SaveData()
+			},
+			checkesr(){
+				// console.log("HERE")
+				// console.log(this.CurrentForm.ESRNumber)
+				this.$axios.post('/api/findDB',this.CurrentForm.ESRNumber,{headers:{'Content-Type':'application/x-www-form-urlencoded'}})
+					.then(res=>{
+						console.log("1231231")
+						console.log(res.data)
+						this.checkESR = res.data
+							})
+					.catch(function (error) {
+						console.log(error);
+						})
+				},
+		},
+			
 		}
-	}
 </script>
 
 

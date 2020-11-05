@@ -2,7 +2,6 @@ from flask import jsonify
 from ESRDB import db
 from ESRDB import ESR
 from flask import g
-from ESRDB import findDB
 import json
 # db.create_all()
 # admin = ESR(caer='yujin.wang',pe="haiming.chen",oem="GWM",esr="123456",date="2020-10-25", \

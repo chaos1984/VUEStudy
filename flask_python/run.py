@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify,send_file, make_respo
 from flask_cors import CORS
 import os
 import json
+import getpass
 from io import BytesIO
 from PIL import Image
 
@@ -152,10 +153,22 @@ def findDB():
     print ('*****************************')
     print (obj)
     a  = ESR.query.filter_by(esr= obj).count()
-    if a >0:
-        return "1"
+    print (a,type(a),a==0)
+    if a == 0:
+        print ('************0*************')
+        return "0" #No duplicated files
     else :
-        return "0"
+        print ('************1*************')
+        return "1"
+@app.route('/delitem', methods = ['POST'])
+def delitem():
+     item_id = request.get_data(as_text=True)
+     print (item_id)
+     db.session.query(ESR).filter(ESR.id==item_id).delete()
+     db.session.commit()
+     db.session.close()
+     return 'Delete done!'
+    
 ##############################################################################################################################
 ################################################################ FUNCTION ####################################################
 ##############################################################################################################################

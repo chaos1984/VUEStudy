@@ -18,18 +18,18 @@
           label="Search (UPPER CASE ONLY)"
           class="mx-4"
         ></v-text-field>
-        <v-divider
+        <!-- <v-divider
           class="mx-4"
           inset
           vertical
-        ></v-divider>
+        ></v-divider> -->
         
-        <v-spacer></v-spacer>
-        <v-btn  class="mb-2" width="100px" @click.native="SaveData()">Save</v-btn>
+        <!-- <v-spacer></v-spacer>
+        <v-btn  class="mb-2" width="100px" @click.native="SaveData()">Save</v-btn> -->
         
         <v-dialog v-model="dialog" max-width="500px">
         
-          <template v-slot:activator="{ on, attrs }">
+          <!-- <template v-slot:activator="{ on, attrs }">
             <v-btn
               color="primary"
               dark
@@ -38,7 +38,7 @@
               v-on="on"
             >New Item</v-btn>
             
-          </template>
+          </template> -->
           
           <v-card>
             <v-card-title>
@@ -113,6 +113,7 @@
   export default {
     data: () => ({
       dialog: false,
+      dialogDelete: false,
       search: '',
       ESRheaders: [
         {
@@ -169,6 +170,9 @@
       dialog (val) {
         val || this.close()
       },
+      dialogDelete (val) {
+        val || this.closeDelete()
+      },
     },
 
     mounted() {
@@ -203,17 +207,34 @@
       },
 
       deleteItem (item) {
-        const index = this.ESRTable.data.indexOf(item)
-        confirm('Are you sure you want to delete this item?') && this.ESRTable.data.splice(index, 1)
+        const index = item.id
+        console.log(item.id)
+        console.log(this.ESRTable)
+        // console.log(this.ESRTable.data)
+        confirm('Are you sure you want to delete this item?') && this.$axios.post('/api/delitem',index,{headers:{'Content-Type':'application/x-www-form-urlencoded'}})
+        
+        this.ESRTable.splice(item.id-1, 1)
+        // this.getData()
+        // this.closeDelete()
+        // this.dialogDelete = true
       },
 
-      close () {
+
+     close () {
         this.dialog = false
         this.$nextTick(() => {
           this.editedItem = Object.assign({}, this.defaultItem)
           this.editedIndex = -1
         })
       },
+
+    //   closeDelete () {
+    //     this.dialogDelete = false
+    //     this.$nextTick(() => {
+    //       this.editedItem = Object.assign({}, this.defaultItem)
+    //       this.editedIndex = -1
+    //     })
+    //   },
 
       save () {
         if (this.editedIndex > -1) {
@@ -224,21 +245,21 @@
         console.log(this.ESRTable.data)
         this.close()
       },
-      SaveData() {
-          this.$axios.get("/api/ProjectTable",{
-          params:{
-            ProjectTableData : JSON.stringify(this.ESRTable.data)
-          }
-          })
-          .then(
-            response => {
-              console.log(response);
-            },
-            error => {  
-              console.log(error);
-            }
-          );
-    },
+    //   SaveData() {
+    //       this.$axios.get("/api/ProjectTable",{
+    //       params:{
+    //         ProjectTableData : JSON.stringify(this.ESRTable.data)
+    //       }
+    //       })
+    //       .then(
+    //         response => {
+    //           console.log(response);
+    //         },
+    //         error => {  
+    //           console.log(error);
+    //         }
+    //       );
+    // },
     },
   }
 </script>

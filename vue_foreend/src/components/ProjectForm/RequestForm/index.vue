@@ -109,9 +109,9 @@
 			}
 		},
 
-        // created() {
-		// 	this.postRequest()
-        // },
+        created() {
+			this.checkesr()
+        },
 		computed:{
 			...mapState({CurrentForm : state => state.form,})
         },
@@ -195,16 +195,12 @@
 			},
 			validate(){
 				// this.$store.commit('nextStep')
-				this.checkesr()
-				console.log('adasdad')
-				console.log(this,this.checkESR)
 				if (this.checkESR == 0){
 					this.sheet = false
-					console.log(this.checkESR)
 					this.postRequest()
+					this.checkESR = 1
 				} else {
 					this.sheet = true
-					console.log('Find duplicate ESR')
 				}
 
 			// this.SaveData()
@@ -214,14 +210,13 @@
 				// console.log(this.CurrentForm.ESRNumber)
 				this.$axios.post('/api/findDB',this.CurrentForm.ESRNumber,{headers:{'Content-Type':'application/x-www-form-urlencoded'}})
 					.then(res=>{
-						console.log("1231231")
-						console.log(res.data)
 						this.checkESR = res.data
 							})
 					.catch(function (error) {
 						console.log(error);
 						})
 				},
+				
 		},
 			
 		}

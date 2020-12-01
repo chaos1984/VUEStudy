@@ -1,6 +1,6 @@
 <!-- ValidateForm -->
 <template>
-  <v-card height = "302px">
+  <v-card >
    <v-card-title >
       BOM Info
   </v-card-title>
@@ -11,8 +11,49 @@
       <uploadfile @getFileName = "getFileName" :data = "CADFile"/>
       
       <!-- <v-btn color="primary" text @click="uploadFile">test</v-btn> -->
-    </v-card-text>
+      <v-row >
+      <v-col         
+        cols="12"
+        sm="4">
+      <p>Housingn Mat.</p>
+      <v-overflow-btn 
+        :items="Housingnmat"
+        label="*Select cushion mat"
 
+        item-value="text"
+        :rules="overflowbtnrules"
+      >
+      </v-overflow-btn>
+      </v-col>
+            <v-col         
+        cols="12"
+        sm="4">
+      <p>Cover Mat.</p>
+      <v-overflow-btn 
+        :items="Covermat"
+        label="*Select cushion fold"
+
+        item-value="text"
+        :rules="overflowbtnrules"
+      >
+      </v-overflow-btn>
+      </v-col>
+      <v-col         
+        cols="12"
+        sm="4">
+      <p>Emblem Mat.</p>
+      <v-overflow-btn 
+        :items="Covermat"
+        label="*Select cushion fold"
+
+        item-value="text"
+        :rules="overflowbtnrules"
+      >
+      </v-overflow-btn>
+      </v-col>
+    </v-row>
+    </v-card-text>
+    
   </v-card>
 
 
@@ -22,6 +63,8 @@
 import {mapState} from 'vuex';
   export default {
     data: () => ({
+        Housingnmat: ['PG8 GF40%','DX51D'],
+        Covermat: ['TT1081B','TT990B','TA4003BE'],
         BOMFile : {
               name : "BOMFile",
               disabled:false,

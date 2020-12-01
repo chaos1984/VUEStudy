@@ -117,24 +117,26 @@
       search: '',
       ESRheaders: [
         {
-          text: 'ESR',
+          text: 'Prj',
           align: 'start',
           sortable: false,
-          value: 'esr',
+          value: 'PRJ',
         },
-        {
-          text: 'Prj.',
-          align: 'start',
-          sortable: false,
-          value: 'proj',
-        },
-        { text: 'PE', value: 'pe' },
-        { text: 'Cover Mat.', value: 'cover_mat' },
-        { text: 'Housing Mat', value: 'housing_mat' },
-        { text: 'Emblem Mat', value: 'emblem_mat' },
-        { text: 'Cushion Mat', value: 'cushion_mat' },
-        { text: 'Cushion type', value: 'cushion_type' },
-        { text: 'Testing result', value: 'test_res' },
+        {text:  'ESR',value: 'ESR'},
+        { text: 'PE', value: 'PE' },
+        { text: 'Interface', value: 'Interface' },
+        { text: 'C_Mat.', value: 'CV_Mat' },
+        { text: 'H_Mat', value: 'H_Mat' },
+        { text: 'E_Mat', value: 'E_Mat' },
+        { text: 'Inflator', value: 'Inflator' },
+        { text: 'C_Mat', value: 'C_Mat' },
+        { text: 'C_type', value: 'C_Type' },
+        { text: 'C_Diam', value: 'C_Diam' },
+        { text: 'Tearline', value: 'Tearline' },
+        { text: 'Flappy Mass', value: 'Flappy_Mass' },
+        { text: 'H_width', value: 'H_Width' },
+        { text: 'H_Plane', value: 'H_Plane' },
+        { text: 'H_Neck', value: 'H_Neck' },
         { text: 'Option', value: 'actions', sortable: false },
       ],
       ESRTable: [],
@@ -191,6 +193,7 @@
           // console.log(response.data);
           // this.ESRTable.data = JSON.parse(response.data);
           this.ESRTable = response.data;
+          console.log(this.ESRTable)
           // console.log('look')
           // console.log(this.ESRTable.data)
         },

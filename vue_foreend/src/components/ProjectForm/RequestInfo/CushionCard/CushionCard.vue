@@ -14,7 +14,8 @@
       @change = "validenable"
       ></v-checkbox>
     <v-card
-    :disabled="!CurrentForm.CushionCarryoverflag">
+    :disabled="!CurrentForm.CushionCarryoverflag"
+    dens>
       <uploadfile  ref="child1" @getFileName = "getFileName" :data = "CushiondwgFile"/>
       <uploadfile ref="child2" @getFileName = "getFileName" :data = "CushionFoldFile"/>
     </v-card >
@@ -27,6 +28,30 @@
       :rules = "InputRules"
     >
     </v-text-field>
+    <v-row>
+      <v-col mx="3px">
+      <p>Cushion Mat.</p>
+      <v-overflow-btn 
+        :items="Cushionmat"
+        label="*Select cushion mat"
+
+        item-value="text"
+        :rules="overflowbtnrules"
+      >
+      </v-overflow-btn>
+      </v-col>
+      <v-col mx="3px">
+      <p>Cushion fold type</p>
+      <v-overflow-btn 
+        :items="Cushionfold"
+        label="*Select cushion fold"
+
+        item-value="text"
+        :rules="overflowbtnrules"
+      >
+      </v-overflow-btn>
+      </v-col>
+    </v-row>
       </v-card-text>
       </keep-alive>
   </v-card>  
@@ -38,6 +63,8 @@
 import {mapState} from 'vuex';
 export default {
     data: () => ({
+        Cushionmat: ['470dtex','350dtex'],
+        Cushionfold: ['DRR(Double Reverse Roll)','LC3(Compression Fold ALL Sides)','RC1(Roll Reverse fold foe the 6 and 12H Sides','RC2(Roll Reverse Fold for Only 12H Side'],
         CushiondwgFile : {
               name :'CushiondwgFile',
               disabled:false,
@@ -67,6 +94,9 @@ export default {
               Hint : "EX11_CushionFold_V1.pdf",
         },
       InputRules:[
+                  
+                  ],
+      overflowbtnrules:[
                   
                   ],
       enabled: true,

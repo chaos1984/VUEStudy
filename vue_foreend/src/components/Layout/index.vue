@@ -194,6 +194,7 @@ import {mapState} from 'vuex';
       },
       onCoverMat(){
           this.currentvue = 'Echart';
+          // router.push({'Echart'})
       },
       onESRCalendars(){
           this.currentvue = 'ESRCalendars';

@@ -4,7 +4,6 @@ import os
 import json
 import getpass
 from io import BytesIO
-from PIL import Image
 
 from flask_sqlalchemy import SQLAlchemy
 import base64
@@ -111,10 +110,10 @@ def RequestForm():
     a = ESRpdf.PDFGenerator(ESRpath + '/'+ data['ESRNumber']+"_"+data['date1'])
     a.genTaskPDF(home_data, task_data)
     #添加数据到ESR DB
-    data = ESR(caer='yujin.wang1',pe=data['PEName'],oem="GWM",esr=data['ESRNumber'],date="2020-10-25", \
-                    proj="B01",afis=data['ProjectCode'],cushion_type="DRR",cushion_mat="470",cover_mat="TT1081B",housing_mat="DC04", \
-                         emblem_mat = "T45M",test_res="good")
-    addESRDB(data)
+    #data = ESR(caer='yujin.wang1',pe=data['PEName'],oem="GWM",esr=data['ESRNumber'],date="2020-10-25", \
+    #                proj="B01",afis=data['ProjectCode'],cushion_type="DRR",cushion_mat="470",cover_mat="TT1081B",housing_mat="DC04", \
+    #                     emblem_mat = "T45M",test_res="good")
+    #addESRDB(data)
     return return_img_stream(filedir+'.pdf')
 
 # @app.route('/addESR',methods=["POST"])

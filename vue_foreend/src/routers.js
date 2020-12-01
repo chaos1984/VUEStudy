@@ -1,4 +1,5 @@
 import Layout from './components/Layout'
+import Echart from './components/Echart/Echart'
 
 const routers = [
   {
@@ -10,9 +11,10 @@ const routers = [
       name: 'Layout',
       component: Layout
   }, 
-  // {
-  //     path: './Stepper',
-  //     component: () => import('./components/Stepper'),
-  // },
+  {
+    path: './Echart',
+    name: 'Echart',
+    component: Echart
+}, 
 ]
 export default routers

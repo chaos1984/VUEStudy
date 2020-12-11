@@ -1,285 +1,273 @@
 <template>
-  <el-form
-    :model="DABAIForm"
-    ref="DABAIForm"
-    :rules="DABAIrules"
-    label-width="120px"
-    label-position="left"
-  >
-    <el-row>
-      <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
-        <el-form-item label="Cushion Mat" prop="cushion.mat">
-          <el-select
-            v-model="DABAIForm.cushion.mat"
-            placeholder="请选择气袋材料"
-          >
-            <el-option
-              v-for="item in DABAIForm.cushion.matlist"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
+  <div>
+    <el-form
+      :model="DABAIForm"
+      ref="DABAIForm"
+      :rules="DABAIrules"
+      label-width="120px"
+      label-position="left"
+    >
+      <el-row>
+        <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
+          <el-form-item label="Cushion Mat" prop="cushion.mat">
+            <el-select
+              v-model="DABAIForm.cushion.mat"
+              placeholder="请选择气袋材料"
             >
-            </el-option>
-          </el-select>
-        </el-form-item>
-      </el-col>
-      <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
-        <el-form-item label="Cushion fold" prop="cushion.fold">
-          <el-select
-            v-model="DABAIForm.cushion.fold"
-            placeholder="请选择气袋折叠形式"
-          >
-            <el-option
-              v-for="item in DABAIForm.cushion.foldlist"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
+              <el-option
+                v-for="item in DABAIForm.cushion.matlist"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
+          <el-form-item label="Cushion fold" prop="cushion.fold">
+            <el-select
+              v-model="DABAIForm.cushion.fold"
+              placeholder="请选择气袋折叠形式"
             >
-            </el-option>
-          </el-select>
-        </el-form-item>
-      </el-col>
-      <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
-        <el-form-item label="Cushion tether" prop="cushion.tether">
-          <el-select
-            v-model="DABAIForm.cushion.tether"
-            placeholder="请选择气袋拉带"
-          >
-            <el-option
-              v-for="item in DABAIForm.cushion.tetherlist"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
+              <el-option
+                v-for="item in DABAIForm.cushion.foldlist"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
+          <el-form-item label="Cushion tether" prop="cushion.tether">
+            <el-select
+              v-model="DABAIForm.cushion.tether"
+              placeholder="请选择气袋拉带"
             >
-            </el-option>
-          </el-select>
-        </el-form-item>
-      </el-col>
-      <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
-        <el-form-item label="Cushion Di." prop="cushion.di">
-          <el-select
-            v-model="DABAIForm.cushion.di"
-            placeholder="请输入气袋直径"
-          >
-            <el-option
-              v-for="item in DABAIForm.cushion.dilist"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
+              <el-option
+                v-for="item in DABAIForm.cushion.tetherlist"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
+          <el-form-item label="Cushion Di." prop="cushion.di">
+            <el-select
+              v-model="DABAIForm.cushion.di"
+              placeholder="请输入气袋直径mm"
             >
-            </el-option>
-          </el-select>
-        </el-form-item>
-      </el-col>
-    </el-row>
+              <el-option
+                v-for="item in DABAIForm.cushion.dilist"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+      </el-row>
 
-    <el-row>
-      <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
-        <el-form-item label="Cover Mat" prop="cover.mat">
-          <el-select
-            v-model="DABAIForm.cover.mat"
-            placeholder="请选择Cover材料"
-          >
-            <el-option
-              v-for="item in DABAIForm.cover.matlist"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
+      <el-row>
+        <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
+          <el-form-item label="Cover Mat" prop="cover.mat">
+            <el-select
+              v-model="DABAIForm.cover.mat"
+              placeholder="请选择Cover材料"
             >
-            </el-option>
-          </el-select>
-        </el-form-item>
-      </el-col>
-      <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
-        <el-form-item label="Housing Mat" prop="housing.mat">
-          <el-select
-            v-model="DABAIForm.housing.mat"
-            placeholder="请选择Housing材料"
-          >
-            <el-option
-              v-for="item in DABAIForm.housing.matlist"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
+              <el-option
+                v-for="item in DABAIForm.cover.matlist"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
+          <el-form-item label="Housing Mat" prop="housing.mat">
+            <el-select
+              v-model="DABAIForm.housing.mat"
+              placeholder="请选择Housing材料"
             >
-            </el-option>
-          </el-select>
-        </el-form-item>
-      </el-col>
-      <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
-        <el-form-item label="Emblem Mat" prop="emblem.mat">
-          <el-select
-            v-model="DABAIForm.emblem.mat"
-            placeholder="请选择Emblem材料"
-          >
-            <el-option
-              v-for="item in DABAIForm.emblem.matlist"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
+              <el-option
+                v-for="item in DABAIForm.housing.matlist"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
+          <el-form-item label="Emblem Mat" prop="emblem.mat">
+            <el-select
+              v-model="DABAIForm.emblem.mat"
+              placeholder="请选择Emblem材料"
             >
-            </el-option>
-          </el-select>
-        </el-form-item>
-      </el-col>
-      <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
-        <el-form-item label="Inflator" prop="inflator.type">
-          <el-select
-            v-model="DABAIForm.inflator.type"
-            placeholder="请选择Inflator类型"
-          >
-            <el-option
-              v-for="item in DABAIForm.inflator.typelist"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
+              <el-option
+                v-for="item in DABAIForm.emblem.matlist"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
+          <el-form-item label="Inflator" prop="inflator.type">
+            <el-select
+              v-model="DABAIForm.inflator.type"
+              placeholder="请选择Inflator类型"
             >
-            </el-option>
-          </el-select>
-        </el-form-item>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
-        <el-form-item label="Tearline" prop="cover.tearline">
-          <el-select
-            v-model="DABAIForm.cover.tearline"
-            placeholder="请选择Cover撕裂线形式"
-          >
-            <el-option
-              v-for="item in DABAIForm.cover.tearlinelist"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
+              <el-option
+                v-for="item in DABAIForm.inflator.typelist"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
+          <el-form-item label="Tearline" prop="cover.tearline">
+            <el-select
+              v-model="DABAIForm.cover.tearline"
+              placeholder="请选择Cover撕裂线形式"
             >
-            </el-option>
-          </el-select>
-        </el-form-item>
-      </el-col>
-      <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
-        <el-form-item label="Interface" prop="interface.type">
-          <el-select
-            v-model="DABAIForm.interface.type"
-            placeholder="请选择DAB模块接口类型"
-          >
-            <el-option
-              v-for="item in DABAIForm.interface.typelist"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
+              <el-option
+                v-for="item in DABAIForm.cover.tearlinelist"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
+          <el-form-item label="Interface" prop="interface.type">
+            <el-select
+              v-model="DABAIForm.interface.type"
+              placeholder="请选择DAB模块接口类型"
             >
-            </el-option>
-          </el-select>
-        </el-form-item>
-      </el-col>
-    </el-row>
+              <el-option
+                v-for="item in DABAIForm.interface.typelist"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+      </el-row>
 
-    <el-row>
-      <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
-        <el-form-item label="Hinge width" prop="cover.hingewidth">
-          <el-input
-          onkeyup="value=value.replace(/[^\.\d]/g, '')"
-
-            v-model="DABAIForm.cover.hingewidth"
-            @click="output"
-            placeholder="铰链的最小宽度"
-          ></el-input>
-        </el-form-item>
-      </el-col>
-      <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
-        <el-form-item label="Flappy mass" prop="cover.flappymass">
-          <el-input
-    
-          onkeyup="value=value.replace(/[^\.\d]/g, '')"
-            v-model="DABAIForm.cover.flappymass"
-            @click="output"
-            placeholder="Cover翻开区域质量"
-          ></el-input>
-        </el-form-item>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col>
-        <el-form-item label="Key option" prop="type">
-          <el-checkbox-group v-model="DABAIForm.keyoption">
-            <el-checkbox label="Hinge plane" name="type"></el-checkbox>
-            <el-checkbox label="Wrapper" name="type"></el-checkbox>
-            <el-checkbox label="Hinge neck" name="type"></el-checkbox>
-          </el-checkbox-group>
-        </el-form-item>
-      </el-col>
-    </el-row>
-    <el-form-item>
-      <el-button type="primary"  @click="submitForm('DABAIForm')"
-        >RUN</el-button
-      >
-      <el-button @click="resetForm('DABAIForm')">RESET</el-button>
-    </el-form-item>
-    <!-- <el-form-item label="活动区域" prop="region">
-    <el-select v-model="DABAIForm.region" placeholder="请选择活动区域">
-      <el-option label="区域一" value="shanghai"></el-option>
-      <el-option label="区域二" value="beijing"></el-option>
-    </el-select>
-  </el-form-item>
-  <el-form-item label="活动时间" required>
-    <el-col :span="11">
-      <el-form-item prop="date1">
-        <el-date-picker type="date" placeholder="选择日期" v-model="DABAIForm.date1" style="width: 100%;"></el-date-picker>
+      <el-row>
+        <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
+          <el-form-item label="Hinge width" prop="cover.hingewidth">
+            <el-input
+              onkeyup="value=value.replace(/[^\.\d]/g, '')"
+              v-model="DABAIForm.cover.hingewidth"
+              @click="output"
+              placeholder="铰链的最小宽度mm"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
+          <el-form-item label="Flappy mass" prop="cover.flappymass">
+            <el-input
+              onkeyup="value=value.replace(/[^\.\d]/g, '')"
+              v-model="DABAIForm.cover.flappymass"
+              @click="output"
+              placeholder="Cover翻开区域质量kg"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col>
+          <el-form-item label="Other key option">
+            <el-checkbox
+              label="Wrapper"
+              v-model="DABAIForm.cushion.wrapper"
+              name="type"
+            ></el-checkbox>
+            <el-checkbox
+              label="Hinge plane"
+              v-model="DABAIForm.cover.hingeplane"
+              name="type"
+            ></el-checkbox>
+            <el-checkbox
+              label="Hinge neck"
+              v-model="DABAIForm.cover.hingeneck"
+              name="type"
+            ></el-checkbox>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-form-item>
+        <el-button type="primary" @click="submitForm('DABAIForm')"
+          >RUN</el-button
+        >
+        <el-button @click="resetForm('DABAIForm')">RESET</el-button>
       </el-form-item>
-    </el-col>
-    <el-col class="line" :span="2">-</el-col>
-    <el-col :span="11">
-      <el-form-item prop="date2">
-        <el-time-picker placeholder="选择时间" v-model="DABAIForm.date2" style="width: 100%;"></el-time-picker>
-      </el-form-item>
-    </el-col>
-  </el-form-item>
-  <el-form-item label="即时配送" prop="delivery">
-    <el-switch v-model="DABAIForm.delivery"></el-switch>
-  </el-form-item>
-  <el-form-item label="活动性质" prop="type">
-    <el-checkbox-group v-model="DABAIForm.type">
-      <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
-      <el-checkbox label="地推活动" name="type"></el-checkbox>
-      <el-checkbox label="线下主题活动" name="type"></el-checkbox>
-      <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
-    </el-checkbox-group>
-  </el-form-item>
-  <el-form-item label="特殊资源" prop="resource">
-    <el-radio-group v-model="DABAIForm.resource">
-      <el-radio label="线上品牌商赞助"></el-radio>
-      <el-radio label="线下场地免费"></el-radio>
-    </el-radio-group>
-  </el-form-item>
-  <el-form-item label="活动形式" prop="desc">
-    <el-input type="textarea" v-model="DABAIForm.desc"></el-input>
-  </el-form-item>
-  <el-form-item>
-    <el-button type="primary" @click="submitForm('DABAIForm')">立即创建</el-button>
-    <el-button @click="resetForm('DABAIForm')">重置</el-button>
-  </el-form-item> -->
-  </el-form>
+    </el-form>
+    <el-alert :title="DABPrediction" type="success"> </el-alert>
+    <el-table :data="tableData" style="width: 100%" stripe>
+      <el-table-column prop="covermat" label="Cover mat" width="180" />
+      <el-table-column prop="hingewidth" label="Hinge width" width="180" />
+      <el-table-column prop="tearline" label="Cover tearline" width="180" />
+      <el-table-column
+        prop="cushiondiam"
+        label="Cushion diameter"
+        width="180"
+      />
+      <el-table-column prop="foldtype" label="Cushion fold type" width="180" />
+      <el-table-column
+        prop="flappymass"
+        label="Cover flappy mass"
+        width="180"
+      />
+      <el-table-column prop="hingeneck" label="Cover hinge neck" width="180" />
+      <el-table-column prop="wrapper" label="Cushion wrpper" width="180" />
+      <el-table-column prop="aiprediction" label="AI Prediction" width="180" />
+    </el-table>
+  </div>
 </template>
 
 <script>
 export default {
   data() {
     return {
+      tableData: [{}],
+      DABPrediction: "",
       DABAIForm: {
-        keyoption: [],
         interface: {
           type: "",
           typelist: [
             {
-              value: "1",
+              value: "0",
               label: "ASW3",
             },
             {
-              value: "2",
+              value: "1",
               label: "ASW5",
             },
             {
-              value: "3",
+              value: "2",
               label: "ASW8",
             },
           ],
@@ -288,55 +276,55 @@ export default {
           type: "",
           typelist: [
             {
+              value: "0",
+              label: "ADP1.3B 200kPa",
+            },
+            {
               value: "1",
               label: "ADP1.3B 210kPa",
             },
             {
               value: "2",
-              label: "ADP1.3B 200kPa",
-            },
-            {
-              value: "3",
               label: "ADPS 1.5 210kPa",
             },
           ],
         },
-
         cushion: {
+          wrapper: true,
           mat: "",
           matlist: [
             {
-              value: "1",
+              value: "0",
               label: "350dtex",
             },
             {
-              value: "2",
+              value: "1",
               label: "470dtex",
             },
           ],
           fold: "",
           foldlist: [
             {
-              value: "1",
+              value: "0",
               label: "DRR",
             },
             {
-              value: "2",
+              value: "1",
               label: "LC3",
             },
             {
-              value: "3",
+              value: "2",
               label: "RC1",
             },
             {
-              value: "4",
+              value: "3",
               label: "RC2",
             },
           ],
           tether: "",
           tetherlist: [
             {
-              value: "1",
+              value: "0",
               label: "None",
             },
             {
@@ -383,18 +371,20 @@ export default {
         cover: {
           mat: "",
           hingewidth: "",
+          hingeplane: true,
+          hingeneck: true,
           flappymass: "",
           matlist: [
             {
-              value: "1",
+              value: "0",
               label: "TA4003",
             },
             {
-              value: "2",
+              value: "1",
               label: "TT1081",
             },
             {
-              value: "3",
+              value: "2",
               label: "TT990",
             },
           ],
@@ -408,16 +398,20 @@ export default {
           tearline: "",
           tearlinelist: [
             {
-              value: "1",
+              value: "0",
               label: "H",
             },
             {
-              value: "2",
+              value: "1",
               label: "I",
             },
             {
-              value: "3",
+              value: "2",
               label: "P",
+            },
+            {
+              value: "3",
+              label: "W",
             },
           ],
         },
@@ -426,12 +420,12 @@ export default {
           hingewidth: "",
           matlist: [
             {
-              value: "1",
-              label: "Steel",
+              value: "0",
+              label: "PG8",
             },
             {
-              value: "2",
-              label: "PG8",
+              value: "1",
+              label: "Steel",
             },
           ],
         },
@@ -439,15 +433,15 @@ export default {
           mat: "",
           matlist: [
             {
-              value: "1",
+              value: "0",
               label: "Al",
             },
             {
-              value: "2",
+              value: "1",
               label: "T-45M",
             },
             {
-              value: "3",
+              value: "2",
               label: "T-65",
             },
           ],
@@ -499,11 +493,11 @@ export default {
               trigger: "change",
             },
           ],
-          hingewidth:[
-            {required: true,  message: "请输入数字", trigger: "blur"},
+          hingewidth: [
+            { required: true, message: "请输入数字", trigger: "blur" },
           ],
-          flappymass:[
-            {required: true,  message: "请输入数字", trigger: "blur"}
+          flappymass: [
+            { required: true, message: "请输入数字", trigger: "blur" },
           ],
         },
         housing: {
@@ -549,8 +543,8 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          console.log(this.DABAIForm)
-          this.run()
+          console.log(this.DABAIForm);
+          this.run();
         } else {
           console.log("error submit!!");
           return false;
@@ -564,20 +558,41 @@ export default {
       console.log(this.DABAIForm.cover.mat);
     },
     run() {
-          this.$axios.get("/api/dabai",{
-          params:{
-            ProjectTableData : JSON.stringify(this.DABAIForm)
-          }
-          })
-          .then(
-            response => {
-              console.log(response);
-            },
-            error => {  
-              console.log(error);
+      this.$axios
+        .post("/api/dabai", {
+          params: {
+            TestData: JSON.stringify(this.DABAIForm),
+          },
+        })
+        .then(
+          (response) => {
+            if (response.data < 0.5) {
+              this.DABPrediction = "AI Predcition: GOOD";
+            } else {
+              this.DABPrediction = "AI Predcition: Failure";
             }
-          );
-          this.saveDB()
+            this.tableData.push({
+              covermat: this.DABAIForm.cover.matlist[this.DABAIForm.cover.mat]
+                .label,
+              hingewidth: this.DABAIForm.cover.hingewidth,
+              tearline: this.DABAIForm.cover.tearlinelist[
+                this.DABAIForm.cover.tearline
+              ].label,
+              cushiondiam: this.DABAIForm.cushion.di,
+              foldtype: this.DABAIForm.cushion.foldlist[
+                this.DABAIForm.cushion.fold
+              ].label,
+              flappymass: this.DABAIForm.cover.flappymass,
+              hingeneck: this.DABAIForm.cover.hingeneck.toString(),
+              wrapper: this.DABAIForm.cushion.wrapper.toString(),
+              aiprediction: response.data,
+            });
+            console.log(response);
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
     },
   },
 };

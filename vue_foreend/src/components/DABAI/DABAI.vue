@@ -226,24 +226,37 @@
       </el-form-item>
     </el-form>
     <el-alert :title="DABPrediction" type="success"> </el-alert>
-    <el-table :data="tableData" style="width: 100%" stripe>
-      <el-table-column prop="covermat" label="Cover mat" width="180" />
-      <el-table-column prop="hingewidth" label="Hinge width" width="180" />
-      <el-table-column prop="tearline" label="Cover tearline" width="180" />
+    <el-table
+      :data="tableData"
+      style="width: 100%"
+      stripe
+      fit
+      highlight-current-row
+    >
+      <el-table-column prop="covermat" label="Cover mat" width="180" sortable/>
+      <el-table-column prop="hingewidth" label="Hinge width" width="180" sortable/>
+      <el-table-column prop="tearline" label="Cover tearline" width="180" sortable/>
       <el-table-column
         prop="cushiondiam"
         label="Cushion diameter"
         width="180"
+        sortable
       />
-      <el-table-column prop="foldtype" label="Cushion fold type" width="180" />
+      <el-table-column prop="foldtype" label="Cushion fold type" width="180" sortable/>
       <el-table-column
         prop="flappymass"
         label="Cover flappy mass"
         width="180"
+        sortable
       />
-      <el-table-column prop="hingeneck" label="Cover hinge neck" width="180" />
-      <el-table-column prop="wrapper" label="Cushion wrpper" width="180" />
-      <el-table-column prop="aiprediction" label="AI Prediction" width="180" />
+      <el-table-column prop="hingeneck" label="Cover hinge neck" width="180" sortable/>
+      <el-table-column prop="wrapper" label="Cushion wrapper" width="180" sortable/>
+      <el-table-column
+        prop="aiprediction"
+        label="AI Prediction"
+        width="180"
+        sortable
+      />
     </el-table>
   </div>
 </template>
@@ -252,7 +265,7 @@
 export default {
   data() {
     return {
-      tableData: [{}],
+      tableData: [],
       DABPrediction: "",
       DABAIForm: {
         interface: {
@@ -386,13 +399,6 @@ export default {
             {
               value: "2",
               label: "TT990",
-            },
-          ],
-          matrule: [
-            {
-              required: true,
-              message: "Select one item",
-              trigger: "change",
             },
           ],
           tearline: "",
@@ -597,3 +603,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+#ai {
+  background-image: linear-gradient(#e66465, #9198e5);
+}
+</style>

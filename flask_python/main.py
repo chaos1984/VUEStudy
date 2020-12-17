@@ -160,7 +160,7 @@ def dabai():
     # data['CUSHION FOLDTYPE'] = pd.Categorical(data['CUSHION FOLDTYPE']).codes
     # data['NECK'] = pd.Categorical(data['NECK']).codes
     # data['PLANE'] = pd.Categorical(data['PLANE']).codes
-    test_data = data[['COVER MAT', 'HINGE WIDTH', 'TEARLINE','CUSHION RADIUS','CUSHION FOLDTYPE','FLAPPY MASS','PLANE','NECK', 'WRAPPER']]
+    test_data = data[['COVER MAT', 'HINGE WIDTH','CUSHION RADIUS','FLAPPY MASS','PLANE','NECK', 'WRAPPER']]
     print (test_data)
     x = np.tile(test_data, (10, 1))
     x = xgb.DMatrix(x)

@@ -86,8 +86,8 @@ def XGBClassifier_crossvalidation(alg, dtrain,dtest,predictors,target,useTrainCV
 
 def XGBtrain(alg,dtrain,param_test1,predictors,target):
     xgb_param = alg.get_xgb_params()
-    
     dtrain = xgb.DMatrix(dtrain[predictors], label=dtrain[target])
+    watch_list = [(dtrain, 'train')]
     param = {'max_depth': xgb_param["max_depth"],
              "min_child_weight":xgb_param["min_child_weight"],
              'eta':xgb_param["learning_rate"], 
@@ -99,13 +99,16 @@ def XGBtrain(alg,dtrain,param_test1,predictors,target):
              'colsample_bytree':xgb_param["colsample_bytree"],
              'nthred':4,
              'scale_pos_weight':xgb_param["scale_pos_weight"] }
-    bst = xgb.train(param, dtrain, num_boost_round=alg.get_params()['n_estimators'])
-    
-    xgb.plot_importance(bst)
+    bst = xgb.train(param, dtrain, num_boost_round=alg.get_params()['n_estimators'],evals = watch_list)
+    pickle.dump(bst, open("DABAIMODEL.dat", "wb")) # outpur train model
+    # xgb.plot_importance(bst)
     
     return bst
 
-
+def loadtrainmodel(modelfile):
+    f = open(modelfile,'rb')
+    return pickle.load(f)
+    
 
 def loaddata(file,codes_labels):
     data = pd.read_csv(file)
@@ -116,7 +119,7 @@ def loaddata(file,codes_labels):
 
 if __name__ == "__main__":
     feature_labels =['PRJ. ID','COVER MAT', 'HINGE WIDTH','CUSHION RADIUS','FLAPPY MASS','PLANE','NECK', 'WRAPPER','FAILURE']
-    codes_labels = ['COVER MAT','CUSHION RADIUS','PLANE','NECK', 'WRAPPER']
+    codes_labels = ['COVER MAT','PLANE','NECK', 'WRAPPER']
     train_data = loaddata('alv_train.csv',codes_labels)
     test_data = loaddata('alv_test.csv',codes_labels)
     train_data = train_data[feature_labels]
@@ -150,21 +153,24 @@ if __name__ == "__main__":
     # }
     # XGBClassifier_tunrparameter(xgb1,train_data,param_test1,predictors,target)
     
-    # xgb.train 进行训练预测
-    
-
+    # xgb.train 进行测试预测
     bst = XGBtrain(xgb1,train_data,test_data, predictors,target)
-    test_data1 = xgb.DMatrix(test_data[predictors], label=test_data[target])
+    test_data1 = xgb.DMatrix(test_data[predictors])
+    print (test_data[predictors])
     y_hat = bst.predict(test_data1)
-    y_hat[y_hat > 0.5] = 1
-    y_hat[~(y_hat > 0.5)] = 0
+    y_hat[y_hat > 0.3] = 1
+    y_hat[~(y_hat > 0.3)] = 0
     xgb_acc = accuracy_score(test_data[target], y_hat)
-    bst.save_model('model_file_name.json')
-    bst.dump_model('dump.raw.txt')
+    # bst.save_model('model_file_name.json')
+    # bst.dump_model('dump.raw.txt')
     pickle.dump(bst, open("DABAIMODEL.dat", "wb"))
-    
     test_num = len(test_data[target])
     for num in range(test_num):
         if y_hat[num] != test_data[target][num]:
             print ("ERROR:",test_data["PRJ. ID"][num],'Score:',y_hat[num] )
     print ('XGBoost train model accuracy： %.3f%%' % (100*xgb_acc))
+    
+    #load train model
+    bst1 = loadtrainmodel("DABAIMODEL.dat")
+    y_hat = bst1.predict(test_data1)
+    print (y_hat)

@@ -181,7 +181,6 @@
             <el-input
               onkeyup="value=value.replace(/[^\.\d]/g, '')"
               v-model="DABAIForm.cover.hingewidth"
-              @click="output"
               placeholder="铰链的最小宽度mm"
             ></el-input>
           </el-form-item>
@@ -191,7 +190,6 @@
             <el-input
               onkeyup="value=value.replace(/[^\.\d]/g, '')"
               v-model="DABAIForm.cover.flappymass"
-              @click="output"
               placeholder="Cover翻开区域质量kg"
             ></el-input>
           </el-form-item>
@@ -235,14 +233,14 @@
     >
       <el-table-column prop="covermat" label="Cover mat" width="180" sortable/>
       <el-table-column prop="hingewidth" label="Hinge width" width="180" sortable/>
-      <el-table-column prop="tearline" label="Cover tearline" width="180" sortable/>
+      <!-- <el-table-column prop="tearline" label="Cover tearline" width="180" sortable/> -->
       <el-table-column
         prop="cushiondiam"
         label="Cushion diameter"
         width="180"
         sortable
       />
-      <el-table-column prop="foldtype" label="Cushion fold type" width="180" sortable/>
+      <!-- <el-table-column prop="foldtype" label="Cushion fold type" width="180" sortable/> -->
       <el-table-column
         prop="flappymass"
         label="Cover flappy mass"
@@ -272,15 +270,15 @@ export default {
           type: "",
           typelist: [
             {
-              value: "0",
+              value: 0,
               label: "ASW3",
             },
             {
-              value: "1",
+              value: 1,
               label: "ASW5",
             },
             {
-              value: "2",
+              value: 2,
               label: "ASW8",
             },
           ],
@@ -289,15 +287,15 @@ export default {
           type: "",
           typelist: [
             {
-              value: "0",
+              value: 0,
               label: "ADP1.3B 200kPa",
             },
             {
-              value: "1",
+              value: 1,
               label: "ADP1.3B 210kPa",
             },
             {
-              value: "2",
+              value: 2,
               label: "ADPS 1.5 210kPa",
             },
           ],
@@ -307,130 +305,129 @@ export default {
           mat: "",
           matlist: [
             {
-              value: "0",
+              value: 0,
               label: "350dtex",
             },
             {
-              value: "1",
+              value: 1,
               label: "470dtex",
             },
           ],
           fold: "",
           foldlist: [
             {
-              value: "0",
+              value: 0,
               label: "DRR",
             },
             {
-              value: "1",
+              value: 1,
               label: "LC3",
             },
             {
-              value: "2",
+              value: 2,
               label: "RC1",
             },
             {
-              value: "3",
+              value: 3,
               label: "RC2",
             },
           ],
           tether: "",
           tetherlist: [
             {
-              value: "0",
+              value: 0,
               label: "None",
             },
             {
-              value: "2",
+              value: 2,
               label: "2 tethers",
             },
             {
-              value: "3",
+              value: 3,
               label: "3 tethers",
             },
           ],
           di: "",
           dilist: [
             {
-              value: "650",
+              value: 650,
               label: "650",
             },
             {
-              value: "660",
+              value: 660,
               label: "660",
             },
             {
-              value: "670",
+              value: 670,
               label: "670",
             },
             {
-              value: "680",
+              value: 680,
               label: "680",
             },
             {
-              value: "690",
+              value: 690,
               label: "690",
             },
             {
-              value: "700",
+              value: 700,
               label: "700",
             },
             {
-              value: "710",
+              value: 710,
               label: "710",
             },
           ],
         },
         cover: {
           mat: "",
-          hingewidth: "",
+          hingewidth:'',
           hingeplane: true,
           hingeneck: true,
-          flappymass: "",
+          flappymass: '',
           matlist: [
             {
-              value: "0",
+              value: 0,
               label: "TA4003",
             },
             {
-              value: "1",
+              value: 1,
               label: "TT1081",
             },
             {
-              value: "2",
+              value: 2,
               label: "TT990",
             },
           ],
           tearline: "",
           tearlinelist: [
             {
-              value: "0",
+              value: 0,
               label: "H",
             },
             {
-              value: "1",
+              value: 1,
               label: "I",
             },
             {
-              value: "2",
+              value: 2,
               label: "P",
             },
             {
-              value: "3",
+              value: 3,
               label: "W",
             },
           ],
         },
         housing: {
           mat: "",
-          hingewidth: "",
           matlist: [
             {
-              value: "0",
+              value: 0,
               label: "PG8",
             },
             {
-              value: "1",
+              value: 1,
               label: "Steel",
             },
           ],
@@ -439,15 +436,15 @@ export default {
           mat: "",
           matlist: [
             {
-              value: "0",
+              value: 0,
               label: "Al",
             },
             {
-              value: "1",
+              value: 1,
               label: "T-45M",
             },
             {
-              value: "2",
+              value: 2,
               label: "T-65",
             },
           ],
@@ -457,21 +454,21 @@ export default {
         cushion: {
           mat: [
             {
-              required: true,
+              required: false,
               message: "Please select one item",
               trigger: "change",
             },
           ],
           fold: [
             {
-              required: true,
+              required: false,
               message: "Please select one item",
               trigger: "change",
             },
           ],
           tether: [
             {
-              required: true,
+              required: false,
               message: "Please select one item",
               trigger: "change",
             },
@@ -494,7 +491,7 @@ export default {
           ],
           tearline: [
             {
-              required: true,
+              required: false,
               message: "Please select one item",
               trigger: "change",
             },
@@ -509,7 +506,7 @@ export default {
         housing: {
           mat: [
             {
-              required: true,
+              required: false,
               message: "Please select one item",
               trigger: "change",
             },
@@ -518,7 +515,7 @@ export default {
         emblem: {
           mat: [
             {
-              required: true,
+              required: false,
               message: "Please select one item",
               trigger: "change",
             },
@@ -527,7 +524,7 @@ export default {
         inflator: {
           type: [
             {
-              required: true,
+              required: false,
               message: "Please select one item",
               trigger: "change",
             },
@@ -536,7 +533,7 @@ export default {
         interface: {
           type: [
             {
-              required: true,
+              required: false,
               message: "Please select one item",
               trigger: "change",
             },
@@ -581,13 +578,13 @@ export default {
               covermat: this.DABAIForm.cover.matlist[this.DABAIForm.cover.mat]
                 .label,
               hingewidth: this.DABAIForm.cover.hingewidth,
-              tearline: this.DABAIForm.cover.tearlinelist[
-                this.DABAIForm.cover.tearline
-              ].label,
+              // tearline: this.DABAIForm.cover.tearlinelist[
+              //   this.DABAIForm.cover.tearline
+              // ].label,
               cushiondiam: this.DABAIForm.cushion.di,
-              foldtype: this.DABAIForm.cushion.foldlist[
-                this.DABAIForm.cushion.fold
-              ].label,
+              // foldtype: this.DABAIForm.cushion.foldlist[
+              //   this.DABAIForm.cushion.fold
+              // ].label,
               flappymass: this.DABAIForm.cover.flappymass,
               hingeneck: this.DABAIForm.cover.hingeneck.toString(),
               wrapper: this.DABAIForm.cushion.wrapper.toString(),

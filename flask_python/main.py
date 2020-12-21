@@ -157,16 +157,16 @@ def dabai():
     # data['COVER MAT'] = pd.Categorical(data['COVER MAT']).codes
     # data['TEARLINE'] = pd.Categorical(data['TEARLINE']).codes
     # data['WRAPPER'] = pd.Categorical(data['WRAPPER']).codes
-    # data['CUSHION FOLDTYPE'] = pd.Categorical(data['CUSHION FOLDTYPE']).codes
+    data["FLAPPY MASS"] = data["FLAPPY MASS"].astype('float64')
+    data["HINGE WIDTH"] = data["HINGE WIDTH"].astype('float64')
     # data['NECK'] = pd.Categorical(data['NECK']).codes
     # data['PLANE'] = pd.Categorical(data['PLANE']).codes
     test_data = data[['COVER MAT', 'HINGE WIDTH','CUSHION RADIUS','FLAPPY MASS','PLANE','NECK', 'WRAPPER']]
     print (test_data)
-    x = np.tile(test_data, (10, 1))
-    x = xgb.DMatrix(x)
+    # x = np.tile(test_data, (10, 1))
+    
+    x = xgb.DMatrix(test_data)
     y = bst.predict(x)
-    # y[y > 0.5] = 1
-    # y[~(y > 0.5)] = 0
     return str(y[0])
 
     

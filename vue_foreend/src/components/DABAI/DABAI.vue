@@ -387,15 +387,15 @@ export default {
           flappymass: '',
           matlist: [
             {
-              value: 0,
+              value: [1,0,0],
               label: "TA4003",
             },
             {
-              value: 1,
+              value: [0,1,0],
               label: "TT1081",
             },
             {
-              value: 2,
+              value: [0,0,1],
               label: "TT990",
             },
           ],
@@ -574,8 +574,12 @@ export default {
             } else {
               this.DABPrediction = "AI Predcition: Failure";
             }
+            // if (this.DABAIForm.cover.mat === this.DABAIForm.cover.matlist.value){
+
+            // }
             this.tableData.push({
-              covermat: this.DABAIForm.cover.matlist[this.DABAIForm.cover.mat]
+              
+              covermat: this.DABAIForm.cover.matlist[this.DABAIForm.cover.mat.indexOf(1)]
                 .label,
               hingewidth: this.DABAIForm.cover.hingewidth,
               // tearline: this.DABAIForm.cover.tearlinelist[

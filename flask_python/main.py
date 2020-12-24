@@ -152,8 +152,8 @@ def dabai():
     bst = pickle.load(f)
     data = json.loads(request.get_data(as_text=True))
     data = json.loads(data["params"]["TestData"])
-    columns_name = ['PRJ ID','COVER MAT', 'HINGE WIDTH', 'TEARLINE','CUSHION RADIUS','CUSHION FOLDTYPE','FLAPPY MASS','PLANE','NECK', 'WRAPPER']
-    data = pd.DataFrame([[0,data["cover"]["mat"],data["cover"]["hingewidth"],data["cover"]["tearline"],data["cushion"]["di"],data["cushion"]["fold"],data["cover"]["flappymass"],data["cover"]["hingeplane"],data["cover"]["hingeneck"],data["cushion"]["wrapper"]]],columns=columns_name)
+    columns_name = ['PRJ ID','TA4003','TT1081','TT990', 'HINGE WIDTH', 'TEARLINE','CUSHION RADIUS','CUSHION FOLDTYPE','FLAPPY MASS','PLANE','NECK', 'WRAPPER']
+    data = pd.DataFrame([[0,data["cover"]["mat"][0],data["cover"]["mat"][1],data["cover"]["mat"][2],data["cover"]["hingewidth"],data["cover"]["tearline"],data["cushion"]["di"],data["cushion"]["fold"],data["cover"]["flappymass"],data["cover"]["hingeplane"],data["cover"]["hingeneck"],data["cushion"]["wrapper"]]],columns=columns_name)
     # data['COVER MAT'] = pd.Categorical(data['COVER MAT']).codes
     # data['TEARLINE'] = pd.Categorical(data['TEARLINE']).codes
     # data['WRAPPER'] = pd.Categorical(data['WRAPPER']).codes
@@ -161,11 +161,12 @@ def dabai():
     data["HINGE WIDTH"] = data["HINGE WIDTH"].astype('float64')
     # data['NECK'] = pd.Categorical(data['NECK']).codes
     # data['PLANE'] = pd.Categorical(data['PLANE']).codes
-    test_data = data[['COVER MAT', 'HINGE WIDTH','CUSHION RADIUS','FLAPPY MASS','PLANE','NECK', 'WRAPPER']]
-    print (test_data)
+
+    test_data = data[['TA4003','TT1081','TT990', 'HINGE WIDTH','CUSHION RADIUS','FLAPPY MASS','PLANE','NECK', 'WRAPPER']]
     # x = np.tile(test_data, (10, 1))
     
     x = xgb.DMatrix(test_data)
+    # print (test_data)
     y = bst.predict(x)
     return str(y[0])
 

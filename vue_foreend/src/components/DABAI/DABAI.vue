@@ -387,15 +387,15 @@ export default {
           flappymass: '',
           matlist: [
             {
-              value: [1,0,0],
+              value: 1,
               label: "TA4003",
             },
             {
-              value: [0,1,0],
+              value: 2,
               label: "TT1081",
             },
             {
-              value: [0,0,1],
+              value: 3,
               label: "TT990",
             },
           ],
@@ -570,17 +570,18 @@ export default {
         .then(
           (response) => {
             if (response.data < 0.5) {
-              this.DABPrediction = "AI Predcition: GOOD";
+              this.DABPrediction = "GOOD";
             } else {
-              this.DABPrediction = "AI Predcition: Failure";
+              this.DABPrediction = " Failure";
             }
             // if (this.DABAIForm.cover.mat === this.DABAIForm.cover.matlist.value){
 
             // }
             this.tableData.push({
               
-              covermat: this.DABAIForm.cover.matlist[this.DABAIForm.cover.mat.indexOf(1)]
-                .label,
+              // covermat: this.DABAIForm.cover.matlist[this.DABAIForm.cover.mat.indexOf(1)]
+              //   .label,
+              covermat: this.DABAIForm.cover.mat,
               hingewidth: this.DABAIForm.cover.hingewidth,
               // tearline: this.DABAIForm.cover.tearlinelist[
               //   this.DABAIForm.cover.tearline
@@ -592,7 +593,7 @@ export default {
               flappymass: this.DABAIForm.cover.flappymass,
               hingeneck: this.DABAIForm.cover.hingeneck.toString(),
               wrapper: this.DABAIForm.cushion.wrapper.toString(),
-              aiprediction: response.data,
+              aiprediction: this.DABPrediction,
             });
             console.log(response);
           },

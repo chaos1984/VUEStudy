@@ -133,10 +133,10 @@ def loaddata(file,codes_labels):
     data = pd.read_csv(file)
     for item in codes_labels:
         data[item] = pd.Categorical(data[item]).codes
-        if max(data[item]) > 1:
-            data_onehot = pd.DataFrame(onehotcode(data[item]),columns = ['TA4003','TT1081','TT990'])
-            data = pd.concat([data,data_onehot],axis=1)
-            print (data)
+        # if max(data[item]) > 1:
+        #     data_onehot = pd.DataFrame(onehotcode(data[item]),columns = ['TA4003','TT1081','TT990'])
+        #     data = pd.concat([data,data_onehot],axis=1)
+    
     return data
 
 def onehotcode(data):
@@ -146,10 +146,12 @@ def onehotcode(data):
     return one_hot_encoded
 
 if __name__ == "__main__":
-    feature_labels =['PRJ. ID','TA4003','TT1081','TT990', 'HINGE WIDTH','CUSHION RADIUS','FLAPPY MASS','PLANE','NECK', 'WRAPPER','FAILURE']
+    feature_labels =['PRJ. ID','COVER MAT', 'HINGE WIDTH','CUSHION RADIUS','FLAPPY MASS','PLANE','NECK', 'WRAPPER','FAILURE']
     codes_labels = ['COVER MAT','PLANE','NECK', 'WRAPPER']
     train_data = loaddata('alv_train.csv',codes_labels)
+    train_data.to_csv("train_data.csv")
     test_data = loaddata('alv_test.csv',codes_labels)
+    test_data.to_csv("test_data.csv")
     train_data = train_data[feature_labels]
     test_data = test_data[feature_labels]
     target = 'FAILURE'

@@ -213,6 +213,11 @@
               v-model="DABAIForm.cover.hingeneck"
               name="type"
             ></el-checkbox>
+            <el-checkbox
+              label="Hinge Daokou"
+              v-model="DABAIForm.cover.daokou"
+              name="type"
+            ></el-checkbox>
           </el-form-item>
         </el-col>
       </el-row>
@@ -377,12 +382,17 @@ export default {
               value: 710,
               label: "710",
             },
+            {
+              value: 720,
+              label: "720",
+            },
           ],
         },
         cover: {
           mat: "",
           hingewidth:'',
           hingeplane: true,
+          daokou: true,
           hingeneck: true,
           flappymass: '',
           matlist: [

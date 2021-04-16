@@ -146,9 +146,9 @@ def onehotcode(data):
     return one_hot_encoded
 
 if __name__ == "__main__":
-    feature_labels =['PRJ. ID','COVER MAT', 'HINGE WIDTH','CUSHION RADIUS','FLAPPY MASS','PLANE','NECK', 'WRAPPER','FAILURE']
-    codes_labels = ['COVER MAT','PLANE','NECK', 'WRAPPER']
-    train_data = loaddata('alv_train.csv',codes_labels)
+    feature_labels =['PRJ. ID', 'HINGE WIDTH','CUSHION RADIUS','FLAPPY MASS','PLANE','NECK', 'WRAPPER','FAILURE']
+    codes_labels = ['PLANE','NECK', 'WRAPPER']
+    train_data = loaddata('alv_train_TT1081.csv',codes_labels)
     train_data.to_csv("train_data.csv")
     test_data = loaddata('alv_test.csv',codes_labels)
     test_data.to_csv("test_data.csv")

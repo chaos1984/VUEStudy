@@ -236,8 +236,13 @@
       fit
       highlight-current-row
     >
-      <el-table-column prop="covermat" label="Cover mat" width="180" sortable/>
-      <el-table-column prop="hingewidth" label="Hinge width" width="180" sortable/>
+      <el-table-column prop="covermat" label="Cover mat" width="180" sortable />
+      <el-table-column
+        prop="hingewidth"
+        label="Hinge width"
+        width="180"
+        sortable
+      />
       <!-- <el-table-column prop="tearline" label="Cover tearline" width="180" sortable/> -->
       <el-table-column
         prop="cushiondiam"
@@ -252,8 +257,18 @@
         width="180"
         sortable
       />
-      <el-table-column prop="hingeneck" label="Cover hinge neck" width="180" sortable/>
-      <el-table-column prop="wrapper" label="Cushion wrapper" width="180" sortable/>
+      <el-table-column
+        prop="hingeneck"
+        label="Cover hinge neck"
+        width="180"
+        sortable
+      />
+      <el-table-column
+        prop="wrapper"
+        label="Cushion wrapper"
+        width="180"
+        sortable
+      />
       <el-table-column
         prop="aiprediction"
         label="AI Prediction"
@@ -390,11 +405,11 @@ export default {
         },
         cover: {
           mat: "",
-          hingewidth:'',
+          hingewidth: "",
           hingeplane: true,
           daokou: true,
           hingeneck: true,
-          flappymass: '',
+          flappymass: "",
           matlist: [
             {
               value: 1,
@@ -588,7 +603,6 @@ export default {
 
             // }
             this.tableData.push({
-              
               // covermat: this.DABAIForm.cover.matlist[this.DABAIForm.cover.mat.indexOf(1)]
               //   .label,
               covermat: this.DABAIForm.cover.mat,

@@ -111,6 +111,7 @@ export default {
     ESRCalendars: () => import("@/components/ESRCalendars/ESRCalendars"),
     test: () => import("@/components/TestData/TestData"),
     DABAI: () => import("@/components/DABAI/DABAI"),
+    DABSVM: () => import("@/components/DABSVM/DABSVM"),
   },
 
   data: () => ({
@@ -149,6 +150,12 @@ export default {
         id: 8,
         title: "DAB Cover Failure Predction",
         action: "onDABAI",
+        icon: "mdi-calendar",
+      },
+      {
+        id: 9,
+        title: "DAB Cover Failure distribution(SVM)",
+        action: "onDABSVM",
         icon: "mdi-calendar",
       },
     ],
@@ -194,6 +201,9 @@ export default {
     },
     onDABAI() {
       this.currentvue = "DABAI";
+    },
+    onDABSVM() {
+      this.currentvue = "DABSVM";
     },
     callEvent(e) {
       this[e]();

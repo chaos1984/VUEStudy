@@ -100,6 +100,7 @@ export default {
         response => {
           console.log(response.data);
           this.bar.series = JSON.parse(response.data);
+          console.log('3333')
           console.log(this.bar.series)
         },
         error => {  

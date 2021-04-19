@@ -102,6 +102,7 @@
       },
       beforeUpload(file) {
         this.filename = file.name
+        console.log(this.filename)
         // return this.$confirm(`确定上传 ${ file.name }？`);
       },
       printuploadinfo(){

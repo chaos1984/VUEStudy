@@ -8,12 +8,13 @@ export default {
   props: ["getDB4fig"],
   data() {
     return {
-      DAB: {"failure":[],"nofailure":[]},
+      
+      DAB: { failure: [], nofailure: [] },
     };
   },
-    mounted() {
+  mounted() {
     // this.drawDatafromJson();
-    this.drawDatafromDB()
+    this.drawDatafromDB();
     // this.extractdata()
   },
 
@@ -31,30 +32,34 @@ export default {
     },
 
     drawDatafromDB() {
-
-        this.DAB.failure = []
-        this.DAB.nofailure = []
-        for (var i=0;i< this.getDB4fig.length;i++){
-            // console.log(typeof(this.getDB4fig[i].Failure))
-            // console.log(this.getDB4fig[i].Failure)
-            if (this.getDB4fig[i].Failure == '1'){
-                // console.log(typeof(this.DAB.failure))
-                this.DAB.failure.push([parseFloat(this.getDB4fig[i].H_Width),parseFloat(this.getDB4fig[i].Flappy_Mass),this.getDB4fig[i].PRJ])  
-                
-            } else {
-                // console.log(typeof(this.DAB.nofailure))
-                this.DAB.nofailure.push([parseFloat(this.getDB4fig[i].H_Width),parseFloat(this.getDB4fig[i].Flappy_Mass),this.getDB4fig[i].PRJ])  
-            }
+      this.DAB.failure = [];
+      this.DAB.nofailure = [];
+      console.log('111')
+      console.log(this.getDB4fig)
+      console.log('111')
+      for (var i = 0; i < this.getDB4fig.length; i++) {
+        // console.log(typeof(this.getDB4fig[i].Failure))
+        // console.log(this.getDB4fig[i].Failure)
+        if (this.getDB4fig[i].Failure == "1") {
+          // console.log(typeof(this.DAB.failure))
+          this.DAB.failure.push([
+            parseFloat(this.getDB4fig[i].H_Width),
+            parseFloat(this.getDB4fig[i].Flappy_Mass),
+            this.getDB4fig[i].PRJ,
+          ]);
+        } else {
+          // console.log(typeof(this.DAB.nofailure))
+          this.DAB.nofailure.push([
+            parseFloat(this.getDB4fig[i].H_Width),
+            parseFloat(this.getDB4fig[i].Flappy_Mass),
+            this.getDB4fig[i].PRJ,
+          ]);
         }
-        // console.log(this.DAB)
-        this.drawPie("main");
+      }
+      // console.log(this.DAB)
+      this.drawPie("main");
     },
 
-    // extractdata(){
-    //     for (var i=0;i< this.getDBfig.length;i++){
-    //      // console.log(i)   
-    //     }
-    // },
     drawPie(id) {
       this.charts = echarts.init(document.getElementById(id));
       this.charts.setOption({
@@ -104,6 +109,7 @@ export default {
         toolbox: {
           feature: {
             dataZoom: {},
+            dataView: { readOnly: false },
             brush: {
               type: ["rect", "polygon", "clear"],
             },
@@ -111,7 +117,7 @@ export default {
         },
         // brush: {},
         legend: {
-          data: ["NoFailure","Failure"],
+          data: ["NoFailure", "Failure"],
           left: "center",
           bottom: 0,
         },
@@ -227,7 +233,6 @@ export default {
     },
   },
   //调用
-
 };
 </script>
 <style scoped>

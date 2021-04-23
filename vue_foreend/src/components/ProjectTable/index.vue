@@ -16,17 +16,17 @@
             label="Search (UPPER CASE ONLY)"
             class="mx-4"
           ></v-text-field>
-          <!-- <v-divider
+          <v-divider
           class="mx-4"
           inset
           vertical
-        ></v-divider> -->
+        ></v-divider> 
 
-          <!-- <v-spacer></v-spacer>
-        <v-btn  class="mb-2" width="100px" @click.native="SaveData()">Save</v-btn> -->
+           <v-spacer></v-spacer>
+        <v-btn  class="mb-2" width="100px" @click.native="SaveData()">Save</v-btn> 
 
           <v-dialog v-model="dialog" max-width="500px">
-            <!-- <template v-slot:activator="{ on, attrs }">
+            <template v-slot:activator="{ on, attrs }">
             <v-btn
               color="primary"
               dark
@@ -35,7 +35,7 @@
               v-on="on"
             >New Item</v-btn>
             
-          </template> -->
+          </template>
 
             <v-card>
               <v-card-title>
@@ -48,19 +48,19 @@
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="editedItem.name"
-                        label="Dessert name"
+                        label="Prj. name"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.calories"
-                        label="Calories"
+                        v-model="editedItem.ESR"
+                        label="ESR"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.fat"
-                        label="Fat (g)"
+                        v-model="editedItem.PE"
+                        label="PE"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
@@ -97,7 +97,7 @@
         <v-btn color="primary">Reset</v-btn>
       </template>
     </v-data-table>
-    <DABSVM :getDB4fig = data4fig></DABSVM>
+    <DABSVM :getDB4fig="CurrentForm.data4fig"></DABSVM>
   </div>
 </template>
 
@@ -108,7 +108,7 @@ export default {
     DABSVM: () => import("@/components/DABSVM/DABSVM"),
   },
   data: () => ({
-    data4fig:{"failure":[],"nofailure":[]},
+    // data4fig: { failure: [], nofailure: [] },
     dialog: false,
     dialogDelete: false,
     search: "",
@@ -166,13 +166,15 @@ export default {
     ...mapState({
       CurrentForm: (state) => state.form,
     }),
-
   },
 
   watch: {
-    ESRTable(newValue) {
-    this.data4fig = newValue
-    },
+    // ESRTable() {
+    //   console.log('12345')
+    //   console.log(this.ESRTable)
+    //   console.log('12345')
+    //   this.data4fig = this.ESRTable;
+    // },
 
     dialog(val) {
       val || this.close();
@@ -180,14 +182,12 @@ export default {
     dialogDelete(val) {
       val || this.closeDelete();
     },
-
   },
 
   mounted() {
     this.getData();
   },
   methods: {
-  
     filterOnlyCapsText(value, search) {
       return (
         value != null &&
@@ -199,17 +199,15 @@ export default {
     getData() {
       this.$axios.get("/api/getdatabase").then(
         (response) => {
-          // console.log(response.data);
-          // this.ESRTable.data = JSON.parse(response.data);
+
           this.ESRTable = response.data;
-          // this.data4fig = response.data.filter(function(value,index) {return value[1]==5;});
-          console.log(this.ESRTable);
-          // console.log('look')
-          // console.log(this.ESRTable.data)
+          this.CurrentForm["data4fig"] = this.ESRTable 
+
         },
         (error) => {
           console.log(error);
-        }
+        },
+      // this.data4fig = this.ESRTable
       );
     },
 

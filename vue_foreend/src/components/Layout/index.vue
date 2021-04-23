@@ -106,12 +106,13 @@ export default {
     Stepper: () => import("@/components/Stepper"),
     ProjectTable: () => import("@/components/ProjectTable"),
     SlideShow: () => import("@/components/SlideShow/SlideShow"),
-    Echart: () => import("@/components/Echart/Echart"),
+    Mat: () => import("@/components/Echart/Mat"),
+    Inf: () => import("@/components/Echart/Inf"),
     MatPage: () => import("@/components/MatPage/MatPage"),
     ESRCalendars: () => import("@/components/ESRCalendars/ESRCalendars"),
     test: () => import("@/components/TestData/TestData"),
     DABAI: () => import("@/components/DABAI/DABAI"),
-    DABSVM: () => import("@/components/DABSVM/DABSVM"),
+    // DABSVM: () => import("@/components/DABSVM/DABSVM"),
   },
 
   data: () => ({
@@ -122,7 +123,12 @@ export default {
     links: ["Home", "About Us", "Team", "Services", "Contact Us"],
     ListTerm: [
       { id: 1, title: "HOME", action: "FrontPage", icon: "mdi-home" },
-      { id: 2, title: "DAB", action: "onDAB", icon: "mdi-steering" },
+      { id: 2, title: "DAB", action: "", icon: "mdi-steering",
+      children: [
+          { title: "New Project", action:  "onDAB", },
+          { title: "Project list", action: "onESRinfo" },
+      ]
+      },
       { id: 3, title: "PAB", action: "onPAB", icon: "iconfont icon-qinang" },
       {
         id: 4,
@@ -138,7 +144,7 @@ export default {
           { title: "Common material comparison", action: "onCoverMat" },
         ],
       },
-      { id: 5, title: "ESRinfo", action: "onESRinfo", icon: "mdi-bomb" },
+      { id: 5, title: "Inflator", action: "onInf", icon: "mdi-bomb" },
       {
         id: 6,
         title: "ESR Calendars",
@@ -150,12 +156,6 @@ export default {
         id: 8,
         title: "DAB Cover Failure Predction",
         action: "onDABAI",
-        icon: "mdi-calendar",
-      },
-      {
-        id: 9,
-        title: "DAB Cover Failure distribution(SVM)",
-        action: "onDABSVM",
         icon: "mdi-calendar",
       },
     ],
@@ -181,7 +181,11 @@ export default {
       this.currentvue = "ProjectTable";
     },
     onCoverMat() {
-      this.currentvue = "Echart";
+      this.currentvue = "Mat";
+      // router.push({'Echart'})
+    },
+    onInf() {
+      this.currentvue = "Inf";
       // router.push({'Echart'})
     },
     onESRCalendars() {
@@ -202,9 +206,9 @@ export default {
     onDABAI() {
       this.currentvue = "DABAI";
     },
-    onDABSVM() {
-      this.currentvue = "DABSVM";
-    },
+    // onDABSVM() {
+    //   this.currentvue = "DABSVM";
+    // },
     callEvent(e) {
       this[e]();
     },

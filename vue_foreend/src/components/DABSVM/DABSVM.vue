@@ -4,6 +4,7 @@
 </template>
 <script>
 import echarts from "echarts";
+import { mapState } from "vuex";
 export default {
   props: ["getDB4fig"],
   data() {
@@ -15,7 +16,14 @@ export default {
   mounted() {
     // this.drawDatafromJson();
     this.drawDatafromDB();
+    
     // this.extractdata()
+  },
+
+   computed: {
+    ...mapState({
+      CurrentForm: (state) => state.form,
+    }),
   },
 
   methods: {
@@ -34,25 +42,22 @@ export default {
     drawDatafromDB() {
       this.DAB.failure = [];
       this.DAB.nofailure = [];
-      console.log('111')
-      console.log(this.getDB4fig)
-      console.log('111')
-      for (var i = 0; i < this.getDB4fig.length; i++) {
+      for (var i = 0; i < this.CurrentForm.data4fig.length; i++) {
         // console.log(typeof(this.getDB4fig[i].Failure))
         // console.log(this.getDB4fig[i].Failure)
-        if (this.getDB4fig[i].Failure == "1") {
+        if (this.CurrentForm.data4fig[i].Failure == "1") {
           // console.log(typeof(this.DAB.failure))
           this.DAB.failure.push([
-            parseFloat(this.getDB4fig[i].H_Width),
-            parseFloat(this.getDB4fig[i].Flappy_Mass),
-            this.getDB4fig[i].PRJ,
+            parseFloat(this.CurrentForm.data4fig[i].H_Width),
+            parseFloat(this.CurrentForm.data4fig[i].Flappy_Mass),
+            this.CurrentForm.data4fig[i].PRJ,
           ]);
         } else {
           // console.log(typeof(this.DAB.nofailure))
           this.DAB.nofailure.push([
-            parseFloat(this.getDB4fig[i].H_Width),
-            parseFloat(this.getDB4fig[i].Flappy_Mass),
-            this.getDB4fig[i].PRJ,
+            parseFloat(this.CurrentForm.data4fig[i].H_Width),
+            parseFloat(this.CurrentForm.data4fig[i].Flappy_Mass),
+            this.CurrentForm.data4fig[i].PRJ,
           ]);
         }
       }
@@ -82,7 +87,7 @@ export default {
                 params.value[2] +
                 " :<br/>" +
                 params.value[0] +
-                "cm " +
+                "mm " +
                 params.value[1] +
                 "kg "
               );
@@ -110,9 +115,6 @@ export default {
           feature: {
             dataZoom: {},
             dataView: { readOnly: false },
-            brush: {
-              type: ["rect", "polygon", "clear"],
-            },
           },
         },
         // brush: {},
@@ -184,7 +186,7 @@ export default {
               lineStyle: {
                 type: "solid",
               },
-              data: [{ type: "average", name: "平均值" }, { xAxis: 160 }],
+              data: [{ type: "average", name: "average line" }],
             },
           },
           {

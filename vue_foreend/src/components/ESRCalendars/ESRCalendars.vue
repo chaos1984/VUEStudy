@@ -82,7 +82,7 @@
       value: '',
       events: [],
       colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'],
-      names: ['Meeting', 'Holiday', 'PTO', 'Travel', 'Event', 'Birthday', 'Conference', 'Party'],
+      names: ['CD542', 'P05', 'EE4', 'EM3', 'CDX707', 'J0X', 'X01', 'V51'],
     }),
     methods: {
       getEvents ({ start, end }) {
@@ -93,7 +93,7 @@
         const days = (max.getTime() - min.getTime()) / 86400000
         let eventCount = this.rnd(days, days + 20)
         console.log(eventCount)
-        eventCount = 1
+        eventCount = 5
 
         for (let i = 0; i < eventCount; i++) {
           const allDay = this.rnd(0, 3) === 0

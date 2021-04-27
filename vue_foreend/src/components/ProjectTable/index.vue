@@ -65,14 +65,14 @@
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.carbs"
-                        label="Carbs (g)"
+                        v-model="editedItem.covermat"
+                        label="Cover Mat."
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.protein"
-                        label="Protein (g)"
+                        v-model="editedItem.hingewidth"
+                        label="Hinge width"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -97,7 +97,7 @@
         <v-btn color="primary">Reset</v-btn>
       </template>
     </v-data-table>
-    <DABSVM :getDB4fig="CurrentForm.data4fig"></DABSVM>
+    <DABSVM ></DABSVM>
   </div>
 </template>
 

@@ -1,5 +1,5 @@
 import Layout from './components/Layout'
-import Echart from './components/Echart/Echart'
+// import Echart from './components/Echart/Echart'
 
 const routers = [
   {
@@ -11,10 +11,10 @@ const routers = [
       name: 'Layout',
       component: Layout
   }, 
-  {
-    path: './Echart',
-    name: 'Echart',
-    component: Echart
-}, 
+//   {
+//     path: './Echart',
+//     name: 'Echart',
+//     component: Echart
+// }, 
 ]
 export default routers

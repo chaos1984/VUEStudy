@@ -470,7 +470,7 @@ export default {
             },
             {
               value: 2,
-              label: "T-65",
+              label: "T-65M",
             },
           ],
         },
@@ -603,17 +603,9 @@ export default {
 
             // }
             this.tableData.push({
-              // covermat: this.DABAIForm.cover.matlist[this.DABAIForm.cover.mat.indexOf(1)]
-              //   .label,
               covermat: this.DABAIForm.cover.mat,
               hingewidth: this.DABAIForm.cover.hingewidth,
-              // tearline: this.DABAIForm.cover.tearlinelist[
-              //   this.DABAIForm.cover.tearline
-              // ].label,
               cushiondiam: this.DABAIForm.cushion.di,
-              // foldtype: this.DABAIForm.cushion.foldlist[
-              //   this.DABAIForm.cushion.fold
-              // ].label,
               flappymass: this.DABAIForm.cover.flappymass,
               hingeneck: this.DABAIForm.cover.hingeneck.toString(),
               wrapper: this.DABAIForm.cushion.wrapper.toString(),

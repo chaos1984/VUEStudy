@@ -124,6 +124,7 @@ export default {
             "ADP-1.3B 210kPa NL_HT",
             "ADP-1.3B 210kPa NL_RT",
             "ADP-1.3B 210kPa NL_LT",
+            "User"
           ],
           align: "auto",
           textStyle: {

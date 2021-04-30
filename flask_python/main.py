@@ -47,6 +47,30 @@ def makedir():
         pass
     return (ESRpath)
 
+@app.route('/upload',methods=["POST"])
+def upload():
+    # test
+    # ESRpath = app.config['ESR']+"//123123"
+    img_stream = ''
+    file_obj = request.files['file']
+    if file_obj is None:
+        # 表示没有发送文件
+        return "未上传文件"
+    # filename = secure_filename(file_obj.filename)
+    
+    '''
+        将文件保存到本地（即当前目录）
+        直接使用上传的文件对象保存
+    '''
+    
+    file_path = os.path.join(ESRpath, file_obj.filename)
+    file_obj.save(file_path)
+    # blend_pic = blend_two_images(file_obj)
+
+    # img_stream = base64.b64encode(blend_pic)
+    print ("Upload done")
+    return "Upload done"
+    
 @app.route('/delete',methods=["POST"])
 def delete():
     # test

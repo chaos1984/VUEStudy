@@ -13,80 +13,33 @@
           <v-toolbar-title>ESR Table</v-toolbar-title>
           <v-text-field
             v-model="search"
-            label="Search (UPPER CASE ONLY)"
+            label="Search"
             class="mx-4"
           ></v-text-field>
-          <v-divider
-          class="mx-4"
-          inset
-          vertical
-        ></v-divider> 
+          <v-divider class="mx-4" inset vertical></v-divider>
 
-           <v-spacer></v-spacer>
-        <v-btn  class="mb-2" width="100px" @click.native="SaveData()">Save</v-btn> 
+          <v-spacer></v-spacer>
+          <v-btn class="mb-2" width="100px" @click.native="SaveData()"
+            >Save</v-btn
+          >
 
-          <v-dialog v-model="dialog" max-width="500px">
+          <el-button type="text" @click="dialogFormVisible = true"
+            >打开嵌套表单的 Dialog</el-button
+          >
+
+          <!-- <v-dialog v-model="dialog" max-width="500px">
             <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              color="primary"
-              dark
-              class="mb-2"
-              v-bind="attrs"
-              v-on="on"
-            >New Item</v-btn>
-            
-          </template>
+              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on"
+                >New Item</v-btn
+              >
+            </template>
 
-            <v-card>
-              <v-card-title>
-                <span class="headline">{{ formTitle }}</span>
-              </v-card-title>
-
-              <v-card-text>
-                <v-container>
-                  <v-row>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.name"
-                        label="Prj. name"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.ESR"
-                        label="ESR"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.PE"
-                        label="PE"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.covermat"
-                        label="Cover Mat."
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.hingewidth"
-                        label="Hinge width"
-                      ></v-text-field>
-                    </v-col>
-                  </v-row>
-                </v-container>
-              </v-card-text>
-
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-                <v-btn color="blue darken-1" text @click="save">Save</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
+            <POPUP />
+          </v-dialog> -->
         </v-toolbar>
+
+   
+        
       </template>
       <template v-slot:item.actions="{ item }">
         <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
@@ -97,7 +50,14 @@
         <v-btn color="primary">Reset</v-btn>
       </template>
     </v-data-table>
-    <DABSVM ></DABSVM>
+    <DABSVM></DABSVM>
+         <el-dialog
+          title="New project"
+          :visible.sync="dialogFormVisible"
+          width="100%"
+        >
+          <POPUP />
+        </el-dialog>
   </div>
 </template>
 
@@ -106,9 +66,11 @@ import { mapState } from "vuex";
 export default {
   components: {
     DABSVM: () => import("@/components/DABSVM/DABSVM"),
+    POPUP: () => import("@/components/ProjectTable/popup1"),
   },
   data: () => ({
     // data4fig: { failure: [], nofailure: [] },
+    dialogFormVisible: false,
     dialog: false,
     dialogDelete: false,
     search: "",
@@ -138,20 +100,6 @@ export default {
     ],
     ESRTable: [],
     editedIndex: -1,
-    editedItem: {
-      name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0,
-    },
-    defaultItem: {
-      name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0,
-    },
     filter: (value) => {
       if (!this.ESR) return true;
 
@@ -169,13 +117,6 @@ export default {
   },
 
   watch: {
-    // ESRTable() {
-    //   console.log('12345')
-    //   console.log(this.ESRTable)
-    //   console.log('12345')
-    //   this.data4fig = this.ESRTable;
-    // },
-
     dialog(val) {
       val || this.close();
     },
@@ -199,15 +140,13 @@ export default {
     getData() {
       this.$axios.get("/api/getdatabase").then(
         (response) => {
-
           this.ESRTable = response.data;
-          this.CurrentForm["data4fig"] = this.ESRTable 
-
+          this.CurrentForm["data4fig"] = this.ESRTable;
         },
         (error) => {
           console.log(error);
-        },
-      // this.data4fig = this.ESRTable
+        }
+        // this.data4fig = this.ESRTable
       );
     },
 

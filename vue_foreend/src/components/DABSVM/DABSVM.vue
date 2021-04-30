@@ -6,7 +6,6 @@
 import echarts from "echarts";
 import { mapState } from "vuex";
 export default {
-  props: ["getDB4fig"],
   data() {
     return {
       
@@ -43,8 +42,6 @@ export default {
       this.DAB.failure = [];
       this.DAB.nofailure = [];
       for (var i = 0; i < this.CurrentForm.data4fig.length; i++) {
-        // console.log(typeof(this.getDB4fig[i].Failure))
-        // console.log(this.getDB4fig[i].Failure)
         if (this.CurrentForm.data4fig[i].Failure == "1") {
           // console.log(typeof(this.DAB.failure))
           this.DAB.failure.push([
@@ -115,6 +112,7 @@ export default {
           feature: {
             dataZoom: {},
             dataView: { readOnly: false },
+            restore:{}
           },
         },
         // brush: {},

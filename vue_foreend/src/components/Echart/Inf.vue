@@ -80,7 +80,7 @@ export default {
       this.$axios.get("/static/json/Inf.json").then(
         (response) => {
           this.line = JSON.parse(JSON.stringify(response.data));
-          console.log(this.line);
+          console.log(this.line.series);
           this.draw("main");
         },
         (error) => {
@@ -93,7 +93,7 @@ export default {
       this.$axios.get("/static/json/Inf.json").then(
         (response) => {
           this.line = JSON.parse(JSON.stringify(response.data));
-          console.log(this.line);
+          // console.log(this.line.legend);
           this.draw("main");
         },
         (error) => {
@@ -115,17 +115,7 @@ export default {
           orient: "vertical",
           right: "right",
           bottom: "10%",
-          data: [
-            "ADPS-1.5 210kPa 0ms HT",
-            "ADPS-1.5 210kPa 0ms LT",
-            "ADP-1.3B 210kPa UL_HT",
-            "ADP-1.3B 210kPa UL_RT",
-            "ADP-1.3B 210kPa UL_LT",
-            "ADP-1.3B 210kPa NL_HT",
-            "ADP-1.3B 210kPa NL_RT",
-            "ADP-1.3B 210kPa NL_LT",
-            "User"
-          ],
+          data: this.line.legend,
           align: "auto",
           textStyle: {
             fontSize: 12,
@@ -198,7 +188,7 @@ export default {
           type: "value",
           name: "Pressure(kPa)",
         },
-        series: this.line,
+        series: this.line.series,
       });
     },
   },

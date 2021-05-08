@@ -32,7 +32,8 @@ const store = new Vuex.Store({
             Inflator:"",
             Case:[true,true,true,false,false,false,false,false,false]
         },
-        data4fig:{}
+        data4fig:{},
+        hovercard:{}
     },
     
     getter:{

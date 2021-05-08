@@ -143,9 +143,11 @@ def getdatabase():
     if request.method == 'GET':
         a = []
         for u in ESR.query.all():
-            u.__dict__.pop('_sa_instance_state')
-            a.append(u.__dict__)
-       
+            try:
+                u.__dict__.pop('_sa_instance_state')
+                a.append(u.__dict__)
+            except:
+                print (u)
         return jsonify(a)
         
 @app.route('/findDB', methods = ['POST'])
@@ -196,11 +198,41 @@ def dabai():
     print (y)
     return str(y[0])
 
-    
+@app.route('/dabinfo', methods = ['POST'])
+def dabinfo():
+    DABinfo = json.loads(request.get_data(as_text=True))
+    DABinfo = json.loads(DABinfo['params']['Dabinfo'])
+    # print ("1111")
+    # print (DABinfo['PE'])
+    # print ("2222")
+    #添加数据到ESR DB
+    data = ESR( PRJ=DABinfo['Prj'],\
+                PE=DABinfo['PE'],\
+                Interface = DABinfo['Inflator'], \
+                ESR = DABinfo['ESR'], \
+                CV_Mat = DABinfo['Covermat'],\
+                H_Mat = DABinfo['Housingmat'], \
+                E_Mat = DABinfo['Emblemmat'],\
+                Inflator = DABinfo['Inflator'],\
+                Tearline = DABinfo['TearlineType'],\
+                C_Tether = DABinfo['TetherType'],\
+                C_Mat = DABinfo['Cushionmat'],\
+                C_Type = DABinfo['CushionFoldType'],\
+                C_Diam = DABinfo['CushionDiameter'],\
+                Wrapper = DABinfo['CushionWrapper'],\
+                Flappy_Mass = DABinfo['FlappyMass'],\
+                H_Width = DABinfo['HingeWidth'],\
+                H_Plane = DABinfo['HingePlane'],\
+                H_Neck = DABinfo['HingeNeck'],\
+                Failure=DABinfo['Testing'])
+    addESRDB(data)
+    return "here"
+   
 ##############################################################################################################################
 ################################################################ FUNCTION ####################################################
 ##############################################################################################################################
 def addESRDB(data):
+    
     db.create_all()
     db.session.add(data)
     db.session.commit()

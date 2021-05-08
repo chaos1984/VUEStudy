@@ -45,14 +45,11 @@
             :label-width="formLabelWidth"
             prop="AFIS"
             :rules="[
-            { required: true, trigger: 'blur' },
-            { max: 5, min: 5, message: '5-char', trigger: 'blur'},
+              { required: true, trigger: 'blur' },
+              { max: 5, min: 5, message: '5-char', trigger: 'blur' },
             ]"
           >
-            <el-input
-              v-model="form.AFIS"
-              autocomplete="off"
-            ></el-input>
+            <el-input v-model="form.AFIS" autocomplete="off"></el-input>
           </el-form-item>
         </el-col>
 
@@ -103,9 +100,9 @@
               placeholder="Select DAB Interface"
               :style="selectwidth"
             >
-              <el-option label="ASW3" value="ASW3"></el-option>
-              <el-option label="ASW5" value="ASW5"></el-option>
-              <el-option label="ASW8" value="ASW8"></el-option>
+              <el-option label="ASW3" value="1"></el-option>
+              <el-option label="ASW5" value="2"></el-option>
+              <el-option label="ASW8" value="3"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -286,6 +283,26 @@
 
         <el-col :span="6">
           <el-form-item
+            label="Tether Type"
+            :label-width="formLabelWidth"
+            prop="TetherType"
+            :rules="[{ required: true, message: 'Select one item' }]"
+          >
+            <el-select
+              v-model="form.TetherType"
+              placeholder="Select emblem material"
+              :style="selectwidth"
+            >
+              <el-option label="3 Invert Y" value="3 Invert Y"></el-option>
+              <el-option label="3 Y" value="3 Y"></el-option>
+              <el-option label="2 Symmetry" value="2 Symmetry"></el-option>
+              <el-option label="2 Unsymmetry" value="2 Unsymmetry"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="6">
+          <el-form-item
             label="Hinge width/mm"
             :label-width="formLabelWidth"
             prop="HingeWidth"
@@ -370,10 +387,10 @@
           </el-form-item>
         </el-col>
 
-                <el-col :span="6">
+        <el-col :span="6">
           <el-form-item label="Simulation result" :label-width="formLabelWidth">
             <el-select
-              v-model="form.Testing"
+              v-model="form.Simulation"
               placeholder="Select Simulation result"
               :style="selectwidth"
             >
@@ -403,26 +420,28 @@ export default {
     return {
       dialogFormVisible: false,
       form: {
-        Prj: "",
-        AFIS: "",
-        ESR: "",
-        PE: "",
-        Interface: "",
-        Covermat: "",
-        Housingmat: "",
-        Emblemmat: "",
-        Inflator: "",
-        Cushionmat: "",
-        CushionFoldType: "",
-        CushionDiameter: "",
+        Prj: "P05",
+        AFIS: "12345",
+        ESR: "123456",
+        PE: "Haiming Chen",
+        Interface: "1",
+        Covermat: "TT1081B",
+        Housingmat: "DX51D",
+        Emblemmat: "T45",
+        Inflator: "ADPS 1.5 210kPa 0ms",
+        Cushionmat: "470 dtex",
+        CushionFoldType: "3-9 roll 6-12 roll",
+        CushionDiameter: "660",
+        TetherType:"2 Unsymmetry",
         CushionWrapper: false,
-        TearlineType: "",
-        FlappyMass: "",
-        HingeWidth: "",
+        TearlineType: "H",
+        FlappyMass: "0.022",
+        HingeWidth: "32",
         HingePlane: false,
         HingeNeck: false,
-        Testing: "",
-        OEM: "",
+        Testing: "No Failure",
+        Simulation: "No Failure",
+        OEM: "[1,1]",
       },
       selectwidth: "width: 385px",
       formLabelWidth: "130px",
@@ -432,7 +451,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          console.log(this.DABAIForm);
+          console.log(this.form);
           this.run();
         } else {
           console.log("error submit!!");
@@ -443,36 +462,16 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
-    output() {
-      console.log(this.DABAIForm.cover.mat);
-    },
     run() {
       this.$axios
-        .post("/api/dabai", {
+        .post("/api/dabinfo", {
           params: {
-            TestData: JSON.stringify(this.DABAIForm),
+            Dabinfo: JSON.stringify(this.form),
           },
         })
         .then(
           (response) => {
-            if (response.data < 0.5) {
-              this.DABPrediction = "GOOD";
-            } else {
-              this.DABPrediction = " Failure";
-            }
-            // if (this.DABAIForm.cover.mat === this.DABAIForm.cover.matlist.value){
-
-            // }
-            this.tableData.push({
-              covermat: this.DABAIForm.cover.mat,
-              hingewidth: this.DABAIForm.cover.hingewidth,
-              cushiondiam: this.DABAIForm.cushion.di,
-              flappymass: this.DABAIForm.cover.flappymass,
-              hingeneck: this.DABAIForm.cover.hingeneck.toString(),
-              wrapper: this.DABAIForm.cushion.wrapper.toString(),
-              aiprediction: this.DABPrediction,
-            });
-            console.log(response);
+            console.log(response.data);
           },
           (error) => {
             console.log(error);

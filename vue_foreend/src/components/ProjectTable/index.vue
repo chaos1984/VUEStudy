@@ -187,7 +187,7 @@ export default {
       },
       // { text: "ESR", value: "ESR" },
       // { text: "PE", value: "PE" },
-      { text: "Interface", value: "Interface" },
+      // { text: "Interface", value: "Interface" },
       { text: "C_Mat.", value: "CV_Mat" },
       { text: "H_Mat", value: "H_Mat" },
       { text: "E_Mat", value: "E_Mat" },

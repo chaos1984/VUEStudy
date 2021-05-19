@@ -2,15 +2,15 @@
   <!--为echarts准备一个具备大小的容器dom-->
   <div>
     <!-- <el-row :gutter="10"> -->
-      <!-- <el-col :span="12">
+    <!-- <el-col :span="12">
         <el-input
           placeholder="Please input inflator file(abstat) "
           v-model="input"
           clearable
         ></el-input>
       </el-col> -->
-      <!-- <el-col :span="12"> -->
-        <!-- <el-button
+    <!-- <el-col :span="12"> -->
+    <!-- <el-button
           type="primary"
           class="grid-content bg-purple"
           round
@@ -21,7 +21,7 @@
           accept="audio/*"
           ></el-button
         > -->
-        <!-- <el-upload
+    <!-- <el-upload
           :auto-upload="false"
           :on-change="elInFile"
           multiple
@@ -29,7 +29,7 @@
         >
           <el-button size="mini" icon="el-icon-upload2" round></el-button>
         </el-upload> -->
-        <!-- <el-upload
+    <!-- <el-upload
           class="upload-demo"
           drag
           action="https://jsonplaceholder.typicode.com/posts/"
@@ -48,9 +48,42 @@
     </el-row> -->
 
     <!-- <el-divider></el-divider> -->
-    <el-row :gutter="60">
-      <el-col :span="24">
-        <div id="main" style="width: 1200px; height: 800px"></div>
+    <el-row>
+      <el-col :span="16">
+        <div id="main" style="width: 1400px; height: 800px"></div>
+      </el-col>
+
+      <!-- <el-divider></el-divider> -->
+      <el-col :span="8">
+        <el-row>
+          <el-form :inline="true" :model="formInline" class="demo-form-inline">
+            <div v-for="(d, index) in user" :key="index">
+              <el-form-item :label="index + '  Time(ms)'">
+                <el-input
+                  v-model="formInline.time[index]"
+                  placeholder="0"
+                ></el-input>
+              </el-form-item>
+              <el-form-item label="Pressure(kPa)">
+                <el-input
+                  v-model="formInline.pressure[index]"
+                  placeholder="0"
+                ></el-input>
+              </el-form-item>
+              <el-form-item> </el-form-item>
+            </div>
+          </el-form>
+
+          <i class="el-icon-circle-plus" @click="addItem"></i>
+          <i class="el-icon-remove" @click="delItem"></i>
+        </el-row>
+        <el-button
+          round
+          style="font-size: 15px"
+          type="primary"
+          @click="plotUser"
+          >Plot<i class="el-icon-data-line"></i
+        ></el-button>
       </el-col>
     </el-row>
   </div>
@@ -60,8 +93,14 @@ import echarts from "echarts";
 export default {
   data() {
     return {
+      user: [0],
+      test: "",
       line: {},
       input: "",
+      formInline: {
+        time: [0],
+        pressure: [0],
+      },
     };
   },
   mounted() {
@@ -71,6 +110,24 @@ export default {
   },
 
   methods: {
+    plotUser() {
+      var end = this.line.series.length;
+      this.line.series[end - 1].data = [];
+      for (var i = 0; i < this.user.length; i++) {
+        this.line.series[end - 1].data.push([
+          this.formInline.time[i],
+          this.formInline.pressure[i],
+        ]);
+      }
+      console.log(this.line.series[end - 1].data)
+      this.draw("main");
+    },
+    addItem() {
+      this.user.push({});
+    },
+    delItem() {
+      this.user.pop({});
+    },
     elInFile(f, fs) {
       this.staticFiles.push(f);
       this.mscUrl = URL.createObjectURL(fs[0].raw);
@@ -132,39 +189,37 @@ export default {
           feature: {
             dataView: {
               readOnly: false,
-//               optionToContent: function (opt) {
-//                 var axisData = opt.xAxis[0].data;
-//                 var series = opt.series;
-//                 var table ='<table class="layui-table" style="width:100%;text-align:center"><tbody><tr>'
-//                 for (var m = 0, n = series.length; m < n; m++) {
-//                   table  +=  
-//                   "<td>" +
-//                   series[m].name +
-//                   "</td>" ;
+              //               optionToContent: function (opt) {
+              //                 var axisData = opt.xAxis[0].data;
+              //                 var series = opt.series;
+              //                 var table ='<table class="layui-table" style="width:100%;text-align:center"><tbody><tr>'
+              //                 for (var m = 0, n = series.length; m < n; m++) {
+              //                   table  +=
+              //                   "<td>" +
+              //                   series[m].name +
+              //                   "</td>" ;
 
-//                 }
-//                 table +=  "</tr>";
-              
-       
-                
-//                 for (var i = 0, l = 1000; i < l; i++) {
-//                   table += "<tr>"
-//                         "<td>" +i
-//                     axisData[i] +
-//                     "</td>"  
-//                   for (var j = 0, k = series.length; j< k; j++) {
-//                   table +=
-// +
-//                     "<td>" +
-//                     series[j].data[i] +
-//                     "</td>" +
-//                     "<td>" 
-//                   }
-//                 }
-//                 table += "<tr>" 
-//                 table += "</tbody></table>";
-//                 return table;
-//               },
+              //                 }
+              //                 table +=  "</tr>";
+
+              //                 for (var i = 0, l = 1000; i < l; i++) {
+              //                   table += "<tr>"
+              //                         "<td>" +i
+              //                     axisData[i] +
+              //                     "</td>"
+              //                   for (var j = 0, k = series.length; j< k; j++) {
+              //                   table +=
+              // +
+              //                     "<td>" +
+              //                     series[j].data[i] +
+              //                     "</td>" +
+              //                     "<td>"
+              //                   }
+              //                 }
+              //                 table += "<tr>"
+              //                 table += "</tbody></table>";
+              //                 return table;
+              //               },
             },
             saveAsImage: {},
             restore: {},

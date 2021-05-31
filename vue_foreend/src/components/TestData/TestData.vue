@@ -212,7 +212,7 @@
     </v-table>
 
       <iframe
-        src="./static/d3plotviewer_offline.html"
+        src="./static/d3plotviewer_offline_bundle.html"
         title="Inline Frame Example"
         width="100%"
         height="800"

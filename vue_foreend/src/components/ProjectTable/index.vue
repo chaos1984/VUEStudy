@@ -33,107 +33,105 @@
 
       <template v-slot:item.actions="{ item }">
         <el-popover placement="right" width="800" trigger="click">
-          
-          <v-icon small class="mr-2" slot="reference" 
-            >mdi-eye</v-icon
-          >
+          <v-icon small class="mr-2" slot="reference">mdi-eye</v-icon>
           <!-- <DetailInfo :data='item' ></DetailInfo> -->
 
           <div>
-    <el-row
-      ><span class="Title">{{ item.PRJ }}</span></el-row >
+            <el-row
+              ><span class="Title">{{ item.PRJ }}</span></el-row
+            >
 
-    <v-divider></v-divider>
+            <v-divider></v-divider>
 
-    <el-row class="row-bg-light">
-      <el-col :span="8"
-        ><span>AFIS: </span><span class="Content">{{ item.AFIS }}</span></el-col
-      >
-      <el-col :span="8"
-        ><span>ESR: </span><span class="Content">{{ item.ESR }}</span></el-col
-      >
-      <el-col :span="8"
-        ><span>PE: </span> <span class="Content">{{ item.PE }}</span></el-col
-      >
+            <el-row class="row-bg-light">
+              <el-col :span="8"
+                ><span>AFIS: </span
+                ><span class="Content">{{ item.AFIS }}</span></el-col
+              >
+              <el-col :span="8"
+                ><span>ESR: </span
+                ><span class="Content">{{ item.ESR }}</span></el-col
+              >
+              <el-col :span="8"
+                ><span>PE: </span>
+                <span class="Content">{{ item.PE }}</span></el-col
+              >
 
-      <el-col :span="6"
-        ><span>Interface: </span
-        ><span class="Content">{{ item.Interface }}</span></el-col
-      >
-      <el-col :span="6"
-        ><span>Cover mat.: </span
-        ><span class="Content">{{ item.CV_Mat }}</span></el-col
-      >
-      <el-col :span="6"
-        ><span>Housing mat.: </span
-        ><span class="Content">{{ item.H_Mat }}</span></el-col
-      >
-      <el-col :span="6"
-        ><span>Emblem mat.: </span
-        ><span class="Content">{{ item.E_Mat }}</span></el-col
-      >
-      <el-col :span="6"
-        ><span>Inflator: </span
-        ><span class="Content">{{ item.Inflator }}</span></el-col
-      >
-      <el-col :span="6"
-        ><span>Cushion mat.: </span
-        ><span class="Content">{{ item.C_Mat }}</span></el-col
-      >
-      <el-col :span="6"
-        ><span>Cushion Fold: </span
-        ><span class="Content">{{ item.C_Type }}</span></el-col
-      >
-      <el-col :span="6"
-        ><span>Cushion Diameter: </span
-        ><span class="Content">{{ item.C_Diam }} mm</span></el-col
-      >
-      <el-col :span="6"
-        ><span>Tether: </span
-        ><span class="Content">{{ item.C_Tether }}</span></el-col
-      >
-      <el-col :span="6"
-        ><span>Cushion Wrapper: </span
-        ><span class="Content">{{ item.Wrapper }}</span></el-col
-      >
-      <el-col :span="6"
-        ><span>TearlineType: </span
-        ><span class="Content">{{ item.Tearline }}</span></el-col
-      >
-      <el-col :span="6"
-        ><span>Flappy Mass: </span
-        ><span class="Content">{{ item.Flappy_Mass }} kg</span></el-col
-      >
-      <el-col :span="6"
-        ><span>Hinge Width: </span
-        ><span class="Content">{{ item.H_Width }} mm</span></el-col
-      >
-      <el-col :span="6"
-        ><span>HingePlane: </span
-        ><span class="Content">{{ item.H_Plane }}</span></el-col
-      >
-      <el-col :span="6"
-        ><span>HingeNeck: </span
-        ><span class="Content">{{ item.H_Neck }}</span></el-col
-      >
-    </el-row>
+              <el-col :span="6"
+                ><span>Interface: </span
+                ><span class="Content">{{ item.Interface }}</span></el-col
+              >
+              <el-col :span="6"
+                ><span>Cover mat.: </span
+                ><span class="Content">{{ item.CV_Mat }}</span></el-col
+              >
+              <el-col :span="6"
+                ><span>Housing mat.: </span
+                ><span class="Content">{{ item.H_Mat }}</span></el-col
+              >
+              <el-col :span="6"
+                ><span>Emblem mat.: </span
+                ><span class="Content">{{ item.E_Mat }}</span></el-col
+              >
+              <el-col :span="6"
+                ><span>Inflator: </span
+                ><span class="Content">{{ item.Inflator }}</span></el-col
+              >
+              <el-col :span="6"
+                ><span>Cushion mat.: </span
+                ><span class="Content">{{ item.C_Mat }}</span></el-col
+              >
+              <el-col :span="6"
+                ><span>Cushion Fold: </span
+                ><span class="Content">{{ item.C_Type }}</span></el-col
+              >
+              <el-col :span="6"
+                ><span>Cushion Diameter: </span
+                ><span class="Content">{{ item.C_Diam }} mm</span></el-col
+              >
+              <el-col :span="6"
+                ><span>Tether: </span
+                ><span class="Content">{{ item.C_Tether }}</span></el-col
+              >
+              <el-col :span="6"
+                ><span>Cushion Wrapper: </span
+                ><span class="Content">{{ item.Wrapper }}</span></el-col
+              >
+              <el-col :span="6"
+                ><span>TearlineType: </span
+                ><span class="Content">{{ item.Tearline }}</span></el-col
+              >
+              <el-col :span="6"
+                ><span>Flappy Mass: </span
+                ><span class="Content">{{ item.Flappy_Mass }} kg</span></el-col
+              >
+              <el-col :span="6"
+                ><span>Hinge Width: </span
+                ><span class="Content">{{ item.H_Width }} mm</span></el-col
+              >
+              <el-col :span="6"
+                ><span>HingePlane: </span
+                ><span class="Content">{{ item.H_Plane }}</span></el-col
+              >
+              <el-col :span="6"
+                ><span>HingeNeck: </span
+                ><span class="Content">{{ item.H_Neck }}</span></el-col
+              >
+            </el-row>
 
-    <el-row class="row-bg-dark">
-      <el-col :span="12"
-        ><span>Testing: </span
-        ><span class="Content">{{ item.Test}}</span></el-col
-      >
-      <el-col :span="12"
-        ><span>Simulation: </span
-        ><span class="Content">{{ item.Simulation }}</span></el-col
-      >
-    </el-row>
-  </div>
-
-
-
+            <el-row class="row-bg-dark">
+              <el-col :span="12"
+                ><span>Testing: </span
+                ><span class="Content">{{ item.Testing }}</span></el-col
+              >
+              <el-col :span="12"
+                ><span>Simulation: </span
+                ><span class="Content">{{ item.Simulation }}</span></el-col
+              >
+            </el-row>
+          </div>
         </el-popover>
-        <!-- <v-icon small class="mr-2" @click="view(item)"> mdi-eye </v-icon> -->
+
         <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
         <v-icon small class="mr-2" @click="deleteItem(item)">mdi-delete</v-icon>
       </template>
@@ -143,8 +141,6 @@
       </template>
     </v-data-table>
 
-    <DABSVM></DABSVM>
-
     <el-dialog
       title="New project"
       :visible.sync="dialogFormVisible"
@@ -152,13 +148,14 @@
     >
       <POPUP />
     </el-dialog>
+    <el-divider/>
+        <el-row >
+      <el-col :span="12"> <DABSVM :getdata="ESRTable"></DABSVM></el-col>
 
-    <!-- <v-overlay :value="overlay">
-      <DetailInfo :data="detailInfo"></DetailInfo>
-      <v-btn class="white--text" color="teal" @click="overlay = false">
-        Close
-      </v-btn>
-    </v-overlay> -->
+      <el-col :span="12"> <StatisticsPie :getdata="ESRTable"></StatisticsPie></el-col>
+
+    </el-row>
+       <el-divider/>
   </div>
 </template>
 
@@ -166,12 +163,13 @@
 import { mapState } from "vuex";
 export default {
   components: {
-    DABSVM: () => import("@/components/DABSVM/DABSVM"),
-    POPUP: () => import("@/components/ProjectTable/popup1"),
-    // DetailInfo: () => import("@/components/ProjectTable/DetailInfo"),
+
+    DABSVM: () => import("@/components/Echart/DABSVM"),
+    StatisticsPie: () => import("@/components/Echart/StatisticsPie"),
+    POPUP: () => import("@/components/ProjectTable/popup"),
   },
   data: () => ({
-    // data4fig: { failure: [], nofailure: [] },
+
     overlay: false,
     detailInfo: {},
     dialogFormVisible: false,
@@ -179,6 +177,10 @@ export default {
     dialogDelete: false,
     search: "",
     ESRheaders: [
+      {
+        text: "ID",
+        value: "ID",
+      },
       {
         text: "Prj",
         align: "start",
@@ -222,10 +224,13 @@ export default {
 
   watch: {
     dialog(val) {
-      val || this.close();
+      val || this.getData();
     },
     dialogDelete(val) {
-      val || this.closeDelete();
+      val || this.getData();
+    },
+    dialogFormVisible(val) {
+      val || this.getData();
     },
   },
 
@@ -255,34 +260,16 @@ export default {
       );
     },
 
-    // view(item) {
-    //   // console.log(item);
-    //   this.CurrentForm.hovercard = item;
-    //   console.log('index');
-    //   console.log(this.CurrentForm.hovercard)
-    //   // this.overlay = !this.overlay;
-    //   // console.log(this.overlay);
-    // },
-
-    editItem(item) {
-      this.editedIndex = this.ESRTable.data.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialog = true;
-    },
-
     deleteItem(item) {
-      const index = item.id;
-      console.log(item.id);
       // console.log(this.ESRTable.data)
       confirm("Are you sure you want to delete this item?") &&
-        this.$axios.post("/api/delitem", index, {
+        this.$axios.post("/api/delitem", item.ID, {
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
         });
 
       this.ESRTable.splice(item.id - 1, 1);
-      // this.getData()
-      // this.closeDelete()
-      // this.dialogDelete = true
+      this.getData();
+      this.dialogDelete = true;
     },
 
     close() {
@@ -293,14 +280,6 @@ export default {
       });
     },
 
-    //   closeDelete () {
-    //     this.dialogDelete = false
-    //     this.$nextTick(() => {
-    //       this.editedItem = Object.assign({}, this.defaultItem)
-    //       this.editedIndex = -1
-    //     })
-    //   },
-
     save() {
       if (this.editedIndex > -1) {
         Object.assign(this.ESRTable.data[this.editedIndex], this.editedItem);
@@ -310,21 +289,6 @@ export default {
       console.log(this.ESRTable.data);
       this.close();
     },
-    //   SaveData() {
-    //       this.$axios.get("/api/ProjectTable",{
-    //       params:{
-    //         ProjectTableData : JSON.stringify(this.ESRTable.data)
-    //       }
-    //       })
-    //       .then(
-    //         response => {
-    //           console.log(response);
-    //         },
-    //         error => {
-    //           console.log(error);
-    //         }
-    //       );
-    // },
   },
 };
 </script>

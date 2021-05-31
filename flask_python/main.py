@@ -117,25 +117,7 @@ def RequestForm():
     #                     emblem_mat = "T45M",test_res="good")
     #addESRDB(data)
     return return_img_stream(filedir+'.pdf')
-
-# @app.route('/addESR',methods=["POST"])
-# def addESR():
-#     data = json.loads(request.get_data(as_text=True))
-#     print (data)
-#     home_data = {
-#         "ESR": data['ESRNumber'], 
-#         "PE": data['PEName'], 
-#         "ProjectCode":data['ProjectCode'],
-#         "Team": data['TeamName'], 
-#         "Date1": data['date1'],
-#         "Date2": data['date2']
-#         }
-#     admin = ESR(caer='yujin.wang',pe="haiming.chen",oem="GWM",esr="123456",date="2020-10-25", \
-#                         proj="B01",afis="12345",cushion_type="DRR",cushion_mat="470",cover_mat="TT1081B",housing_mat="DC04", \
-#                             emblem_mat = "T45M",test_res="good")
-#     db.session.add(admin)
-#     db.session.commit()
-#     db.session.close()   
+ 
 
 ###############################################################DataBase #################################################### 
 @app.route('/getdatabase', methods = ['GET'])
@@ -163,11 +145,11 @@ def findDB():
     else :
         print ('************1*************')
         return "1"
+
 @app.route('/delitem', methods = ['POST'])
 def delitem():
-     item_id = request.get_data(as_text=True)
-     print (item_id)
-     db.session.query(ESR).filter(ESR.id==item_id).delete()
+     item_id = int(request.get_data(as_text=True))
+     ESR.query.filter(ESR.ID == item_id).delete()
      db.session.commit()
      db.session.close()
      return 'Delete done!'
@@ -202,29 +184,31 @@ def dabai():
 def dabinfo():
     DABinfo = json.loads(request.get_data(as_text=True))
     DABinfo = json.loads(DABinfo['params']['Dabinfo'])
-    # print ("1111")
-    # print (DABinfo['PE'])
-    # print ("2222")
     #添加数据到ESR DB
-    data = ESR( PRJ=DABinfo['Prj'],\
-                PE=DABinfo['PE'],\
-                Interface = DABinfo['Inflator'], \
+    data = ESR( OEM = DABinfo['OEM'],\
+                PRJ = DABinfo['Prj'],\
+                AFIS = DABinfo['AFIS'],\
                 ESR = DABinfo['ESR'], \
+                PE = DABinfo['PE'],\
+                Interface = DABinfo['Inflator'], \
                 CV_Mat = DABinfo['Covermat'],\
                 H_Mat = DABinfo['Housingmat'], \
+                Tearline = DABinfo['TearlineType'],\
                 E_Mat = DABinfo['Emblemmat'],\
                 Inflator = DABinfo['Inflator'],\
-                Tearline = DABinfo['TearlineType'],\
-                C_Tether = DABinfo['TetherType'],\
                 C_Mat = DABinfo['Cushionmat'],\
                 C_Type = DABinfo['CushionFoldType'],\
                 C_Diam = DABinfo['CushionDiameter'],\
-                Wrapper = DABinfo['CushionWrapper'],\
-                Flappy_Mass = DABinfo['FlappyMass'],\
+                C_Tether = DABinfo['TetherType'],\
                 H_Width = DABinfo['HingeWidth'],\
+                Flappy_Mass = DABinfo['FlappyMass'],\
+                Wrapper = DABinfo['CushionWrapper'],\
                 H_Plane = DABinfo['HingePlane'],\
                 H_Neck = DABinfo['HingeNeck'],\
-                Failure=DABinfo['Testing'])
+                Daokou = DABinfo['Daokou'],\
+                Simulation = DABinfo['Simulation'],\
+                Testing = DABinfo['Testing'])
+                
     addESRDB(data)
     return "here"
    
@@ -232,7 +216,6 @@ def dabinfo():
 ################################################################ FUNCTION ####################################################
 ##############################################################################################################################
 def addESRDB(data):
-    
     db.create_all()
     db.session.add(data)
     db.session.commit()

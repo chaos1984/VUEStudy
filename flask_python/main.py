@@ -6,6 +6,7 @@ import os
 import json
 import getpass
 from io import BytesIO
+import getpass
 
 from flask_sqlalchemy import SQLAlchemy
 import base64
@@ -182,33 +183,37 @@ def dabai():
 
 @app.route('/dabinfo', methods = ['POST'])
 def dabinfo():
+    user = getpass.getuser()
     DABinfo = json.loads(request.get_data(as_text=True))
     DABinfo = json.loads(DABinfo['params']['Dabinfo'])
     #添加数据到ESR DB
+    print (DABinfo)
     data = ESR( OEM = DABinfo['OEM'],\
-                PRJ = DABinfo['Prj'],\
+                PRJ = DABinfo['PRJ'],\
                 AFIS = DABinfo['AFIS'],\
                 ESR = DABinfo['ESR'], \
+                CAE = user,\
                 PE = DABinfo['PE'],\
-                Interface = DABinfo['Inflator'], \
-                CV_Mat = DABinfo['Covermat'],\
-                H_Mat = DABinfo['Housingmat'], \
-                Tearline = DABinfo['TearlineType'],\
-                E_Mat = DABinfo['Emblemmat'],\
+                Interface = DABinfo['Interface'], \
+                CV_Mat = DABinfo['CV_Mat'],\
+                H_Mat = DABinfo['H_Mat'], \
+                Tearline = DABinfo['Tearline'],\
+                E_Mat = DABinfo['E_Mat'],\
                 Inflator = DABinfo['Inflator'],\
-                C_Mat = DABinfo['Cushionmat'],\
-                C_Type = DABinfo['CushionFoldType'],\
-                C_Diam = DABinfo['CushionDiameter'],\
-                C_Tether = DABinfo['TetherType'],\
-                H_Width = DABinfo['HingeWidth'],\
-                Flappy_Mass = DABinfo['FlappyMass'],\
-                Wrapper = DABinfo['CushionWrapper'],\
-                H_Plane = DABinfo['HingePlane'],\
-                H_Neck = DABinfo['HingeNeck'],\
+                C_Mat = DABinfo['C_Mat'],\
+                C_Type = DABinfo['C_Type'],\
+                C_Diam = DABinfo['C_Diam'],\
+                C_Tether = DABinfo['C_Tether'],\
+                H_Width = DABinfo['H_Width'],\
+                Flappy_Mass = DABinfo['Flappy_Mass'],\
+                Wrapper = DABinfo['Wrapper'],\
+                H_Plane = DABinfo['H_Plane'],\
+                H_Neck = DABinfo['H_Neck'],\
                 Daokou = DABinfo['Daokou'],\
                 Simulation = DABinfo['Simulation'],\
-                Testing = DABinfo['Testing'])
-                
+                Testing = DABinfo['Testing'],\
+                StartDate = DABinfo['DateRange'][0],\
+                EndDate = DABinfo['DateRange'][1])
     addESRDB(data)
     return "here"
    

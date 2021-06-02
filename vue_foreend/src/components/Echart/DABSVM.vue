@@ -17,9 +17,7 @@ export default {
     };
   },
   mounted() {
-
     this.drawDatafromDB();
-
   },
 
 
@@ -97,7 +95,7 @@ export default {
       this.charts = echarts.init(document.getElementById(id));
       this.charts.setOption({
         title: {
-          text: "DAB Cover failure SVM Prediction",
+          text: "DAB Cover ESR",
           subtext: "Data from: 2021-04-14",
         },
         grid: {
@@ -148,7 +146,7 @@ export default {
         },
         // brush: {},
         legend: {
-          data: ["NoFailure", "Failure"],
+          data: ["No failure", "Failure"],
           left: "center",
           bottom: 0,
         },
@@ -211,12 +209,12 @@ export default {
                 { type: "min", name: "Min" },
               ],
             },
-            markLine: {
-              lineStyle: {
-                type: "solid",
-              },
-              data: [{ type: "average", name: "average line" }],
-            },
+            // markLine: {
+            //   lineStyle: {
+            //     type: "solid",
+            //   },
+            //   data: [{ type: "average", name: "average line" }],
+            // },
           },
           {
             name: "Failure",
@@ -252,12 +250,12 @@ export default {
                 { type: "min", name: "Min" },
               ],
             },
-            markLine: {
-              lineStyle: {
-                type: "solid",
-              },
-              data: [{ type: "average", name: "平均值" }, { xAxis: 170 }],
-            },
+            // markLine: {
+            //   lineStyle: {
+            //     type: "solid",
+            //   },
+            //   data: [{ type: "average", name: "平均值" }, { xAxis: 170 }],
+            // },
           },
         ],
       });

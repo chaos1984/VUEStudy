@@ -79,7 +79,7 @@ export default {
       this.charts = echarts.init(document.getElementById(id));
       this.charts.setOption({
         title: {
-          text: "Statics of DAB ESR",
+          text: "Statistics of DAB ESR",
           subtext: "2021-05-14",
         },
 

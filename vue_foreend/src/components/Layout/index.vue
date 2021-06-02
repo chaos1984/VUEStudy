@@ -109,7 +109,7 @@ export default {
     Mat: () => import("@/components/Echart/Mat"),
     Inf: () => import("@/components/Echart/Inf"),
     MatPage: () => import("@/components/MatPage/MatPage"),
-    ESRCalendars: () => import("@/components/ESRCalendars/ESRCalendars"),
+    
     test: () => import("@/components/TestData/TestData"),
     DABAI: () => import("@/components/DABAI/DABAI"),
     // DABSVM: () => import("@/components/DABSVM/DABSVM"),
@@ -145,15 +145,10 @@ export default {
         ],
       },
       { id: 5, title: "Inflator", action: "onInf", icon: "mdi-bomb" },
+      
+      { id: 6, title: "test", action: "onTest", icon: "mdi-calendar mdi-spin" },
       {
-        id: 6,
-        title: "ESR Calendars",
-        action: "onESRCalendars",
-        icon: "mdi-calendar",
-      },
-      { id: 7, title: "test", action: "onTest", icon: "mdi-calendar mdi-spin" },
-      {
-        id: 8,
+        id: 7,
         title: "DAB Cover Failure Predction",
         action: "onDABAI",
         icon: "mdi-calendar",
@@ -188,9 +183,7 @@ export default {
       this.currentvue = "Inf";
       // router.push({'Echart'})
     },
-    onESRCalendars() {
-      this.currentvue = "ESRCalendars";
-    },
+ 
     onTest() {
       this.currentvue = "test";
     },

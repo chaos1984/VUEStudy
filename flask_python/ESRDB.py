@@ -22,6 +22,7 @@ class ESR(db.Model):
     AFIS = db.Column(db.String(80), nullable=False)
     ESR = db.Column(db.String(80), nullable=False)
     PE = db.Column(db.String(80),  nullable=False)
+    CAE = db.Column(db.String(80),  nullable=False)
     Interface = db.Column(db.String(80),  nullable=False)
     CV_Mat = db.Column(db.String(80),  nullable=False)
     H_Mat = db.Column(db.String(80), nullable=False)
@@ -40,6 +41,8 @@ class ESR(db.Model):
     Daokou = db.Column(db.String(80), nullable=False)
     Simulation = db.Column(db.String(80), nullable=False)
     Testing = db.Column(db.String(80), nullable=False)
+    StartDate = db.Column(db.String(80), nullable=False)
+    EndDate = db.Column(db.String(80), nullable=False)
     def __repr__(self):
         return "{'id':'%s','caer':'%s','pe':'%s','oem':'%s','esr':'%s','date':'%s','proj':'%s','afis':'%s','cushion_type':'%s','cushion_mat':'%s','cover_mat':'%s','housing_mat':'%s','emblem_mat':'%s','test_res':'%s' }" \
             % (str(self.id),self.caer,self.pe,self.oem,self.esr,self.date,self.proj,self.afis,self.cushion_type,self.cushion_mat,self.cover_mat,self.housing_mat,self.emblem_mat,self.test_res)

@@ -24,6 +24,11 @@
               <el-option label="VW" value="VW"></el-option>
               <el-option label="GM" value="GM"></el-option>
               <el-option label="Honda" value="Honda"></el-option>
+              <el-option label="NIO" value="NIO"></el-option>
+              <el-option label="BAOJUN" value="BAOJUN"></el-option>
+              <el-option label="Changan" value="Changan"></el-option>
+              <el-option label="Ford" value="Ford"></el-option>
+              <el-option label="Daimler" value="Daimler"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -32,10 +37,10 @@
           <el-form-item
             label="Project"
             :label-width="formLabelWidth"
-            prop="Prj"
+            prop="PRJ"
             :rules="[{ required: true, trigger: 'blur' }]"
           >
-            <el-input v-model="form.Prj"></el-input>
+            <el-input v-model="form.PRJ"></el-input>
           </el-form-item>
         </el-col>
 
@@ -100,9 +105,9 @@
               placeholder="Select DAB Interface"
               :style="selectwidth"
             >
-              <el-option label="ASW3" value="1"></el-option>
-              <el-option label="ASW5" value="2"></el-option>
-              <el-option label="ASW8" value="3"></el-option>
+              <el-option label="ASW3" value="ASW3"></el-option>
+              <el-option label="ASW5" value="ASW5"></el-option>
+              <el-option label="ASW8" value="ASW8"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -111,17 +116,23 @@
           <el-form-item
             label="Covermat"
             :label-width="formLabelWidth"
-            prop="Covermat"
+            prop="CV_Mat"
             :rules="[{ required: true, message: 'Select one item' }]"
           >
             <el-select
-              v-model="form.Covermat"
+              v-model="form.CV_Mat"
               placeholder="Select Cover material"
               :style="selectwidth"
             >
               <el-option label="TT1081B" value="TT1081B"></el-option>
               <el-option label="TT990B" value="TT990B"></el-option>
               <el-option label="TA4003B" value="TA4003B"></el-option>
+              <el-option label="WT515" value="WT515"></el-option>
+              <el-option label="WT546" value="WT546"></el-option>
+              <el-option label="TES2403" value="TES2403"></el-option>
+              <el-option label="TPO10" value="TPO10"></el-option>
+              <el-option label="TT991" value="TT991"></el-option>
+              <el-option label="TOSI818" value="TOSI818"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -130,16 +141,19 @@
           <el-form-item
             label="Housing mat"
             :label-width="formLabelWidth"
-            prop="Housingmat"
+            prop="H_Mat"
             :rules="[{ required: true, message: 'Select one item' }]"
           >
             <el-select
-              v-model="form.Housingmat"
+              v-model="form.H_Mat"
               placeholder="Select housing material"
               :style="selectwidth"
             >
+              <el-option label="PG8" value="PG8"></el-option>
               <el-option label="DX51D" value="DX51D"></el-option>
               <el-option label="DX53D" value="DX53D"></el-option>
+              <el-option label="DX54D" value="DX54D"></el-option>
+              <el-option label="SPCC" value="SPCC"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -148,11 +162,11 @@
           <el-form-item
             label="Tearling Type"
             :label-width="formLabelWidth"
-            prop="TearlineType"
+            prop="Tearline"
             :rules="[{ required: true, message: 'Select one item' }]"
           >
             <el-select
-              v-model="form.TearlineType"
+              v-model="form.Tearline"
               placeholder="Select Tearline Type"
               :style="selectwidth"
             >
@@ -167,18 +181,19 @@
           <el-form-item
             label="Emblem mat"
             :label-width="formLabelWidth"
-            prop="Emblemmat"
+            prop="E_Mat"
             :rules="[
               { required: true, message: 'Select one item', trigger: 'change' },
             ]"
           >
             <el-select
-              v-model="form.Emblemmat"
+              v-model="form.E_Mat"
               placeholder="Select emblem material"
               :style="selectwidth"
             >
               <el-option label="T45" value="T45"></el-option>
               <el-option label="T65" value="T65"></el-option>
+              <el-option label="Al" value="Al"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -219,11 +234,11 @@
           <el-form-item
             label="Cushion Mat."
             :label-width="formLabelWidth"
-            prop="Cushionmat"
+            prop="C_Mat"
             :rules="[{ required: true, message: 'Select one item' }]"
           >
             <el-select
-              v-model="form.Cushionmat"
+              v-model="form.C_Mat"
               placeholder="Select emblem material"
               :style="selectwidth"
             >
@@ -237,11 +252,11 @@
           <el-form-item
             label="Cushion Fold "
             :label-width="formLabelWidth"
-            prop="CushionFoldType"
+            prop="C_Type"
             :rules="[{ required: true, message: 'Select one item' }]"
           >
             <el-select
-              v-model="form.CushionFoldType"
+              v-model="form.C_Type"
               placeholder="Select Fold Type"
               :style="selectwidth"
             >
@@ -261,6 +276,10 @@
                 label="3-9 roll 6-12 compress"
                 value="3-9 roll 6-12 compress"
               ></el-option>
+              <el-option
+                label="12 roll 3-6-9 compress"
+                value="12 roll 3-6-9 compress"
+              ></el-option>
               <el-option label="compress" value="compress"></el-option>
             </el-select>
           </el-form-item>
@@ -270,12 +289,12 @@
           <el-form-item
             label="Cushion D/mm"
             :label-width="formLabelWidth"
-            prop="CushionDiameter"
+            prop="C_Diam"
             :rules="[{ required: true, trigger: 'blur' }]"
           >
             <el-input
               onkeyup="value=value.replace(/[^\.\d]/g, '')"
-              v-model="form.CushionDiameter"
+              v-model="form.C_Diam"
               autocomplete="off"
             ></el-input>
           </el-form-item>
@@ -285,11 +304,11 @@
           <el-form-item
             label="Tether Type"
             :label-width="formLabelWidth"
-            prop="TetherType"
+            prop="C_Tether"
             :rules="[{ required: true, message: 'Select one item' }]"
           >
             <el-select
-              v-model="form.TetherType"
+              v-model="form.C_Tether"
               placeholder="Select emblem material"
               :style="selectwidth"
             >
@@ -305,12 +324,12 @@
           <el-form-item
             label="Hinge width/mm"
             :label-width="formLabelWidth"
-            prop="HingeWidth"
+            prop="H_Width"
             :rules="[{ required: true, trigger: 'blur' }]"
           >
             <el-input
               onkeyup="value=value.replace(/[^\.\d]/g, '')"
-              v-model="form.HingeWidth"
+              v-model="form.H_Width"
               autocomplete="off"
             ></el-input>
           </el-form-item>
@@ -320,12 +339,12 @@
           <el-form-item
             label="Flappy mass/kg"
             :label-width="formLabelWidth"
-            prop="FlappyMass"
+            prop="Flappy_Mass"
             :rules="[{ required: true, trigger: 'blur' }]"
           >
             <el-input
               onkeyup="value=value.replace(/[^\.\d]/g, '')"
-              v-model="form.FlappyMass"
+              v-model="form.Flappy_Mass"
               autocomplete="off"
             ></el-input>
           </el-form-item>
@@ -333,49 +352,74 @@
       </el-row>
 
       <el-row>
-        <el-col :span="2">
+        <el-col :span="6">
           <el-form-item
             label="Wrapper"
             :label-width="formLabelWidth"
-            prop="CushionWrapper"
-            :rules="[{ required: true, trigger: 'blur' }]"
+            prop="Wrapper"
+            :rules="[
+              { required: true, message: 'Need confirm', trigger: 'change' },
+            ]"
           >
-            <el-checkbox v-model="form.CushionWrapper"></el-checkbox>
+            <el-checkbox v-model="form.Wrapper"></el-checkbox>
           </el-form-item>
         </el-col>
 
-        <el-col :span="2">
+        <el-col :span="6">
           <el-form-item
             label="Hinge plane"
             :label-width="formLabelWidth"
-            prop="HingePlane"
-            :rules="[{ required: true, trigger: 'blur' }]"
+            prop="H_Plane"
+            :rules="[
+              { required: true, message: 'Need confirm', trigger: 'change' },
+            ]"
           >
-            <el-checkbox v-model="form.HingePlane"></el-checkbox>
+            <el-checkbox v-model="form.H_Plane"></el-checkbox>
           </el-form-item>
         </el-col>
 
-        <el-col :span="2">
+        <el-col :span="6">
           <el-form-item
             label="Hinge Neck"
             :label-width="formLabelWidth"
-            prop="HingeNeck"
-            :rules="[{ required: true, trigger: 'blur' }]"
+            prop="H_Neck"
+            :rules="[
+              { required: true, message: 'Need confirm', trigger: 'change' },
+            ]"
           >
-            <el-checkbox v-model="form.HingeNeck"></el-checkbox>
+            <el-checkbox v-model="form.H_Neck"></el-checkbox>
           </el-form-item>
         </el-col>
-        <el-col :span="2">
+        <el-col :span="6">
           <el-form-item
             label="Daokou"
             :label-width="formLabelWidth"
             prop="Daokou"
-            :rules="[{ required: true, trigger: 'blur' }]"
+            :rules="[
+              { required: true, message: 'Need confirm', trigger: 'change' },
+            ]"
           >
             <el-checkbox v-model="form.Daokou"></el-checkbox>
           </el-form-item>
         </el-col>
       </el-row>
+
+      <div><p>123{{daterange}}</p></div>
+
+      <div class="block">
+        
+        <span>Date range </span>
+        <el-date-picker
+          v-model="form.DateRange"
+          type="daterange"
+          align="right"
+          start-placeholder="Start Date"
+          end-placeholder="End Date"
+          value-format="yyyy-MM-dd"
+        >
+          >
+        </el-date-picker>
+      </div>
       <el-divider></el-divider>
 
       <el-row>
@@ -386,13 +430,31 @@
               placeholder="Select Testing result"
               :style="selectwidth"
             >
-              <el-option label="No Failure" value="0"></el-option>
-              <el-option label="Hinge Overtear" value="1"></el-option>
-              <el-option label="Hinge Breakage" value="2"></el-option>
-              <el-option label="Cover Hooks Detach" value="3"></el-option>
-              <el-option label="Omega Hooks Detach" value="4"></el-option>
-              <el-option label="Element Breakage" value="5"></el-option>
-              <el-option label="Other failure Modes" value="6"></el-option>
+              <el-option label="No Failure" value="No Failure"></el-option>
+              <el-option
+                label="Hinge Overtear"
+                value="Hinge Overtear"
+              ></el-option>
+              <el-option
+                label="Hinge Breakage"
+                value="Hinge Breakage"
+              ></el-option>
+              <el-option
+                label="Cover Hooks Detach"
+                value="Cover Hooks Detach"
+              ></el-option>
+              <el-option
+                label="Omega Hooks Detach"
+                value="Omega Hooks Detach"
+              ></el-option>
+              <el-option
+                label="Element Breakage"
+                value="Element Breakage"
+              ></el-option>
+              <el-option
+                label="Other Failure Modes"
+                value="Other Failure Modes"
+              ></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -404,13 +466,31 @@
               placeholder="Select Simulation result"
               :style="selectwidth"
             >
-              <el-option label="No Failure" value="0"></el-option>
-              <el-option label="Hinge Overtear" value="1"></el-option>
-              <el-option label="Hinge Breakage" value="2"></el-option>
-              <el-option label="Cover Hooks Detach" value="3"></el-option>
-              <el-option label="Omega Hooks Detach" value="4"></el-option>
-              <el-option label="Element Breakage" value="5"></el-option>
-              <el-option label="Other Failure Modes" value="6"></el-option>
+              <el-option label="No Failure" value="No Failure"></el-option>
+              <el-option
+                label="Hinge Overtear"
+                value="Hinge Overtear"
+              ></el-option>
+              <el-option
+                label="Hinge Breakage"
+                value="Hinge Breakage"
+              ></el-option>
+              <el-option
+                label="Cover Hooks Detach"
+                value="Cover Hooks Detach"
+              ></el-option>
+              <el-option
+                label="Omega Hooks Detach"
+                value="Omega Hooks Detach"
+              ></el-option>
+              <el-option
+                label="Element Breakage"
+                value="Element Breakage"
+              ></el-option>
+              <el-option
+                label="Other Failure Modes"
+                value="Other Failure Modes"
+              ></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -426,39 +506,61 @@
 
 <script>
 export default {
-  data() {
-    return {
-      dialogFormVisible: false,
-      form: {
-        Prj: "P05",
-        AFIS: "12345",
-        ESR: "123456",
-        PE: "Haiming Chen",
-        Interface: "1",
-        Covermat: "TT1081B",
-        Housingmat: "DX51D",
-        Emblemmat: "T45",
-        Inflator: "ADPS 1.5 210kPa 0ms",
-        Cushionmat: "470 dtex",
-        CushionFoldType: "3-9 roll 6-12 roll",
-        CushionDiameter: "660",
-        TetherType:"2 Unsymmetry",
-        CushionWrapper: false,
-        TearlineType: "H",
-        FlappyMass: "0.022",
-        HingeWidth: "32",
-        HingePlane: false,
-        HingeNeck: false,
-        Testing: "No Failure",
-        Simulation: "No Failure",
-        OEM: "GEELY",
-        Daokou:false,
-      },
-      selectwidth: "width: 385px",
-      formLabelWidth: "130px",
-    };
+  props: {
+    form: {},
   },
+  data: () => ({
+    
+    dialogFormVisible: false,
+    selectwidth: "width: 250px",
+    formLabelWidth: "130px",
+    defaultform: {},
+    
+  }),
+
+  watch: {
+    form(newval) {
+      console.log("change");
+      this.defaultform = newval;
+      console.log(this.defaultform);
+    },
+  },
+
   methods: {
+    // defaultsettings() {
+    //   if (this.form == {}) {
+    //     console.log("new")
+    //     this.defaultform = {
+    //       PRJ: "",
+    //       AFIS: "",
+    //       ESR: "",
+    //       PE: "",
+    //       Interface: "",
+    //       CV_Mat: "",
+    //       H_Mat: "",
+    //       E_Mat: "",
+    //       Inflator: "",
+    //       C_Mat: "",
+    //       C_Type: "",
+    //       C_Diam: "",
+    //       C_Tether: "",
+    //       Wrapper: false,
+    //       Tearline: "",
+    //       Flappy_Mass: "",
+    //       H_Width: "",
+    //       H_Plane: false,
+    //       H_Neck: false,
+    //       Testing: "",
+    //       Simulation: "",
+    //       OEM: "",
+    //       Daokou: false,
+    //     };
+    //   } else {
+    //     console.log("default")
+    //     console.log(this.form.ID)
+    //     this.defaultform = this.form;
+    //   }
+    // },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -471,9 +573,13 @@ export default {
       });
     },
     resetForm(formName) {
+      this.form = this.defaultform;
+      console.log(formName);
+      console.log(this.defaultform);
       this.$refs[formName].resetFields();
     },
     run() {
+      console.log(this.form.ID);
       this.$axios
         .post("/api/dabinfo", {
           params: {
@@ -493,5 +599,3 @@ export default {
 };
 </script>
 
-<style>
-</style>

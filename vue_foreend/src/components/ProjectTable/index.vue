@@ -25,17 +25,13 @@
             >Save</v-btn
           >
 
-          <v-btn class="mb-2" width="100px" @click="dialogFormVisible = true"
-            >New</v-btn
-          >
+          <v-btn class="mb-2" width="100px" @click="addItem()">New</v-btn>
         </v-toolbar>
       </template>
 
       <template v-slot:item.actions="{ item }">
         <el-popover placement="right" width="800" trigger="click">
           <v-icon small class="mr-2" slot="reference">mdi-eye</v-icon>
-          <!-- <DetailInfo :data='item' ></DetailInfo> -->
-
           <div>
             <el-row
               ><span class="Title">{{ item.PRJ }}</span></el-row
@@ -44,17 +40,22 @@
             <v-divider></v-divider>
 
             <el-row class="row-bg-light">
-              <el-col :span="8"
+              <el-col :span="6"
                 ><span>AFIS: </span
                 ><span class="Content">{{ item.AFIS }}</span></el-col
               >
-              <el-col :span="8"
+              <el-col :span="6"
                 ><span>ESR: </span
                 ><span class="Content">{{ item.ESR }}</span></el-col
               >
-              <el-col :span="8"
+              <el-col :span="6"
                 ><span>PE: </span>
                 <span class="Content">{{ item.PE }}</span></el-col
+              >
+
+              <el-col :span="6"
+                ><span>CAE: </span>
+                <span class="Content">{{ item.CAE }}</span></el-col
               >
 
               <el-col :span="6"
@@ -113,9 +114,15 @@
                 ><span>HingePlane: </span
                 ><span class="Content">{{ item.H_Plane }}</span></el-col
               >
-              <el-col :span="6"
+              <el-col :span="5"
                 ><span>HingeNeck: </span
                 ><span class="Content">{{ item.H_Neck }}</span></el-col
+              >
+         
+
+            <el-col :span="7"
+                ><span>DateRange: </span
+                ><span class="Content">{{ item.StartDate }} To {{ item.EndDate }}</span></el-col
               >
             </el-row>
 
@@ -135,27 +142,24 @@
         <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
         <v-icon small class="mr-2" @click="deleteItem(item)">mdi-delete</v-icon>
       </template>
-
-      <template v-slot:no-data>
-        <v-btn color="primary">Reset</v-btn>
-      </template>
     </v-data-table>
 
     <el-dialog
-      title="New project"
+      :title="Operation"
       :visible.sync="dialogFormVisible"
       width="100%"
     >
-      <POPUP />
+      <POPUP :form="popupdata"></POPUP>
     </el-dialog>
-    <el-divider/>
-        <el-row >
-      <el-col :span="12"> <DABSVM :getdata="ESRTable"></DABSVM></el-col>
 
-      <el-col :span="12"> <StatisticsPie :getdata="ESRTable"></StatisticsPie></el-col>
-
+    <el-divider />
+    <el-row>
+      <el-col :span="12"><DABSVM :getdata="ESRTable"></DABSVM></el-col>
+      <el-col :span="12"><StatisticsPie :getdata="ESRTable"></StatisticsPie
+      ></el-col>
     </el-row>
-       <el-divider/>
+    <el-divider />
+    <ESRCalendars/>
   </div>
 </template>
 
@@ -163,13 +167,14 @@
 import { mapState } from "vuex";
 export default {
   components: {
-
     DABSVM: () => import("@/components/Echart/DABSVM"),
     StatisticsPie: () => import("@/components/Echart/StatisticsPie"),
     POPUP: () => import("@/components/ProjectTable/popup"),
+    ESRCalendars: () => import("@/components/ProjectTable/ESRCalendars"),
   },
   data: () => ({
-
+    Operation: "Project",
+    popupdata: {},
     overlay: false,
     detailInfo: {},
     dialogFormVisible: false,
@@ -259,6 +264,11 @@ export default {
         // this.data4fig = this.ESRTable
       );
     },
+    addItem() {
+      this.popupdata = {};
+      this.dialogFormVisible = true;
+      this.Operation = "Add new project";
+    },
 
     deleteItem(item) {
       // console.log(this.ESRTable.data)
@@ -280,14 +290,10 @@ export default {
       });
     },
 
-    save() {
-      if (this.editedIndex > -1) {
-        Object.assign(this.ESRTable.data[this.editedIndex], this.editedItem);
-      } else {
-        this.ESRTable.data.push(this.editedItem);
-      }
-      console.log(this.ESRTable.data);
-      this.close();
+    editItem(item) {
+      this.popupdata = item;
+      this.dialogFormVisible = true;
+      this.Operation = "Edit project";
     },
   },
 };

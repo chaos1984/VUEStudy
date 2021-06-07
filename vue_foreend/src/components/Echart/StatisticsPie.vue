@@ -41,8 +41,6 @@ export default {
   },
 
   mounted() {
-    console.log("111");
-    console.log(this.getdata);
     this.mydata = this.getdata;
     this.drawDatafromDB();
   },

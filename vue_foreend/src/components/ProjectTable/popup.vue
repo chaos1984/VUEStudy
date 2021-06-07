@@ -352,7 +352,7 @@
       </el-row>
 
       <el-row>
-        <el-col :span="6">
+        <el-col :span="4">
           <el-form-item
             label="Wrapper"
             :label-width="formLabelWidth"
@@ -365,7 +365,7 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :span="4">
           <el-form-item
             label="Hinge plane"
             :label-width="formLabelWidth"
@@ -378,7 +378,7 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :span="4">
           <el-form-item
             label="Hinge Neck"
             :label-width="formLabelWidth"
@@ -390,7 +390,8 @@
             <el-checkbox v-model="form.H_Neck"></el-checkbox>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
+
+        <el-col :span="4">
           <el-form-item
             label="Daokou"
             :label-width="formLabelWidth"
@@ -402,12 +403,21 @@
             <el-checkbox v-model="form.Daokou"></el-checkbox>
           </el-form-item>
         </el-col>
+        <el-col :span="4">
+          <el-form-item
+            label="CushionDiffusor"
+            :label-width="formLabelWidth"
+            prop="C_Diffusor"
+            :rules="[
+              { required: true, message: 'Need confirm', trigger: 'change' },
+            ]"
+          >
+            <el-checkbox v-model="form.C_Diffusor"></el-checkbox>
+          </el-form-item>
+        </el-col>
       </el-row>
 
-      <div><p>123{{daterange}}</p></div>
-
       <div class="block">
-        
         <span>Date range </span>
         <el-date-picker
           v-model="form.DateRange"
@@ -498,7 +508,7 @@
     </el-form>
 
     <div slot="footer" class="dialog-footer">
-      <el-button @click="resetForm('form')">RESET</el-button>
+      <!-- <el-button @click="resetForm('form')">RESET</el-button> -->
       <el-button type="primary" @click="submitForm('form')">DONE</el-button>
     </div>
   </div>
@@ -507,82 +517,42 @@
 <script>
 export default {
   props: {
-    form: {},
+    form: { a: 1 },
   },
   data: () => ({
-    
     dialogFormVisible: false,
     selectwidth: "width: 250px",
     formLabelWidth: "130px",
-    defaultform: {},
-    
   }),
 
-  watch: {
-    form(newval) {
-      console.log("change");
-      this.defaultform = newval;
-      console.log(this.defaultform);
-    },
-  },
-
   methods: {
-    // defaultsettings() {
-    //   if (this.form == {}) {
-    //     console.log("new")
-    //     this.defaultform = {
-    //       PRJ: "",
-    //       AFIS: "",
-    //       ESR: "",
-    //       PE: "",
-    //       Interface: "",
-    //       CV_Mat: "",
-    //       H_Mat: "",
-    //       E_Mat: "",
-    //       Inflator: "",
-    //       C_Mat: "",
-    //       C_Type: "",
-    //       C_Diam: "",
-    //       C_Tether: "",
-    //       Wrapper: false,
-    //       Tearline: "",
-    //       Flappy_Mass: "",
-    //       H_Width: "",
-    //       H_Plane: false,
-    //       H_Neck: false,
-    //       Testing: "",
-    //       Simulation: "",
-    //       OEM: "",
-    //       Daokou: false,
-    //     };
-    //   } else {
-    //     console.log("default")
-    //     console.log(this.form.ID)
-    //     this.defaultform = this.form;
-    //   }
-    // },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          console.log(this.form);
+          this.$message({
+            showClose: true,
+            message: "Done",
+            type: "success",
+          });
           this.run();
+          this.$emit("closepopup", false);
         } else {
-          console.log("error submit!!");
-          return false;
+          this.$message({
+            showClose: true,
+            message: "Oops, this is a error message.",
+            type: "error",
+          });
         }
       });
     },
-    resetForm(formName) {
-      this.form = this.defaultform;
-      console.log(formName);
-      console.log(this.defaultform);
-      this.$refs[formName].resetFields();
-    },
+
     run() {
-      console.log(this.form.ID);
+      // this.form.DateRange = this.form.DateRange.substring(2,29)
+      console.log(this.form.DateRange)
       this.$axios
         .post("/api/dabinfo", {
           params: {
+            
             Dabinfo: JSON.stringify(this.form),
           },
         })

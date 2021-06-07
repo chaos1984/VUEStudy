@@ -21,9 +21,9 @@
 
           <v-spacer></v-spacer>
 
-          <v-btn class="mb-2" width="100px" @click.native="SaveData()"
+          <!-- <v-btn class="mb-2" width="100px" @click.native="SaveData()"
             >Save</v-btn
-          >
+          > -->
 
           <v-btn class="mb-2" width="100px" @click="addItem()">New</v-btn>
         </v-toolbar>
@@ -118,11 +118,15 @@
                 ><span>HingeNeck: </span
                 ><span class="Content">{{ item.H_Neck }}</span></el-col
               >
+              <el-col :span="6"
+                ><span>Cushion Diffusor: </span
+                ><span class="Content">{{ item.C_Diffusor }}</span></el-col
+              >
          
 
-            <el-col :span="7"
+            <el-col :span="12"
                 ><span>DateRange: </span
-                ><span class="Content">{{ item.StartDate }} To {{ item.EndDate }}</span></el-col
+                ><span class="Content">{{ item.DateRange}}</span></el-col
               >
             </el-row>
 
@@ -159,7 +163,7 @@
       ></el-col>
     </el-row>
     <el-divider />
-    <ESRCalendars/>
+    <ESRCalendars :getdata="ESRTable"/>
   </div>
 </template>
 
@@ -243,6 +247,9 @@ export default {
     this.getData();
   },
   methods: {
+    closepopup(val){
+      this.dialogFormVisible = val
+    },
     filterOnlyCapsText(value, search) {
       return (
         value != null &&
@@ -256,7 +263,7 @@ export default {
       this.$axios.get("/api/getdatabase").then(
         (response) => {
           this.ESRTable = response.data;
-          this.CurrentForm["data4fig"] = this.ESRTable;
+          console.log(this.ESRTable)
         },
         (error) => {
           console.log(error);
@@ -292,6 +299,7 @@ export default {
 
     editItem(item) {
       this.popupdata = item;
+      eval('this.popupdata.DateRange ='+ this.popupdata.DateRange)
       this.dialogFormVisible = true;
       this.Operation = "Edit project";
     },

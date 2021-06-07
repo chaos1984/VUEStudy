@@ -187,8 +187,10 @@ def dabinfo():
     DABinfo = json.loads(request.get_data(as_text=True))
     DABinfo = json.loads(DABinfo['params']['Dabinfo'])
     #添加数据到ESR DB
+    print ("~~~~~~~~~~~~~~~~~~~~~")
     print (DABinfo)
-    data = ESR( OEM = DABinfo['OEM'],\
+    data = ESR( 
+                OEM = DABinfo['OEM'],\
                 PRJ = DABinfo['PRJ'],\
                 AFIS = DABinfo['AFIS'],\
                 ESR = DABinfo['ESR'], \
@@ -204,6 +206,7 @@ def dabinfo():
                 C_Type = DABinfo['C_Type'],\
                 C_Diam = DABinfo['C_Diam'],\
                 C_Tether = DABinfo['C_Tether'],\
+                C_Diffusor = DABinfo['C_Diffusor'],\
                 H_Width = DABinfo['H_Width'],\
                 Flappy_Mass = DABinfo['Flappy_Mass'],\
                 Wrapper = DABinfo['Wrapper'],\
@@ -212,8 +215,14 @@ def dabinfo():
                 Daokou = DABinfo['Daokou'],\
                 Simulation = DABinfo['Simulation'],\
                 Testing = DABinfo['Testing'],\
-                StartDate = DABinfo['DateRange'][0],\
-                EndDate = DABinfo['DateRange'][1])
+                DateRange = str(DABinfo['DateRange']))
+    print (DABinfo['DateRange'])
+    try:
+        print ('Prj is exit!')
+        ESR.query.filter(ESR.ID == DABinfo['ID']).delete()
+    except:
+        print ('New Prj')
+
     addESRDB(data)
     return "here"
    
@@ -221,6 +230,8 @@ def dabinfo():
 ################################################################ FUNCTION ####################################################
 ##############################################################################################################################
 def addESRDB(data):
+
+   
     db.create_all()
     db.session.add(data)
     db.session.commit()

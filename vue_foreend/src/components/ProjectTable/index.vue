@@ -122,11 +122,10 @@
                 ><span>Cushion Diffusor: </span
                 ><span class="Content">{{ item.C_Diffusor }}</span></el-col
               >
-         
 
-            <el-col :span="12"
+              <el-col :span="12"
                 ><span>DateRange: </span
-                ><span class="Content">{{ item.DateRange}}</span></el-col
+                ><span class="Content">{{ item.DateRange }}</span></el-col
               >
             </el-row>
 
@@ -157,13 +156,14 @@
     </el-dialog>
 
     <el-divider />
-    <el-row>
-      <el-col :span="12"><DABSVM :getdata="ESRTable"></DABSVM></el-col>
-      <el-col :span="12"><StatisticsPie :getdata="ESRTable"></StatisticsPie
+    <el-row :gutter="50">
+      <el-col :span="14"><DABSVM :getdata="ESRTable"></DABSVM></el-col>
+      <el-col :span="10"
+        ><StatisticsPie :getdata="ESRTable"></StatisticsPie
       ></el-col>
     </el-row>
     <el-divider />
-    <ESRCalendars :getdata="ESRTable"/>
+    <ESRCalendars :getdata="ESRTable" />
   </div>
 </template>
 
@@ -177,6 +177,34 @@ export default {
     ESRCalendars: () => import("@/components/ProjectTable/ESRCalendars"),
   },
   data: () => ({
+    forminital:{
+      OEM:"",
+      PRJ:"",
+      AFIS:"",
+      ESR:"",
+      PE:"",
+      Interface:"",
+      CV_Mat:"",
+      H_Mat:"",
+      HousingMat:"",
+      Tearline:"",
+      E_Mat:"",
+      Inflator:"",
+      C_Mat:"",
+      C_Type:"",
+      C_Diam:"",
+      C_Tether:"",
+      H_Width:"",
+      Flappy_Mass:"",
+      Wrapper:"",
+      H_Plane:"",
+      H_Neck:"",
+      Daokou:"",
+      C_Diffusor:"",
+      DateRange:"",
+      Testing:['Hinge Overtear', 'Emblem Breakage'],
+      Simulation:['Hinge Overtear', 'Emblem Breakage'],
+    },
     Operation: "Project",
     popupdata: {},
     overlay: false,
@@ -215,11 +243,6 @@ export default {
     ],
     ESRTable: [],
     editedIndex: -1,
-    filter: (value) => {
-      if (!this.ESR) return true;
-
-      return value < parseInt(this.ESR);
-    },
   }),
 
   computed: {
@@ -247,8 +270,8 @@ export default {
     this.getData();
   },
   methods: {
-    closepopup(val){
-      this.dialogFormVisible = val
+    closepopup(val) {
+      this.dialogFormVisible = val;
     },
     filterOnlyCapsText(value, search) {
       return (
@@ -263,7 +286,8 @@ export default {
       this.$axios.get("/api/getdatabase").then(
         (response) => {
           this.ESRTable = response.data;
-          console.log(this.ESRTable)
+          // console.log("this.ESRTable")
+          // console.log(typeof(this.ESRTable.Simulation))
         },
         (error) => {
           console.log(error);
@@ -272,9 +296,19 @@ export default {
       );
     },
     addItem() {
-      this.popupdata = {};
+      this.popupdata = this.forminital
+      
       this.dialogFormVisible = true;
       this.Operation = "Add new project";
+    },
+
+
+    editItem(item) {
+      this.popupdata = item;
+      eval("this.popupdata.Testing =" + this.popupdata.Testing);
+      eval("this.popupdata.DateRange =" + this.popupdata.DateRange);
+      this.dialogFormVisible = true;
+      this.Operation = "Edit project";
     },
 
     deleteItem(item) {
@@ -297,12 +331,6 @@ export default {
       });
     },
 
-    editItem(item) {
-      this.popupdata = item;
-      eval('this.popupdata.DateRange ='+ this.popupdata.DateRange)
-      this.dialogFormVisible = true;
-      this.Operation = "Edit project";
-    },
   },
 };
 </script>

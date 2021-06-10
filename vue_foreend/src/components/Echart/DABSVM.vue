@@ -1,6 +1,50 @@
 <template>
   <!--为echarts准备一个具备大小的容器dom-->
-  <div id="DAB" style="width: 100%; height: 400px"></div>
+  <div>
+    <el-row :gutter="5">
+      <el-col :span="8">
+        <el-select
+          v-model="TestorSim"
+          placeholder="Select Test or Simulation"
+          @change="drawDatafromDB"
+        >
+          <el-option label="Testing" value=1></el-option>
+          <el-option label="Simulation" value=0></el-option>
+        </el-select>
+      </el-col>
+      <el-col :span="8">
+        <el-select
+          v-model="FailureMode"
+          placeholder="Select Failure mode"
+          @change="drawDatafromDB"
+        >
+          <el-option
+            v-for="(item, index) in formItem.FailureMode"
+            :key="index"
+            :label="item"
+            :value="item"
+          >
+          </el-option>
+        </el-select>
+      </el-col>
+      <el-col :span="8">
+        <el-select
+          v-model="Item"
+          placeholder="Select Feature"
+          @change="drawDatafromDB"
+        >
+          <el-option
+            v-for="(item, index) in ItemList"
+            :key="index"
+            :label="item"
+            :value="item"
+          >
+          </el-option>
+        </el-select>
+      </el-col>
+    </el-row>
+    <div id="DAB" style="width: 100%; height: 400px"></div>
+  </div>
 </template>
 <script>
 //eslint disable next line
@@ -14,27 +58,34 @@ export default {
     return {
       DAB: { failure: [], nofailure: [] },
       mydata: {},
+      failurelist: {},
+      formItem: {},
+      TestorSim: "",
+      FailureMode: "",
+      Item: "",
+      ItemList: ["1"],
     };
   },
   mounted() {
     this.drawDatafromDB();
+    this.getDatafromJson();
   },
-
-
 
   watch: {
     getdata(newval) {
-      console.log(newval)
-      this.drawDatafromDB()
+      console.log(newval);
+      this.drawDatafromDB();
     },
   },
 
   methods: {
-    drawDatafromJson() {
-      this.$axios.get("/static/json/DAB.json").then(
+    getDatafromJson() {
+      this.$axios.get("/static/json/formItem.json").then(
         (response) => {
-          this.DAB = JSON.parse(JSON.stringify(response.data));
-          this.drawPie("DAB");
+          this.formItem = JSON.parse(JSON.stringify(response.data));
+          this.ItemList = Object.getOwnPropertyNames(this.formItem);
+          this.ItemList.pop();
+          this.ItemList.pop();
         },
         (error) => {
           console.log(error);
@@ -44,54 +95,55 @@ export default {
 
     drawDatafromDB() {
       this.mydata = this.getdata;
+      // this.failurelist = this.mydata.
       this.DAB.failure = [];
       this.DAB.nofailure = [];
+
       for (var i = 0; i < this.mydata.length; i++) {
-        if (this.mydata[i].Simulation == "1") {
-          // console.log(typeof(this.DAB.failure))
-          this.DAB.failure.push([
-            parseFloat(this.mydata[i].H_Width),
-            parseFloat(this.mydata[i].Flappy_Mass),
-            this.mydata[i].PRJ,
-          ]);
+        // eval("this.mydata[i].Simulation="+this.mydata[i].Simulation)
+        // console.log(tthis.mydata[i].Simulation.indexOf(this.mydata[i].Simulation) !=-1)
+        // console.log(typeof this.mydata[i].Simulation, typeof this.FailureMode);
+        // console.log(this.TestorSim === '1');
+        if (this.TestorSim === '1') {
+           console.log('Testing')
+          if (this.mydata[i].Testing.indexOf(this.FailureMode) === -1) {
+           
+            this.DAB.nofailure.push([
+              parseFloat(this.mydata[i].H_Width),
+              parseFloat(this.mydata[i].Flappy_Mass),
+              this.mydata[i].PRJ,
+            ]);
+          } else {
+            this.DAB.failure.push([
+              parseFloat(this.mydata[i].H_Width),
+              parseFloat(this.mydata[i].Flappy_Mass),
+              this.mydata[i].PRJ,
+            ]);
+          }
         } else {
-          // console.log(typeof(this.DAB.nofailure))
-          this.DAB.nofailure.push([
-            parseFloat(this.mydata[i].H_Width),
-            parseFloat(this.mydata[i].Flappy_Mass),
-            this.mydata[i].PRJ,
-          ]);
+          console.log('Simulation')
+          if (this.mydata[i].Simulation.indexOf(this.FailureMode) === -1) {
+            
+            // console.log(typeof(this.DAB.failure))
+            this.DAB.nofailure.push([
+              parseFloat(this.mydata[i].H_Width),
+              parseFloat(this.mydata[i].Flappy_Mass),
+              this.mydata[i].PRJ,
+            ]);
+          } else {
+            this.DAB.failure.push([
+              parseFloat(this.mydata[i].H_Width),
+              parseFloat(this.mydata[i].Flappy_Mass),
+              this.mydata[i].PRJ,
+            ]);
+          }
         }
       }
-      // console.log(this.DAB)
-      this.drawPie("DAB");
+
+      this.drawScatter("DAB");
     },
 
-    // drawDatafromDB() {
-    //   this.DAB.failure = [];
-    //   this.DAB.nofailure = [];
-    //   for (var i = 0; i < this.CurrentForm.data4fig.length; i++) {
-    //     if (this.CurrentForm.data4fig[i].Simulation == "1") {
-    //       // console.log(typeof(this.DAB.failure))
-    //       this.DAB.failure.push([
-    //         parseFloat(this.CurrentForm.data4fig[i].H_Width),
-    //         parseFloat(this.CurrentForm.data4fig[i].Flappy_Mass),
-    //         this.CurrentForm.data4fig[i].PRJ,
-    //       ]);
-    //     } else {
-    //       // console.log(typeof(this.DAB.nofailure))
-    //       this.DAB.nofailure.push([
-    //         parseFloat(this.CurrentForm.data4fig[i].H_Width),
-    //         parseFloat(this.CurrentForm.data4fig[i].Flappy_Mass),
-    //         this.CurrentForm.data4fig[i].PRJ,
-    //       ]);
-    //     }
-    //   }
-    //   // console.log(this.DAB)
-    //   this.drawPie("DAB");
-    // },
-
-    drawPie(id) {
+    drawScatter(id) {
       this.charts = echarts.init(document.getElementById(id));
       this.charts.setOption({
         title: {
@@ -182,6 +234,9 @@ export default {
               focus: "series",
             },
             data: this.DAB.nofailure,
+            itemStyle: {
+              color: "#5470c6",
+            },
             markArea: {
               silent: true,
               itemStyle: {
@@ -222,7 +277,12 @@ export default {
             emphasis: {
               focus: "series",
             },
+
             data: this.DAB.failure,
+            itemStyle: {
+              color: "#ee6666",
+            },
+
             markArea: {
               silent: true,
               itemStyle: {

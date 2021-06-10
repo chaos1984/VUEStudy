@@ -18,17 +18,12 @@
               placeholder="Select OEM"
               :style="selectwidth"
             >
-              <el-option label="Geely" value="Geely"></el-option>
-              <el-option label="GWM" value="GWM"></el-option>
-              <el-option label="Cherry" value="Cherry"></el-option>
-              <el-option label="VW" value="VW"></el-option>
-              <el-option label="GM" value="GM"></el-option>
-              <el-option label="Honda" value="Honda"></el-option>
-              <el-option label="NIO" value="NIO"></el-option>
-              <el-option label="BAOJUN" value="BAOJUN"></el-option>
-              <el-option label="Changan" value="Changan"></el-option>
-              <el-option label="Ford" value="Ford"></el-option>
-              <el-option label="Daimler" value="Daimler"></el-option>
+              <el-option
+                v-for="(item, index) in formItem.OEM"
+                :key="index"
+                :label="item"
+                :value="item"
+              ></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -105,9 +100,12 @@
               placeholder="Select DAB Interface"
               :style="selectwidth"
             >
-              <el-option label="ASW3" value="ASW3"></el-option>
-              <el-option label="ASW5" value="ASW5"></el-option>
-              <el-option label="ASW8" value="ASW8"></el-option>
+              <el-option
+                v-for="(item, index) in formItem.Interface"
+                :key="index"
+                :label="item"
+                :value="item"
+              ></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -124,15 +122,12 @@
               placeholder="Select Cover material"
               :style="selectwidth"
             >
-              <el-option label="TT1081B" value="TT1081B"></el-option>
-              <el-option label="TT990B" value="TT990B"></el-option>
-              <el-option label="TA4003B" value="TA4003B"></el-option>
-              <el-option label="WT515" value="WT515"></el-option>
-              <el-option label="WT546" value="WT546"></el-option>
-              <el-option label="TES2403" value="TES2403"></el-option>
-              <el-option label="TPO10" value="TPO10"></el-option>
-              <el-option label="TT991" value="TT991"></el-option>
-              <el-option label="TOSI818" value="TOSI818"></el-option>
+              <el-option
+                v-for="(item, index) in formItem.CoverMat"
+                :key="index"
+                :label="item"
+                :value="item"
+              ></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -149,11 +144,12 @@
               placeholder="Select housing material"
               :style="selectwidth"
             >
-              <el-option label="PG8" value="PG8"></el-option>
-              <el-option label="DX51D" value="DX51D"></el-option>
-              <el-option label="DX53D" value="DX53D"></el-option>
-              <el-option label="DX54D" value="DX54D"></el-option>
-              <el-option label="SPCC" value="SPCC"></el-option>
+              <el-option
+                v-for="(item, index) in formItem.HousingMat"
+                :key="index"
+                :label="item"
+                :value="item"
+              ></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -170,9 +166,12 @@
               placeholder="Select Tearline Type"
               :style="selectwidth"
             >
-              <el-option label="H" value="H"></el-option>
-              <el-option label="I" value="I"></el-option>
-              <el-option label="Petal" value="Petal"></el-option>
+              <el-option
+                v-for="(item, index) in formItem.TearlineType"
+                :key="index"
+                :label="item"
+                :value="item"
+              ></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -191,9 +190,12 @@
               placeholder="Select emblem material"
               :style="selectwidth"
             >
-              <el-option label="T45" value="T45"></el-option>
-              <el-option label="T65" value="T65"></el-option>
-              <el-option label="Al" value="Al"></el-option>
+              <el-option
+                v-for="(item, index) in formItem.EmblemMat"
+                :key="index"
+                :label="item"
+                :value="item"
+              ></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -211,20 +213,10 @@
               :style="selectwidth"
             >
               <el-option
-                label="ADP 1.3B 210kPa MP"
-                value="ADP 1.3B 210kPa MP"
-              ></el-option>
-              <el-option
-                label="ADP 1.3B 210kPa HP"
-                value="ADP 1.3B 210kPa HP"
-              ></el-option>
-              <el-option
-                label="ADP 1.3B 200kPa MP"
-                value="ADP 1.3B 200kPa MP"
-              ></el-option>
-              <el-option
-                label="ADPS 1.5 210kPa 0ms"
-                value="ADPS 1.5 210kPa 0ms"
+                v-for="(item, index) in formItem.Inflator"
+                :key="index"
+                :label="item"
+                :value="item"
               ></el-option>
             </el-select>
           </el-form-item>
@@ -242,8 +234,12 @@
               placeholder="Select emblem material"
               :style="selectwidth"
             >
-              <el-option label="470 dtex" value="470 dtex"></el-option>
-              <el-option label="350 dtex" value="350 dtex"></el-option>
+              <el-option
+                v-for="(item, index) in formItem.CushionMat"
+                :key="index"
+                :label="item"
+                :value="item"
+              ></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -261,26 +257,11 @@
               :style="selectwidth"
             >
               <el-option
-                label="6-12 roll 3-9 roll"
-                value="6-12 roll 3-9 roll"
+                v-for="(item, index) in formItem.CushionFold"
+                :key="index"
+                :label="item"
+                :value="item"
               ></el-option>
-              <el-option
-                label="3-9 roll 6-12 roll"
-                value="3-9 roll 6-12 roll"
-              ></el-option>
-              <el-option
-                label="6-12 roll 3-9 compress"
-                value="6-12 roll 3-9 compress"
-              ></el-option>
-              <el-option
-                label="3-9 roll 6-12 compress"
-                value="3-9 roll 6-12 compress"
-              ></el-option>
-              <el-option
-                label="12 roll 3-6-9 compress"
-                value="12 roll 3-6-9 compress"
-              ></el-option>
-              <el-option label="compress" value="compress"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -312,10 +293,12 @@
               placeholder="Select emblem material"
               :style="selectwidth"
             >
-              <el-option label="3 Invert Y" value="3 Invert Y"></el-option>
-              <el-option label="3 Y" value="3 Y"></el-option>
-              <el-option label="2 Symmetry" value="2 Symmetry"></el-option>
-              <el-option label="2 Unsymmetry" value="2 Unsymmetry"></el-option>
+              <el-option
+                v-for="(item, index) in formItem.TetherType"
+                :key="index"
+                :label="item"
+                :value="item"
+              ></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -405,7 +388,7 @@
         </el-col>
         <el-col :span="4">
           <el-form-item
-            label="CushionDiffusor"
+            label="Cushion Diffusor"
             :label-width="formLabelWidth"
             prop="C_Diffusor"
             :rules="[
@@ -433,75 +416,42 @@
       <el-divider></el-divider>
 
       <el-row>
-        <el-col :span="6">
+        <el-col :span="12">
           <el-form-item label="Testing result" :label-width="formLabelWidth">
-            <el-select
+            <el-checkbox-group v-model="form.Testing">
+              <el-checkbox-button
+                v-for="item in formItem.FailureMode"
+                :label="item"
+                :key="item"
+                >{{ item }}</el-checkbox-button
+              >
+            </el-checkbox-group>
+
+            <!-- <el-select
               v-model="form.Testing"
               placeholder="Select Testing result"
               :style="selectwidth"
             >
-              <el-option label="No Failure" value="No Failure"></el-option>
               <el-option
-                label="Hinge Overtear"
-                value="Hinge Overtear"
+                v-for="(item, index) in formItem.FailureMode"
+                :key="index"
+                :label="item"
+                :value="item"
               ></el-option>
-              <el-option
-                label="Hinge Breakage"
-                value="Hinge Breakage"
-              ></el-option>
-              <el-option
-                label="Cover Hooks Detach"
-                value="Cover Hooks Detach"
-              ></el-option>
-              <el-option
-                label="Omega Hooks Detach"
-                value="Omega Hooks Detach"
-              ></el-option>
-              <el-option
-                label="Element Breakage"
-                value="Element Breakage"
-              ></el-option>
-              <el-option
-                label="Other Failure Modes"
-                value="Other Failure Modes"
-              ></el-option>
-            </el-select>
+            </el-select> -->
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
+         <el-col :span="12">
           <el-form-item label="Simulation result" :label-width="formLabelWidth">
-            <el-select
-              v-model="form.Simulation"
-              placeholder="Select Simulation result"
-              :style="selectwidth"
-            >
-              <el-option label="No Failure" value="No Failure"></el-option>
-              <el-option
-                label="Hinge Overtear"
-                value="Hinge Overtear"
-              ></el-option>
-              <el-option
-                label="Hinge Breakage"
-                value="Hinge Breakage"
-              ></el-option>
-              <el-option
-                label="Cover Hooks Detach"
-                value="Cover Hooks Detach"
-              ></el-option>
-              <el-option
-                label="Omega Hooks Detach"
-                value="Omega Hooks Detach"
-              ></el-option>
-              <el-option
-                label="Element Breakage"
-                value="Element Breakage"
-              ></el-option>
-              <el-option
-                label="Other Failure Modes"
-                value="Other Failure Modes"
-              ></el-option>
-            </el-select>
+            <el-checkbox-group v-model="form.Simulation">
+              <el-checkbox-button
+                v-for="item in formItem.FailureMode"
+                :label="item"
+                :key="item"
+                >{{ item }}</el-checkbox-button
+              >
+            </el-checkbox-group>
           </el-form-item>
         </el-col>
       </el-row>
@@ -515,17 +465,40 @@
 </template>
 
 <script>
+// const cityOptions = ['上海', '北京', '广州', '深圳'];
 export default {
   props: {
-    form: { a: 1 },
+    form: {},
   },
   data: () => ({
+    checkedList: [],
     dialogFormVisible: false,
     selectwidth: "width: 250px",
     formLabelWidth: "130px",
+    formItem: {},
   }),
-
+  watch:{
+      form(newval){
+        console.log("newval")
+        this.form = newval
+      console.log(newval.Testing)
+    }
+  },
+  mounted() {
+    this.getDatafromJson();
+  },
   methods: {
+    getDatafromJson() {
+      this.$axios.get("/static/json/formItem.json").then(
+        (response) => {
+          this.formItem = JSON.parse(JSON.stringify(response.data));
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -547,12 +520,13 @@ export default {
     },
 
     run() {
-      // this.form.DateRange = this.form.DateRange.substring(2,29)
-      console.log(this.form.DateRange)
+      console.log("this.checkedList");
+      console.log(this.checkedList);
+      console.log(this.form.Testing);
+      // this.form.Testing = this.checkedList
       this.$axios
         .post("/api/dabinfo", {
           params: {
-            
             Dabinfo: JSON.stringify(this.form),
           },
         })

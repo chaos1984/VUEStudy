@@ -37,6 +37,7 @@ export default {
 
   created() {
   console.log('DrawPie')
+
     this.Itemlabel = this.itemList[4];
   },
 

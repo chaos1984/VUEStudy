@@ -177,10 +177,12 @@ export default {
       const eventCount = this.names.length;
   
       for (let i = 0; i < eventCount; i++) {
+        
         const date = this.getdata[i].DateRange.substring(1,27).split(',')
+        // console.log(date)
         const first = new Date(date[0]);
         const second = new Date(date[1]);
-        
+        // console.log(first)
         events.push({
           name: this.names[i],
           start: first,

@@ -89,6 +89,7 @@ export default {
           feature: {
             dataView: { readOnly: false },
             restore: {},
+            saveAsImage: {}
           },
         },
         // brush: {},

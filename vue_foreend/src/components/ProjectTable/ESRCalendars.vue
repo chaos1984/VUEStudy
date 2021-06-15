@@ -46,7 +46,6 @@
           :event-color="getEventColor"
           :type="type"
           @click:event="showEvent"
-          
           @click:date="viewDay"
           @change="updateRange"
         ></v-calendar>
@@ -115,15 +114,6 @@ export default {
     names: [],
   }),
 
-  created() {
-
-      for (var i = 0; i < this.getdata.length; i++) {
-        this.names.push(this.getdata[i].PRJ);
-      }
-      console.log(this.names)
-
- 
-  },
 
   mounted() {
     this.$refs.calendar.checkChange();
@@ -169,16 +159,14 @@ export default {
       nativeEvent.stopPropagation();
     },
     updateRange() {
+      for (var i = 0; i < this.getdata.length; i++) {
+        this.names.push(this.getdata[i].PRJ);
+      }
+      console.log(this.names);
       const events = [];
-
-      // const min = new Date(`${start.date}T00:00:00`);
-      // const max = new Date(`${end.date}T23:59:59`);
-      // const days = (max.getTime() - min.getTime()) / 86400000;
       const eventCount = this.names.length;
-  
       for (let i = 0; i < eventCount; i++) {
-        
-        const date = this.getdata[i].DateRange.substring(1,27).split(',')
+        const date = this.getdata[i].DateRange.substring(1, 27).split(",");
         // console.log(date)
         const first = new Date(date[0]);
         const second = new Date(date[1]);
@@ -187,7 +175,7 @@ export default {
           name: this.names[i],
           start: first,
           end: second,
-          color: this.colors[i % this.colors.length ],
+          color: this.colors[i % this.colors.length],
         });
       }
 

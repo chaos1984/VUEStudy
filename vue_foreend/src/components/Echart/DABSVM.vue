@@ -8,8 +8,8 @@
           placeholder="Select Test or Simulation"
           @change="drawDatafromDB"
         >
-          <el-option label="Testing" value=1></el-option>
-          <el-option label="Simulation" value=0></el-option>
+          <el-option label="Testing" value="1"></el-option>
+          <el-option label="Simulation" value="0"></el-option>
         </el-select>
       </el-col>
       <el-col :span="8">
@@ -30,6 +30,26 @@
       <el-col :span="8">
         <el-select
           v-model="Item"
+          clearable
+          placeholder="Select Feature"
+          @change="drawDatafromDB"
+        >
+          <el-option-group
+            v-for="group in ItemGroup"
+            :key="group.label"
+            :label="group.label"
+          >
+            <el-option
+              v-for="item in group.options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
+          </el-option-group>
+        </el-select>
+        <!-- <el-select
+          v-model="Item"
           placeholder="Select Feature"
           @change="drawDatafromDB"
         >
@@ -40,7 +60,7 @@
             :value="item"
           >
           </el-option>
-        </el-select>
+        </el-select> -->
       </el-col>
     </el-row>
     <div id="DAB" style="width: 100%; height: 400px"></div>
@@ -60,15 +80,20 @@ export default {
       mydata: {},
       failurelist: {},
       formItem: {},
-      TestorSim: "",
-      FailureMode: "",
+      TestorSim: "Simulation",
+      FailureMode: "Hinge Overtear",
       Item: "",
-      ItemList: ["1"],
+      ItemList: [],
+      ItemGroup: [],
     };
   },
+
+  created: function () {
+    this.getDatafromJson();
+  },
+
   mounted() {
     this.drawDatafromDB();
-    this.getDatafromJson();
   },
 
   watch: {
@@ -83,9 +108,23 @@ export default {
       this.$axios.get("/static/json/formItem.json").then(
         (response) => {
           this.formItem = JSON.parse(JSON.stringify(response.data));
+
           this.ItemList = Object.getOwnPropertyNames(this.formItem);
           this.ItemList.pop();
           this.ItemList.pop();
+          var temp = [];
+          for (var i = 0; i < this.ItemList.length; i++) {
+            temp = this.formItem[this.ItemList[i]];
+            var optionlist = [];
+            for (var j = 0; j < temp.length; j++) {
+              optionlist.push({ value: temp[j], label: temp[j] });
+            }
+            this.ItemGroup.push({
+              label: this.ItemList[i],
+              options: optionlist,
+            });
+          }
+          console.log(this.ItemGroup[0].options);
         },
         (error) => {
           console.log(error);
@@ -98,16 +137,14 @@ export default {
       // this.failurelist = this.mydata.
       this.DAB.failure = [];
       this.DAB.nofailure = [];
-
       for (var i = 0; i < this.mydata.length; i++) {
-        // eval("this.mydata[i].Simulation="+this.mydata[i].Simulation)
-        // console.log(tthis.mydata[i].Simulation.indexOf(this.mydata[i].Simulation) !=-1)
-        // console.log(typeof this.mydata[i].Simulation, typeof this.FailureMode);
-        // console.log(this.TestorSim === '1');
-        if (this.TestorSim === '1') {
-           console.log('Testing')
+        var strData = JSON.stringify(this.mydata[i])
+        
+        // console.log(strData.search(this.Item) != -1)
+        if (strData.search(this.Item) != -1){
+        if (this.TestorSim === "1") {
+          console.log("Testing");
           if (this.mydata[i].Testing.indexOf(this.FailureMode) === -1) {
-           
             this.DAB.nofailure.push([
               parseFloat(this.mydata[i].H_Width),
               parseFloat(this.mydata[i].Flappy_Mass),
@@ -121,9 +158,8 @@ export default {
             ]);
           }
         } else {
-          console.log('Simulation')
+          console.log("Simulation");
           if (this.mydata[i].Simulation.indexOf(this.FailureMode) === -1) {
-            
             // console.log(typeof(this.DAB.failure))
             this.DAB.nofailure.push([
               parseFloat(this.mydata[i].H_Width),
@@ -139,7 +175,7 @@ export default {
           }
         }
       }
-
+      }
       this.drawScatter("DAB");
     },
 
@@ -190,11 +226,13 @@ export default {
           },
         },
         toolbox: {
+          
           feature: {
             dataZoom: {},
             dataView: { readOnly: false },
-            restore: {},
+            saveAsImage: {}
           },
+          
         },
         // brush: {},
         legend: {

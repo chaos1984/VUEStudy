@@ -188,9 +188,10 @@ def dabinfo():
     DABinfo = json.loads(DABinfo['params']['Dabinfo'])
     #添加数据到ESR DB
     print ("~~~~~~~~~~~~~~~~~~~~~")
-    print (DABinfo)
+    print (DABinfo['Log'])
+    print ("~~~~~~~~~~~~~~~~~~~~~")
     data = ESR( 
-                OEM = DABinfo['OEM'],\
+                              OEM = DABinfo['OEM'],\
                 PRJ = DABinfo['PRJ'],\
                 AFIS = DABinfo['AFIS'],\
                 ESR = DABinfo['ESR'], \
@@ -213,9 +214,12 @@ def dabinfo():
                 H_Plane = DABinfo['H_Plane'],\
                 H_Neck = DABinfo['H_Neck'],\
                 Daokou = DABinfo['Daokou'],\
-                Simulation = DABinfo['Simulation'],\
-                Testing = DABinfo['Testing'],\
-                DateRange = str(DABinfo['DateRange']))
+                Simulation = str(DABinfo['Simulation']),\
+                Testing = str(DABinfo['Testing']),\
+                DateRange = str(DABinfo['DateRange']),\
+                CV_Height = DABinfo['CV_Height'],\
+                CV_Leather = DABinfo['CV_Leather'],\
+                Log = str(DABinfo['Log']))
     print (DABinfo['DateRange'])
     try:
         print ('Prj is exit!')

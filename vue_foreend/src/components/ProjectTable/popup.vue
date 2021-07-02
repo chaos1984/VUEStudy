@@ -112,7 +112,7 @@
 
         <el-col :span="6">
           <el-form-item
-            label="Covermat"
+            label="Cover mat"
             :label-width="formLabelWidth"
             prop="CV_Mat"
             :rules="[{ required: true, message: 'Select one item' }]"
@@ -268,7 +268,7 @@
 
         <el-col :span="6">
           <el-form-item
-            label="Cushion D/mm"
+            label="Cushion Diam"
             :label-width="formLabelWidth"
             prop="C_Diam"
             :rules="[{ required: true, trigger: 'blur' }]"
@@ -277,6 +277,7 @@
               onkeyup="value=value.replace(/[^\.\d]/g, '')"
               v-model="form.C_Diam"
               autocomplete="off"
+              placeholder="mm"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -290,7 +291,7 @@
           >
             <el-select
               v-model="form.C_Tether"
-              placeholder="Select emblem material"
+              placeholder="Select tether type"
               :style="selectwidth"
             >
               <el-option
@@ -305,7 +306,7 @@
 
         <el-col :span="6">
           <el-form-item
-            label="Hinge width/mm"
+            label="Hinge width"
             :label-width="formLabelWidth"
             prop="H_Width"
             :rules="[{ required: true, trigger: 'blur' }]"
@@ -314,13 +315,30 @@
               onkeyup="value=value.replace(/[^\.\d]/g, '')"
               v-model="form.H_Width"
               autocomplete="off"
+              placeholder="mm"
             ></el-input>
           </el-form-item>
         </el-col>
 
         <el-col :span="6">
           <el-form-item
-            label="Flappy mass/kg"
+            label="Cover Height"
+            :label-width="formLabelWidth"
+            prop="CV_Height"
+            :rules="[{ required: true, trigger: 'blur' }]"
+          >
+            <el-input
+              onkeyup="value=value.replace(/[^\.\d]/g, '')"
+              v-model="form.CV_Height"
+              autocomplete="off"
+              placeholder="mm"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="6">
+          <el-form-item
+            label="Flappy mass"
             :label-width="formLabelWidth"
             prop="Flappy_Mass"
             :rules="[{ required: true, trigger: 'blur' }]"
@@ -329,6 +347,7 @@
               onkeyup="value=value.replace(/[^\.\d]/g, '')"
               v-model="form.Flappy_Mass"
               autocomplete="off"
+              placeholder="kg"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -398,6 +417,19 @@
             <el-checkbox v-model="form.C_Diffusor"></el-checkbox>
           </el-form-item>
         </el-col>
+
+        <el-col :span="4">
+          <el-form-item
+            label="Cover Leather"
+            :label-width="formLabelWidth"
+            prop="CV_Leather"
+            :rules="[
+              { required: true, message: 'Need confirm', trigger: 'change' },
+            ]"
+          >
+            <el-checkbox v-model="form.CV_Leather"></el-checkbox>
+          </el-form-item>
+        </el-col>
       </el-row>
 
       <div class="block">
@@ -442,7 +474,7 @@
           </el-form-item>
         </el-col>
 
-         <el-col :span="12">
+        <el-col :span="12">
           <el-form-item label="Simulation result" :label-width="formLabelWidth">
             <el-checkbox-group v-model="form.Simulation">
               <el-checkbox-button
@@ -465,7 +497,7 @@
 </template>
 
 <script>
-// const cityOptions = ['上海', '北京', '广州', '深圳'];
+
 export default {
   props: {
     form: {},
@@ -477,12 +509,12 @@ export default {
     formLabelWidth: "130px",
     formItem: {},
   }),
-  watch:{
-      form(newval){
-        console.log("newval")
-        this.form = newval
-      console.log(newval.Testing)
-    }
+  watch: {
+    form(newval) {
+      console.log("newval");
+      this.form = newval;
+      console.log(newval.Testing);
+    },
   },
   mounted() {
     this.getDatafromJson();
@@ -520,10 +552,15 @@ export default {
     },
 
     run() {
-      console.log("this.checkedList");
-      console.log(this.checkedList);
-      console.log(this.form.Testing);
+      // console.log("this.checkedList");
+      // console.log(this.checkedList);
+      // console.log(this.form.Testing);
       // this.form.Testing = this.checkedList
+      // console.log(Object.prototype.hasOwnProperty.call(this.form, 'Log'))
+      if (Object.prototype.hasOwnProperty.call(this.form, 'Log')== false) {
+        this.form.Log =""
+      }
+
       this.$axios
         .post("/api/dabinfo", {
           params: {

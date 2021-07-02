@@ -44,9 +44,12 @@ class ESR(db.Model):
     Simulation = db.Column(db.String(80), nullable=False)
     Testing = db.Column(db.String(80), nullable=False)
     DateRange = db.Column(db.String(80), nullable=False)
+    CV_Height = db.Column(db.Float(), nullable=False)
+    CV_Leather = db.Column(db.Boolean, nullable=False)
+    Log = db.Column(db.String(80), nullable=False)
     def __repr__(self):
-        return "{'ID':'%s','OEM':'%s','PRJ':'%s' ,'AFIS':'%s','ESR':'%s','PE':'%s','CAE':'%s','Interface':'%s','CV_Mat':'%s','H_Mat':'%s','Tearline':'%s','E_Mat':'%s','Inflator':'%s','C_Mat':'%s','C_Type':'%s','C_Diam':'%s','C_Tether':'%s','H_Width':'%s','Flappy_Mass':'%s','Wrapper':'%s','H_Plane':'%s','H_Neck':'%s','Daokou':'%s','Simulation':'%s','Testing':'%s','DateRange':'%s')}" \
-            % (str(self.ID),self.OEM,self.PRJ,self.AFIS,self.ESR,self.PE,self.CAE,self.Interface,self.CV_Mat,self.H_Mat,self.Tearline,self.E_Mat,self.Inflator,self.C_Mat,self.C_Type,self.C_Diam,self.C_Tether,self.H_Width,self.Flappy_Mass,self.Wrapper,self.H_Plane,self.H_Neck,self.Daokou,self.Simulation,self.Testing,self.DateRange)
+        return "{'ID':'%s','OEM':'%s','PRJ':'%s' ,'AFIS':'%s','ESR':'%s','PE':'%s','CAE':'%s','Interface':'%s','CV_Mat':'%s','H_Mat':'%s','Tearline':'%s','E_Mat':'%s','Inflator':'%s','C_Mat':'%s','C_Type':'%s','C_Diam':'%s','C_Tether':'%s','H_Width':'%s','Flappy_Mass':'%s','Wrapper':'%s','H_Plane':'%s','H_Neck':'%s','Daokou':'%s','Simulation':'%s','Testing':'%s','DateRange':'%s','CV_Height':'%s','CV_Leather':'%s','Log':'%s'}" \
+            % (str(self.ID),self.OEM,self.PRJ,self.AFIS,self.ESR,self.PE,self.CAE,self.Interface,self.CV_Mat,self.H_Mat,self.Tearline,self.E_Mat,self.Inflator,self.C_Mat,self.C_Type,self.C_Diam,self.C_Tether,self.H_Width,self.Flappy_Mass,self.Wrapper,self.H_Plane,self.H_Neck,self.Daokou,self.Simulation,self.Testing,self.DateRange,self.CV_Height,self.CV_Leather,self.Log)
   
         # return "{'id':%s,'caer':%s,'pe':%s,'oem':%s,'esr':%s,'date':%s,'proj':%s,'afis':%s,'cushion_type':%s,'cushion_mat':%s}" \
         #     % (str(self.id),self.caer,self.pe,self.oem,self.esr,self.date,self.proj,self.afis,self.cushion_type,self.cushion_mat) #,self.date,self.proj,self.afis,self.cushion_type,self.cushion_mat,self.cover_mat,self.housing_mat,self.emblem_mat,self.test_res)

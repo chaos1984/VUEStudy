@@ -142,10 +142,18 @@
           </div>
         </el-popover>
 
-        <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
+        <v-icon small class="mr-2" @click="editItem(item)" > mdi-pencil </v-icon>
         <v-icon small class="mr-2" @click="deleteItem(item)">mdi-delete</v-icon>
+        <v-icon small class="mr-2" @click="logItem(item)"
+          >el-icon-notebook-1</v-icon
+        >
       </template>
     </v-data-table>
+
+    <el-drawer :visible.sync="drawerVisable" :with-header="false" size="50%">
+      <!-- <span>{{test}}</span> -->
+      <LOG :getdata="itemdata"></LOG>
+    </el-drawer>
 
     <el-dialog
       :title="Operation"
@@ -174,42 +182,48 @@ export default {
     DABSVM: () => import("@/components/Echart/DABSVM"),
     StatisticsPie: () => import("@/components/Echart/StatisticsPie"),
     POPUP: () => import("@/components/ProjectTable/popup"),
+    LOG: () => import("@/components/ProjectTable/log"),
     ESRCalendars: () => import("@/components/ProjectTable/ESRCalendars"),
   },
   data: () => ({
-    forminital:{
-      OEM:"",
-      PRJ:"",
-      AFIS:"",
-      ESR:"",
-      PE:"",
-      Interface:"",
-      CV_Mat:"",
-      H_Mat:"",
-      HousingMat:"",
-      Tearline:"",
-      E_Mat:"",
-      Inflator:"",
-      C_Mat:"",
-      C_Type:"",
-      C_Diam:"",
-      C_Tether:"",
-      H_Width:"",
-      Flappy_Mass:"",
-      Wrapper:"",
-      H_Plane:"",
-      H_Neck:"",
-      Daokou:"",
-      C_Diffusor:"",
-      DateRange:"",
-      Testing:['Hinge Overtear', 'Emblem Breakage'],
-      Simulation:['Hinge Overtear', 'Emblem Breakage'],
+    itemdata:"",
+    forminital: {
+      OEM: "",
+      PRJ: "",
+      AFIS: "",
+      ESR: "",
+      PE: "",
+      Interface: "",
+      CV_Mat: "",
+      H_Mat: "",
+      HousingMat: "",
+      Tearline: "",
+      E_Mat: "",
+      Inflator: "",
+      C_Mat: "",
+      C_Type: "",
+      C_Diam: "",
+      C_Tether: "",
+      H_Width: "",
+      Flappy_Mass: "",
+      Wrapper: "",
+      H_Plane: "",
+      H_Neck: "",
+      Daokou: "",
+      C_Diffusor: "",
+      DateRange: "",
+      Testing: ["Hinge Overtear", "Emblem Breakage"],
+      Simulation: ["Hinge Overtear", "Emblem Breakage"],
+      CV_Leather:"",
+      CV_Height:"",
+      Log:""
     },
     Operation: "Project",
     popupdata: {},
     overlay: false,
     detailInfo: {},
     dialogFormVisible: false,
+    drawerVisable: false,
     dialog: false,
     dialogDelete: false,
     search: "",
@@ -238,6 +252,7 @@ export default {
       // { text: "Tearline", value: "Tearline" },
       { text: "Flappy Mass", value: "Flappy_Mass" },
       { text: "H_width", value: "H_Width" },
+      { text: "CV_Height", value: "CV_Height" },
       // { text: "H_Plane", value: "H_Plane" },
       // { text: "H_Neck", value: "H_Neck" },
       { text: "Option", value: "actions", sortable: false },
@@ -297,21 +312,20 @@ export default {
       );
     },
     addItem() {
-      this.popupdata = this.forminital
-      
+      this.popupdata = this.forminital;
+
       this.dialogFormVisible = true;
       this.Operation = "Add new project";
     },
 
-
     editItem(item) {
       this.popupdata = item;
+      eval("this.popupdata.Simulation =" + this.popupdata.Simulation);
       eval("this.popupdata.Testing =" + this.popupdata.Testing);
       eval("this.popupdata.DateRange =" + this.popupdata.DateRange);
       this.dialogFormVisible = true;
       this.Operation = "Edit project";
     },
-
     deleteItem(item) {
       // console.log(this.ESRTable.data)
       confirm("Are you sure you want to delete this item?") &&
@@ -324,6 +338,11 @@ export default {
       this.dialogDelete = true;
     },
 
+    logItem(item) {
+      // console.log(this.ESRTable.data)
+      this.drawerVisable=true;
+      this.itemdata=item;
+    },
     close() {
       this.dialog = false;
       this.$nextTick(() => {
@@ -331,12 +350,11 @@ export default {
         this.editedIndex = -1;
       });
     },
-
   },
 };
 </script>
 
-<style scoped>
+<style lang="scss" >
 .Title {
   color: rgb(252, 0, 0);
 }
@@ -350,5 +368,9 @@ export default {
 .row-bg-dark {
   padding: 10px 0;
   background: #99a9bf;
+}
+
+.el-drawer.rtl{
+    overflow: scroll;
 }
 </style>

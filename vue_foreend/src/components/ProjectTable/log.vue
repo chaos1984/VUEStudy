@@ -25,22 +25,24 @@
       </el-timeline-item>
     </el-timeline>
     <!-- form input -->
-    <el-divider/>
-    <div style="margin-left: 20px " width="50%">
-  <el-select
-    v-model="title"
-    multiple
-    filterable
-    allow-create
-    default-first-option
-    placeholder="Choose tags for your article">
-    <el-option
-      v-for="item in options"
-      :key="item.value"
-      :label="item.label"
-      :value="item.value">
-    </el-option>
-  </el-select>
+    <el-divider />
+    <div style="margin-left: 20px" width="50%">
+      <el-select
+        v-model="title"
+        multiple
+        filterable
+        allow-create
+        default-first-option
+        placeholder="Select a failure pattern"
+      >
+        <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        >
+        </el-option>
+      </el-select>
       <div style="margin: 20px 0"></div>
       <el-input
         type="textarea"
@@ -65,6 +67,13 @@
           size="mini"
           @click="delItem"
         ></el-button>
+        <el-button
+          type="warning"
+          icon="el-icon-folder-add"
+          circle
+          size="mini"
+          @click="mkdir"
+        ></el-button>
       </el-row>
     </div>
   </div>
@@ -86,44 +95,78 @@ export default {
       state: false,
       flag: false,
       form: {},
-      options: [{
-          value: 'A surface update',
-          label: 'A surface update'
-        }, {
-          value: 'Cover Hinge update',
-          label: 'Cover Hinge update'
-        }, {
-          value: 'Cushion Change',
-          label: 'Cushion Change'
-        }],
-      activities: [ ],
+      options: [
+        {
+          value: "A surface update",
+          label: "A surface update",
+        },
+        {
+          value: "Cover Hinge update",
+          label: "Cover Hinge update",
+        },
+        {
+          value: "Cushion Change",
+          label: "Cushion Change",
+        },
+      ],
+      activities: [],
     };
   },
 
-   mounted() {
-    this.activities = JSON.parse(this.getdata.Log);
-  
+  //  mounted() {
+
+  // },
+  watch: {
+    getdata(Value) {
+      this.stringchange()
+      this.activities = JSON.parse(Value.Log)
+    },
   },
   methods: {
+    stringchange(){
+      this.getdata.Log = this.getdata.Log.replace(/'/g, '"')
+    },
     addItem() {
-      console.log('this.getdata')
-      
       var myDate = new Date();
       // var mytime=myDate.toLocaleTimeString();     //获取当前时间
       // 获取日期与时间
-      
-      this.activities.push({title:this.title.join(" and "),
+
+      this.activities.push({
+        title: this.title.join(" and "),
         content: this.content,
         timestamp: myDate.toLocaleString(),
       });
-      
+      this.run(this.getdata)
     },
     delItem() {
       this.activities.pop({});
+      this.run(this.getdata)
     },
     editlog(content) {
       this.dialogFormVisible = true;
       console.log(content);
+    },
+    mkdir() {
+     
+    },
+    run(form) {
+      form.Log = JSON.stringify(this.activities)
+      
+
+      this.$axios
+        .post("/api/dabinfo", {
+          params: {
+            Dabinfo: JSON.stringify(form),
+          },
+        })
+        .then(
+          (response) => {
+            console.log(response.data);
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
     },
   },
 };

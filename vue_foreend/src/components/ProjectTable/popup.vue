@@ -497,7 +497,6 @@
 </template>
 
 <script>
-
 export default {
   props: {
     form: {},
@@ -510,10 +509,8 @@ export default {
     formItem: {},
   }),
   watch: {
-    form(newval) {
-      console.log("newval");
+    form(newval) {     
       this.form = newval;
-      console.log(newval.Testing);
     },
   },
   mounted() {
@@ -552,19 +549,29 @@ export default {
     },
 
     run() {
-      // console.log("this.checkedList");
-      // console.log(this.checkedList);
-      // console.log(this.form.Testing);
-      // this.form.Testing = this.checkedList
-      // console.log(Object.prototype.hasOwnProperty.call(this.form, 'Log'))
-      if (Object.prototype.hasOwnProperty.call(this.form, 'Log')== false) {
-        this.form.Log =""
+      // if (Object.prototype.hasOwnProperty.call(this.form, "Log") == false) {
+      //   var myDate = new Date();
+      //   myDate.toLocaleString(),
+      //     (this.form.Log = [
+      //       { title: "Start", content: "Project start", timestamp: myDate },
+      //     ]);
+      // }
+      if (this.form.Log == "") {
+        var myDate = new Date();
+        this.form.Log = [
+          {
+            title: "Project Start",
+            content: "",
+            timestamp: myDate.toLocaleString()
+          }
+        ];
       }
-
+      console.log("this.form.log");
+      console.log(this.form.Log);
       this.$axios
         .post("/api/dabinfo", {
           params: {
-            Dabinfo: JSON.stringify(this.form),
+            Dabinfo: JSON.stringify(this.form).replace(/'/g, '"'),
           },
         })
         .then(

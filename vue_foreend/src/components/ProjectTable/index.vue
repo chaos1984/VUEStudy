@@ -150,7 +150,7 @@
       </template>
     </v-data-table>
 
-    <el-drawer :visible.sync="drawerVisable" :with-header="false" size="50%">
+    <el-drawer :visible.sync="drawerVisable" :with-header="false" size="50%" >
       <!-- <span>{{test}}</span> -->
       <LOG :getdata="itemdata"></LOG>
     </el-drawer>
@@ -286,6 +286,9 @@ export default {
     this.getData();
   },
   methods: {
+    cleardrawer(){
+      this.itemdata={}
+    },
     closepopup(val) {
       this.dialogFormVisible = val;
     },

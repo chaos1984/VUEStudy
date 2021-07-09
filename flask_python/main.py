@@ -9,6 +9,7 @@ from io import BytesIO
 import getpass
 
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import func
 import base64
 import ESRpdf
 import pickle
@@ -186,11 +187,19 @@ def dabinfo():
     user = getpass.getuser()
     DABinfo = json.loads(request.get_data(as_text=True))
     DABinfo = json.loads(DABinfo['params']['Dabinfo'])
+
     #添加数据到ESR DB
     print ("~~~~~~~~~~~~~~~~~~~~~")
-    print (DABinfo['Log'])
+    # print (DABinfo["ID"])
+    print (db.session.query(func.max(ESR.ID)).scalar())
     print ("~~~~~~~~~~~~~~~~~~~~~")
+
+    try:
+        ESR.query.filter(ESR.ID == int(DABinfo['ID'])).delete()
+    except:
+        DABinfo['ID'] = db.session.query(func.max(ESR.ID)).scalar()+1
     data = ESR( 
+                ID =int(DABinfo['ID']),\
                 OEM = DABinfo['OEM'],\
                 PRJ = DABinfo['PRJ'],\
                 AFIS = DABinfo['AFIS'],\
@@ -220,12 +229,13 @@ def dabinfo():
                 CV_Height = DABinfo['CV_Height'],\
                 CV_Leather = DABinfo['CV_Leather'],\
                 Log = str(DABinfo['Log']))
-    print (DABinfo['DateRange'])
-    try:
-        print ('Prj is exit!')
-        ESR.query.filter(ESR.ID == DABinfo['ID']).delete()
-    except:
-        print ('New Prj')
+    # try:
+        # data = ESR( ID =int(DABinfo['ID']))
+        # # ESR.query.filter(ESR.ID == int(DABinfo['ID'])).delete()
+        # print (DABinfo['ID'])
+        # print ('Prj is exit!')
+    # except:
+        # print ('New Prj')
 
     addESRDB(data)
     return "here"

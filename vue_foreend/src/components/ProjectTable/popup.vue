@@ -78,11 +78,20 @@
             prop="PE"
             :rules="[{ required: true, trigger: 'blur' }]"
           >
-            <el-input
-              onkeyup="value=value.replace(/[^\ \A-z]/g, '')"
+            <el-select
               v-model="form.PE"
-              autocomplete="on"
-            ></el-input>
+              placeholder="Select DAB Interface"
+              :style="selectwidth"
+              filterable
+              allow-create
+            >
+              <el-option
+                v-for="(item, index) in formItem.PE"
+                :key="index"
+                :label="item"
+                :value="item"
+              ></el-option>
+            </el-select>
           </el-form-item>
         </el-col>
 
@@ -509,8 +518,10 @@ export default {
     formItem: {},
   }),
   watch: {
-    form(newval) {     
+    form(newval) {
       this.form = newval;
+      console.log("newval")
+      console.log(newval)
     },
   },
   mounted() {
@@ -562,12 +573,10 @@ export default {
           {
             title: "Project Start",
             content: "",
-            timestamp: myDate.toLocaleString()
-          }
+            timestamp: myDate.toLocaleString(),
+          },
         ];
       }
-      console.log("this.form.log");
-      console.log(this.form.Log);
       this.$axios
         .post("/api/dabinfo", {
           params: {

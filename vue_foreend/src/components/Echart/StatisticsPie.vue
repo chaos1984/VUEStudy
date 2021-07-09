@@ -39,6 +39,8 @@ export default {
   console.log('DrawPie')
 
     this.Itemlabel = this.itemList[4];
+        this.mydata = this.getdata;
+    this.drawDatafromDB();
   },
 
   mounted() {

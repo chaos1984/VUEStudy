@@ -113,7 +113,16 @@ export default {
     ],
     names: [],
   }),
-
+  watch: {
+    getdata() {
+      this.updateRange()
+      this.$refs.calendar.checkChange();
+    }
+  },
+  created() {
+    this.updateRange()
+    this.$refs.calendar.checkChange();
+  },
 
   mounted() {
     this.$refs.calendar.checkChange();
@@ -162,7 +171,7 @@ export default {
       for (var i = 0; i < this.getdata.length; i++) {
         this.names.push(this.getdata[i].PRJ);
       }
-      console.log(this.names);
+      // console.log(this.names);
       const events = [];
       const eventCount = this.names.length;
       for (let i = 0; i < eventCount; i++) {

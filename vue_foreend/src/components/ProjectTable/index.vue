@@ -5,6 +5,8 @@
       :items="ESRTable"
       class="elevation-1"
       multi-sort
+ 
+      group-by="AFIS"
       :search="search"
       :custom-filter="filterOnlyCapsText"
     >
@@ -142,7 +144,7 @@
           </div>
         </el-popover>
 
-        <v-icon small class="mr-2" @click="editItem(item)" > mdi-pencil </v-icon>
+        <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
         <v-icon small class="mr-2" @click="deleteItem(item)">mdi-delete</v-icon>
         <v-icon small class="mr-2" @click="logItem(item)"
           >el-icon-notebook-1</v-icon
@@ -150,7 +152,7 @@
       </template>
     </v-data-table>
 
-    <el-drawer :visible.sync="drawerVisable" :with-header="false" size="50%" >
+    <el-drawer :visible.sync="drawerVisable" :with-header="false" size="50%">
       <!-- <span>{{test}}</span> -->
       <LOG :getdata="itemdata"></LOG>
     </el-drawer>
@@ -186,7 +188,7 @@ export default {
     ESRCalendars: () => import("@/components/ProjectTable/ESRCalendars"),
   },
   data: () => ({
-    itemdata:"",
+    itemdata: "",
     forminital: {
       OEM: "",
       PRJ: "",
@@ -214,9 +216,9 @@ export default {
       DateRange: "",
       Testing: ["Hinge Overtear", "Emblem Breakage"],
       Simulation: ["Hinge Overtear", "Emblem Breakage"],
-      CV_Leather:"",
-      CV_Height:"",
-      Log:""
+      CV_Leather: "",
+      CV_Height: "",
+      Log: "",
     },
     Operation: "Project",
     popupdata: {},
@@ -286,8 +288,8 @@ export default {
     this.getData();
   },
   methods: {
-    cleardrawer(){
-      this.itemdata={}
+    cleardrawer() {
+      this.itemdata = {};
     },
     closepopup(val) {
       this.dialogFormVisible = val;
@@ -343,8 +345,8 @@ export default {
 
     logItem(item) {
       // console.log(this.ESRTable.data)
-      this.drawerVisable=true;
-      this.itemdata=item;
+      this.drawerVisable = true;
+      this.itemdata = item;
     },
     close() {
       this.dialog = false;
@@ -373,7 +375,7 @@ export default {
   background: #99a9bf;
 }
 
-.el-drawer.rtl{
-    overflow: scroll;
+.el-drawer.rtl {
+  overflow: scroll;
 }
 </style>

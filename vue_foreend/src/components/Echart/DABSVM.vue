@@ -124,7 +124,7 @@ export default {
               options: optionlist,
             });
           }
-          console.log(this.ItemGroup[0].options);
+          // console.log(this.ItemGroup[0].options);
         },
         (error) => {
           console.log(error);
@@ -158,7 +158,7 @@ export default {
             ]);
           }
         } else {
-          console.log("Simulation");
+          // console.log("Simulation");
           if (this.mydata[i].Simulation.indexOf(this.FailureMode) === -1) {
             // console.log(typeof(this.DAB.failure))
             this.DAB.nofailure.push([

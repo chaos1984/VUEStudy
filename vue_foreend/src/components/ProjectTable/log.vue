@@ -3,17 +3,21 @@
     <el-timeline>
       <el-timeline-item v-for="(activity, index) in activities" :key="index">
         <el-card style="width: 90%">
-          <h3>{{ activity.title }}</h3>
-          <p>{{ activity.content }}</p>
           <p>{{ activity.timestamp }}</p>
+          <h2>{{ activity.title }}</h2>
+          <h3>{{ activity.content.data }}</h3>
+          <el-divider/>
+          
+          <h4 v-for="(comment, kindex) in activity.content.comments" :key="kindex"><p style="color:#909399 font-weight: bold;">{{comment.time}}</p><p style="color:#409EFF">{{comment.data}}</p> </h4>
+          <el-input
+        type="textarea"
+        :rows="3"
+        placeholder="Comment"
+        v-model="activity.content.comment"
+        @keyup.enter.native = "activity.content.comment = submitcomment(index,activity.content.comment)"
+      >
+      </el-input>
           <!-- <el-row>
-            <el-button
-              type="primary"
-              icon="el-icon-edit"
-              circle
-              size="mini"
-              @click="dialogFormVisible = true"
-            ></el-button>
             <el-button
               type="danger"
               icon="el-icon-delete"
@@ -89,6 +93,7 @@ export default {
     return {
       title: "",
       content: "",
+      comment:"",
       dialogFormVisible: false,
       loading: true,
       reverse: true,
@@ -116,15 +121,30 @@ export default {
   //  mounted() {
 
   // },
+  created () {
+    this.stringchange()
+      // this.activities = JSON.parse(Value.Log);
+  },
   watch: {
     getdata(Value) {
+      console.log(Value.Log)
       this.stringchange()
-      this.activities = JSON.parse(Value.Log)
+      
     },
   },
   methods: {
+    submitcomment(index,comment){
+      // console.log('index')
+      // console.log(index)
+      var myDate = new Date();
+      // console.log(this.activities[index].content.comment)
+      this.activities[index].content.comments.push({time: myDate.toLocaleString(),data:comment})
+      this.run(this.getdata)
+      return ("")
+    },
     stringchange(){
       this.getdata.Log = this.getdata.Log.replace(/'/g, '"')
+      this.activities = JSON.parse(this.getdata.Log)
     },
     addItem() {
       var myDate = new Date();
@@ -133,8 +153,10 @@ export default {
 
       this.activities.push({
         title: this.title.join(" and "),
-        content: this.content,
+        content: {data: this.content,
+                 comments:[] },
         timestamp: myDate.toLocaleString(),
+        
       });
       this.run(this.getdata)
     },
@@ -150,6 +172,8 @@ export default {
      
     },
     run(form) {
+      console.log("form.Log")
+      console.log(form.Log)
       form.Log = JSON.stringify(this.activities)
       
 

@@ -17,7 +17,8 @@ components: {
   },
   
 data: () => ({
-    img : ""
+    img : "",
+    url:""
  }),
 
 methods: {

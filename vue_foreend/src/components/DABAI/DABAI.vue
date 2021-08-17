@@ -213,6 +213,11 @@
               v-model="DABAIForm.cover.hingeneck"
               name="type"
             ></el-checkbox>
+            <el-checkbox
+              label="Hinge Undercut"
+              v-model="DABAIForm.cover.daokou"
+              name="type"
+            ></el-checkbox>
           </el-form-item>
         </el-col>
       </el-row>
@@ -223,7 +228,7 @@
         <el-button @click="resetForm('DABAIForm')">RESET</el-button>
       </el-form-item>
     </el-form>
-    <el-alert :title="DABPrediction" type="success"> </el-alert>
+    <el-alert :title="DABPrediction" :style="{color:fontcolor}"> </el-alert>
     <el-table
       :data="tableData"
       style="width: 100%"
@@ -231,8 +236,13 @@
       fit
       highlight-current-row
     >
-      <el-table-column prop="covermat" label="Cover mat" width="180" sortable/>
-      <el-table-column prop="hingewidth" label="Hinge width" width="180" sortable/>
+      <el-table-column prop="covermat" label="Cover mat" width="180" sortable />
+      <el-table-column
+        prop="hingewidth"
+        label="Hinge width"
+        width="180"
+        sortable
+      />
       <!-- <el-table-column prop="tearline" label="Cover tearline" width="180" sortable/> -->
       <el-table-column
         prop="cushiondiam"
@@ -247,8 +257,18 @@
         width="180"
         sortable
       />
-      <el-table-column prop="hingeneck" label="Cover hinge neck" width="180" sortable/>
-      <el-table-column prop="wrapper" label="Cushion wrapper" width="180" sortable/>
+      <el-table-column
+        prop="hingeneck"
+        label="Cover hinge neck"
+        width="180"
+        sortable
+      />
+      <el-table-column
+        prop="wrapper"
+        label="Cushion wrapper"
+        width="180"
+        sortable
+      />
       <el-table-column
         prop="aiprediction"
         label="AI Prediction"
@@ -263,6 +283,7 @@
 export default {
   data() {
     return {
+      fontcolor:"red",
       tableData: [],
       DABPrediction: "",
       DABAIForm: {
@@ -377,25 +398,30 @@ export default {
               value: 710,
               label: "710",
             },
+            {
+              value: 720,
+              label: "720",
+            },
           ],
         },
         cover: {
           mat: "",
-          hingewidth:'',
+          hingewidth: "",
           hingeplane: true,
+          daokou: true,
           hingeneck: true,
-          flappymass: '',
+          flappymass: "",
           matlist: [
             {
-              value: [1,0,0],
+              value: 1,
               label: "TA4003",
             },
             {
-              value: [0,1,0],
+              value: 2,
               label: "TT1081",
             },
             {
-              value: [0,0,1],
+              value: 3,
               label: "TT990",
             },
           ],
@@ -445,7 +471,7 @@ export default {
             },
             {
               value: 2,
-              label: "T-65",
+              label: "T-65M",
             },
           ],
         },
@@ -570,25 +596,21 @@ export default {
         .then(
           (response) => {
             if (response.data < 0.5) {
-              this.DABPrediction = "AI Predcition: GOOD";
+              this.DABPrediction = "GOOD";
+              this.fontcolor = "green"
             } else {
-              this.DABPrediction = "AI Predcition: Failure";
+              this.DABPrediction = " Failure";
+              this.fontcolor = "red"
             }
             // if (this.DABAIForm.cover.mat === this.DABAIForm.cover.matlist.value){
-
-            // }
+                
+            // };
+            console.log("this.DABAIForm.cover.matlist.label")
+            console.log(this.DABAIForm.cover.matlist[2])
             this.tableData.push({
-              
-              covermat: this.DABAIForm.cover.matlist[this.DABAIForm.cover.mat.indexOf(1)]
-                .label,
+              covermat: this.DABAIForm.cover.matlist[this.DABAIForm.cover.mat-1].label,
               hingewidth: this.DABAIForm.cover.hingewidth,
-              // tearline: this.DABAIForm.cover.tearlinelist[
-              //   this.DABAIForm.cover.tearline
-              // ].label,
               cushiondiam: this.DABAIForm.cushion.di,
-              // foldtype: this.DABAIForm.cushion.foldlist[
-              //   this.DABAIForm.cushion.fold
-              // ].label,
               flappymass: this.DABAIForm.cover.flappymass,
               hingeneck: this.DABAIForm.cover.hingeneck.toString(),
               wrapper: this.DABAIForm.cushion.wrapper.toString(),

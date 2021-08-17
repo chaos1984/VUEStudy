@@ -47,24 +47,26 @@ class PDFGenerator:
                                       ('GRID', (0, 0), (-1, -1), 0.5, colors.black),
                                      ])
 
-    def genTaskPDF(self, home_data, task_data):
+    def genTaskPDF(self, data):
         story = []
         # 首页内容
         story.append(Spacer(1, 20 * mm))
-        img = Image('img/Logo.png')
-        img.drawHeight = 20 * mm
-        img.drawWidth = 40 * mm
-        img.hAlign = TA_LEFT
-        story.append(img)
+        # img = Image('img/Logo.png')
+        # img.drawHeight = 20 * mm
+        # img.drawWidth = 40 * mm
+        # img.hAlign = TA_LEFT
+        # story.append(img)
         story.append(Spacer(1, 10 * mm))
-        story.append(Paragraph(u"DAB Deployment Simulation", self.title_style))
+        story.append(Paragraph(u"DAB Deployment Simulation Request", self.title_style))
         story.append(Spacer(1, 20 * mm))
-        story.append(Paragraph(u"ESR No.:" + home_data['ESR'], self.content_style))
-        story.append(Paragraph(u"PE:" + home_data['PE'], self.content_style))
-        story.append(Paragraph(u"AFIS:" + home_data['ProjectCode'], self.content_style))
-        story.append(Paragraph(u"Team:" + home_data['Team'], self.content_style))
-        story.append(Paragraph(u"Created Date:" + home_data['Date1'], self.content_style))
-        story.append(Paragraph(u"Preferred delivery Date:" + home_data['Date2'], self.content_style))
+        story.append(Paragraph(u"OEM: " + data['OEM'], self.content_style))
+        story.append(Paragraph(u"Project: " + data['PRJ'], self.content_style))
+        story.append(Paragraph(u"ESR: " + data['ESR'], self.content_style))
+        story.append(Paragraph(u"PE: " + data['PE'], self.content_style))
+        story.append(Paragraph(u"AFIS: " + data['AFIS'], self.content_style))
+        # story.append(Paragraph(u"Team:" + data['Team'], self.content_style))
+        # story.append(Paragraph(u"Created Date:" + data['Date1'], self.content_style))
+        # story.append(Paragraph(u"Preferred delivery Date:" + data['Date2'], self.content_style))
         story.append(Spacer(1, 55 * mm))
         story.append(Paragraph(u"Autoliv CTC CAE", self.foot_style))
         story.append(PageBreak())
@@ -79,20 +81,28 @@ class PDFGenerator:
         # 测试计划
         story.append(Paragraph(u"Specific Info.", self.table_title_style))
         story.append(Spacer(1, 3 * mm))
-        task_table = Table(task_data, colWidths=[25 * mm, 141 * mm], rowHeights=12 * mm, style=self.common_style)
+        task_data =[("Interface",data["Interface"]),("Cover Mat.",data['CV_Mat'] ),("Emblem Mat.",data['E_Mat']), \
+        ("Housing Mat.",data['H_Mat']),("Cushiong Mat.",data['C_Mat']),("Cushion Diam./mm",data['C_Diam']),\
+        ("Cushion Mat.",data['C_Mat']),("Cushion fold",data['C_Type']),("Cushion Tether",data['C_Tether']),\
+        ("Inflator",data['Inflator']),("Tearline",data['Tearline']),("Cover Leather",data['CV_Leather']),\
+        ("Difussor",data['C_Diffusor'])]
+        task_table = Table(task_data, colWidths=[50 * mm, 141 * mm], rowHeights=12 * mm, style=self.common_style)
         story.append(task_table)
+        story.append(Paragraph(u"AI Info.", self.table_title_style))
+        ai_data =[("Hinge width/mm",data["H_Width"]),("Flappy Mass/kg",data["Flappy_Mass"]),("Cover Height/mm",data["CV_Height"]),\
+        ("Wrapper",data["Wrapper"]),("Cushion fold",data['C_Type']),("Cushion Diam./mm",data['C_Diam']),("Under Cut",data['UnderCut']),("AI Hinge risk(0~1) 0:OK 1:NOK",data['AI'])]
+        ai_table = Table(ai_data, colWidths=[50 * mm, 141 * mm], rowHeights=12 * mm, style=self.common_style)
+        story.append(ai_table)
 
         story.append(Spacer(1, 10 * mm))
 
 
-        doc = SimpleDocTemplate(self.filename + ".pdf",
+        doc = SimpleDocTemplate( ".\\temp\\"+self.filename,
                                 leftMargin=20 * mm, rightMargin=20 * mm, topMargin=20 * mm, bottomMargin=20 * mm)
-
-
         doc.build(story)
 if __name__ == "__main__":
     with open(r"jsonfortest.json", "r") as f:
-        home_data = json.loads(f.read())
+        data = json.loads(f.read())
     a = PDFGenerator('www')
     task_data =data=[("BOM","1" ),("DAB CAD",Paragraph('<link href="' + 'http://www.hoboes.com/Mimsy/hacks/adding-links-to-pdf/' + '">' + 'Click here' + '</link>',PS('BODY'))),("Inflator",'B'),("CushionFile"),("Cases","123")]
-    a.genTaskPDF(home_data, task_data)
+    a.genTaskPDF(data, task_data)

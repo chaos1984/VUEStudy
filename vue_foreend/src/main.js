@@ -14,6 +14,7 @@ import './assets/icon/iconfont.css'
 import uploadfile from './components/UploadFile/index.js'
 import stepperbtn from './components/StepperBtn/index.js'
 import pdfviewer from './components/PDFViewer/index.js'
+// import { config } from 'vue/types/umd';
 
 Vue.use(VueRouter);
 Vue.use(ElementUI);
@@ -39,3 +40,31 @@ new Vue({
   el: '#app',
   render: h => h(App)
 }).$mount('#app')
+
+axios.interceptors.request.use(
+    config=> {
+      let token =sessionStorage.getItem('token')
+      if (token){
+        config.headers.Authorization = token
+      }
+      return config
+    },
+    (error) =>{
+      return Promise.reject(error)
+    }
+  
+)
+
+axios.interceptors.response.use((response) => {
+  if (response.config.url !== ''){
+    console.log(response)
+    if (response.data.status ===-6){
+      alert('ID IS WRONG')
+      window.location = '/login'
+    }
+  }
+  return response
+},(error)=>{
+  return Promise.reject(error)
+}
+)

@@ -8,6 +8,11 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
     state:{
         //存放的键值对就是所要管理的状态
+        User:{
+          Name:'',
+          PassWord:'',  
+          Priority:'',
+        },
         FormInfo:"",
         NextStepbtn: true,
         CurrentStep: 0,
@@ -32,7 +37,10 @@ const store = new Vuex.Store({
             Inflator:"",
             Case:[true,true,true,false,false,false,false,false,false]
         },
+        data4fig:{},
+        hovercard:{}
     },
+    
     getter:{
         combinFormInfo(state){
             return state.ESRInfo

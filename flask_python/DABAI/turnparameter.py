@@ -81,12 +81,17 @@ def XGBClassifier_crossvalidation(alg, dtrain,dtest,predictors,target,useTrainCV
     # xgb.plot_importance(alg,max_num_features =10,importance_type="gain")
                     
     feat_imp = pd.Series(alg.get_booster().get_score(importance_type='weight')).sort_values(ascending=False)
-    feat_imp.plot(kind='bar', title='Feature Importances')
-    plt.ylabel('Feature Importance Score')
+    feat_imp.plot(kind='bar', title='Feature Importances',fontsize=30)
+    plt.ylabel('Feature Importance Score',fontsize=30)
     fpr_train, tpr_train, _ = roc_curve(dtrain['FAILURE'].values, dtrain_predprob)
     fpr_test, tpr_test, _ = roc_curve(dtest['FAILURE'].values, dtest_predprob)
     roc_auc_train = auc(fpr_train, tpr_train)
     roc_auc_test = auc(fpr_test, tpr_test)
+    
+    font1 = {'family' : 'Times New Roman',
+    'weight' : 'normal',
+    'size'   : 23
+    }
     plt.figure()
     lw = 2
     plt.plot(fpr_train, tpr_train, color='darkorange',
@@ -94,12 +99,15 @@ def XGBClassifier_crossvalidation(alg, dtrain,dtest,predictors,target,useTrainCV
     plt.plot(fpr_test, tpr_test, color='blue',
              lw=lw, label='ROC curve from test samples (area = %0.2f)' % roc_auc_test)
     plt.plot([0, 1], [0, 1], color='navy', lw=lw, linestyle='--')
+    
     plt.xlim([0, 1.0])
     plt.ylim([0.0, 1.0])
-    plt.xlabel('False Positive Rate')
-    plt.ylabel('True Positive Rate')
+    plt.xlabel('False Positive Rate',fontsize=30)
+    plt.ylabel('True Positive Rate',fontsize=30)
     plt.title('ROC curve')
-    plt.legend(loc="lower right")
+    
+    plt.tick_params(labelsize=23)
+    plt.legend(loc="lower right",prop=font1)
     plt.show()
     return alg
 
@@ -133,9 +141,9 @@ def loaddata(file,codes_labels):
     data = pd.read_csv(file)
     for item in codes_labels:
         data[item] = pd.Categorical(data[item]).codes
-        if max(data[item]) > 1:
-            data_onehot = pd.DataFrame(onehotcode(data[item]),columns = ['TA4003','TT1081','TT990'])
-            data = pd.concat([data,data_onehot],axis=1)
+        # if max(data[item]) > 1:
+        #     data_onehot = pd.DataFrame(onehotcode(data[item]),columns = ['TA4003','TT1081','TT990'])
+        #     data = pd.concat([data,data_onehot],axis=1)
     
     return data
 
@@ -146,12 +154,12 @@ def onehotcode(data):
     return one_hot_encoded
 
 if __name__ == "__main__":
-    feature_labels =['PRJ. ID','TA4003','TT1081','TT990', 'HINGE WIDTH','CUSHION RADIUS','FLAPPY MASS','PLANE','NECK', 'WRAPPER','FAILURE']
-    codes_labels = ['COVER MAT','PLANE','NECK', 'WRAPPER']
-    train_data = loaddata('alv_train.csv',codes_labels)
+    feature_labels =['PRJ. ID', 'HINGE WIDTH','CUSHION RADIUS','FLAPPY MASS','PLANE','NECK', 'WRAPPER','FAILURE']
+    codes_labels = ['PLANE','NECK', 'WRAPPER']
+    train_data = loaddata('alv_train_TT1081.csv',codes_labels)
     train_data.to_csv("train_data.csv")
     test_data = loaddata('alv_test.csv',codes_labels)
-    test_data.to_csv("test_data.csv")
+    test_data.to_csv("test_data_TT1081.csv")
     train_data = train_data[feature_labels]
     test_data = test_data[feature_labels]
     target = 'FAILURE'

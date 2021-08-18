@@ -3,6 +3,9 @@
   <v-app id="inspire">
     <v-navigation-drawer v-model="drawer" app left>
       <v-list dense>
+        <v-row justify="space-around">
+          <Avatar />
+        </v-row>
         <template v-for="item in ListTerm">
           <v-row v-if="item.heading" :key="item.id" align="center">
             <v-col cols="6">
@@ -101,19 +104,18 @@
 import { mapState } from "vuex";
 export default {
   name: "Layout",
-  beforeRouteEnter (to, from, next) {
+  beforeRouteEnter(to, from, next) {
     // ...
     // console.log(this.User)
-    const tokenStr = window.sessionStorage.getItem('token');
- 
-    if (!tokenStr){
-      // console.log("/UserLogin")
-      alert("Please login first")
-      next('/UserLogin')
+    const tokenStr = window.sessionStorage.getItem("token");
 
+    if (!tokenStr) {
+      // console.log("/UserLogin")
+      alert("Please login first");
+      next("/UserLogin");
     } else {
-      console.log("/Layout")
-      next()
+      console.log("/Layout");
+      next();
     }
   },
   components: {
@@ -123,13 +125,15 @@ export default {
     Mat: () => import("@/components/Echart/Mat"),
     Inf: () => import("@/components/Echart/Inf"),
     MatPage: () => import("@/components/MatPage/MatPage"),
-    
+
     test: () => import("@/components/TestData/TestData"),
     DABAI: () => import("@/components/DABAI/DABAI"),
+    Avatar: () => import("@/components/Avatar/Avatar"),
     // DABSVM: () => import("@/components/DABSVM/DABSVM"),
   },
 
   data: () => ({
+    Username: "",
     infor: "No infor",
     currentvue: "",
     drawer: null,
@@ -137,11 +141,15 @@ export default {
     links: ["Home", "About Us", "Team", "Services", "Contact Us"],
     ListTerm: [
       { id: 1, title: "HOME", action: "FrontPage", icon: "mdi-home" },
-      { id: 2, title: "DAB", action: "", icon: "mdi-steering",
-      children: [
-          { title: "New Project", action:  "onDAB", },
+      {
+        id: 2,
+        title: "DAB",
+        action: "",
+        icon: "mdi-steering",
+        children: [
+          { title: "New Project", action: "onDAB" },
           { title: "Project list", action: "onESRinfo" },
-      ]
+        ],
       },
       { id: 3, title: "PAB", action: "onPAB", icon: "iconfont icon-qinang" },
       {
@@ -159,7 +167,7 @@ export default {
         ],
       },
       { id: 5, title: "Inflator", action: "onInf", icon: "mdi-bomb" },
-      
+
       { id: 6, title: "test", action: "onTest", icon: "mdi-calendar mdi-spin" },
       {
         id: 7,
@@ -172,7 +180,7 @@ export default {
 
   computed: {
     ...mapState({ CurrentForm: (state) => state.form }),
-    ...mapState({ User: (state) => state.user }),
+    ...mapState({ User: (state) => state.User }),
   },
   created() {
     this.currentvue = "SlideShow";
@@ -198,7 +206,7 @@ export default {
       this.currentvue = "Inf";
       // router.push({'Echart'})
     },
- 
+
     onTest() {
       this.currentvue = "test";
     },

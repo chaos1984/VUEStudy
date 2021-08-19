@@ -271,6 +271,8 @@ def dabinfo():
         H_Width=DABinfo['H_Width'],
         Flappy_Mass=DABinfo['Flappy_Mass'],
         Wrapper=DABinfo['Wrapper'],
+        Hinge_Area = DABinfo['Hinge_Area'],
+        Hinge_Radius = DABinfo['Hinge_Radius'],
         H_Plane=DABinfo['H_Plane'],
         H_Neck=DABinfo['H_Neck'],
         UnderCut=DABinfo['UnderCut'],

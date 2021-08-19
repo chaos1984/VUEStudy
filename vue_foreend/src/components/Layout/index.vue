@@ -5,7 +5,10 @@
       <v-list dense>
         <v-row justify="space-around">
           <Avatar />
+          <h3>{{ User.Name }}</h3>
+          
         </v-row>
+        <v-divider class="my-3"></v-divider>
         <template v-for="item in ListTerm">
           <v-row v-if="item.heading" :key="item.id" align="center">
             <v-col cols="6">
@@ -119,7 +122,7 @@ export default {
     }
   },
   components: {
-    Stepper: () => import("@/components/Stepper"),
+    // Stepper: () => import("@/components/Stepper"),
     ProjectTable: () => import("@/components/ProjectTable"),
     SlideShow: () => import("@/components/SlideShow/SlideShow"),
     Mat: () => import("@/components/Echart/Mat"),
@@ -147,7 +150,7 @@ export default {
         action: "",
         icon: "mdi-steering",
         children: [
-          { title: "New Project", action: "onDAB" },
+          // { title: "New Project", action: "onDAB" },
           { title: "Project list", action: "onESRinfo" },
         ],
       },
@@ -168,7 +171,7 @@ export default {
       },
       { id: 5, title: "Inflator", action: "onInf", icon: "mdi-bomb" },
 
-      { id: 6, title: "test", action: "onTest", icon: "mdi-calendar mdi-spin" },
+      { id: 6, title: "Post View", action: "onTest", icon: "mdi-calendar mdi-spin" },
       {
         id: 7,
         title: "DAB Cover Failure Predction",

@@ -7,6 +7,7 @@ from reportlab.lib.styles import ParagraphStyle as PS
 from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+import time
 import json
 
 # 生成PDF文件
@@ -40,13 +41,13 @@ class PDFGenerator:
                                        ('GRID', (0, 0), (-1, -1), 0.5, colors.black),
                                        ])
         self.common_style = TableStyle([
-                                      ('FONTSIZE', (0, 0), (-1, -1), 8),
+                                      ('FONTSIZE', (0, 0), (-1, -1),14),
                                       ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
                                       ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
                                       ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
                                       ('GRID', (0, 0), (-1, -1), 0.5, colors.black),
                                      ])
-
+        self.date = time.strftime("%Y-%m-%d", time.localtime()) 
     def genTaskPDF(self, data):
         story = []
         # 首页内容
@@ -68,6 +69,8 @@ class PDFGenerator:
         # story.append(Paragraph(u"Created Date:" + data['Date1'], self.content_style))
         # story.append(Paragraph(u"Preferred delivery Date:" + data['Date2'], self.content_style))
         story.append(Spacer(1, 55 * mm))
+        story.append(Paragraph(self.date,self.foot_style))
+        
         story.append(Paragraph(u"Autoliv CTC CAE", self.foot_style))
         story.append(PageBreak())
 
@@ -85,13 +88,16 @@ class PDFGenerator:
         ("Housing Mat.",data['H_Mat']),("Cushiong Mat.",data['C_Mat']),("Cushion Diam./mm",data['C_Diam']),\
         ("Cushion Mat.",data['C_Mat']),("Cushion fold",data['C_Type']),("Cushion Tether",data['C_Tether']),\
         ("Inflator",data['Inflator']),("Tearline",data['Tearline']),("Cover Leather",data['CV_Leather']),\
-        ("Difussor",data['C_Diffusor'])]
-        task_table = Table(task_data, colWidths=[50 * mm, 141 * mm], rowHeights=12 * mm, style=self.common_style)
+        ("Difussor",data['C_Diffusor']),("Date",data["DateRange"][2:12]+" To "+data["DateRange"][16:26])]
+        task_table = Table(task_data, colWidths=[75 * mm, 100 * mm], rowHeights=12 * mm, style=self.common_style)
         story.append(task_table)
         story.append(Paragraph(u"AI Info.", self.table_title_style))
-        ai_data =[("Hinge width/mm",data["H_Width"]),("Flappy Mass/kg",data["Flappy_Mass"]),("Cover Height/mm",data["CV_Height"]),\
-        ("Wrapper",data["Wrapper"]),("Cushion fold",data['C_Type']),("Cushion Diam./mm",data['C_Diam']),("Under Cut",data['UnderCut']),("AI Hinge risk(0~1) 0:OK 1:NOK",data['AI'])]
-        ai_table = Table(ai_data, colWidths=[50 * mm, 141 * mm], rowHeights=12 * mm, style=self.common_style)
+        
+        
+        
+        ai_data =[("*Hinge width/mm",data["H_Width"]),("*Flappy Mass/kg",data["Flappy_Mass"]),("Cover Height/mm",data["CV_Height"]),\
+        ("*Wrapper",data["Wrapper"]),("Cushion fold",data['C_Type']),("*Cushion Diam./mm",data['C_Diam']),("Under Cut",data['UnderCut']),("Hinge Area",data['Hinge_Area']),("Hinge Radius",data['Hinge_Radius']),("AI Hinge risk(0~1) 0:OK 1:NOK",data['AI'])]
+        ai_table = Table(ai_data, colWidths=[75 * mm, 100 * mm], rowHeights=12 * mm, style=self.common_style)
         story.append(ai_table)
 
         story.append(Spacer(1, 10 * mm))

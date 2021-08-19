@@ -47,6 +47,8 @@ class ESR(db.Model):
     H_Width = db.Column(db.Float(), nullable=False)
     C_Diffusor = db.Column(db.String(80), nullable=False)
     Flappy_Mass = db.Column(db.Float(), nullable=False)
+    Hinge_Area= db.Column(db.Float(), nullable=False)
+    Hinge_Radius= db.Column(db.Float(), nullable=False)
     Wrapper = db.Column(db.Boolean, nullable=False)
     H_Plane = db.Column(db.Boolean, nullable=False)
     H_Neck = db.Column(db.Boolean, nullable=False)
@@ -60,8 +62,8 @@ class ESR(db.Model):
     Log = db.Column(db.String(80), nullable=False)
     AI = db.Column(db.String(80), nullable=False)
     def __repr__(self):
-        return "{'ID':'%s','OEM':'%s','PRJ':'%s' ,'AFIS':'%s','ESR':'%s','PE':'%s','CAE':'%s','Interface':'%s','CV_Mat':'%s','H_Mat':'%s','Tearline':'%s','E_Mat':'%s','Inflator':'%s','C_Mat':'%s','C_Type':'%s','C_Diam':'%s','C_Tether':'%s','H_Width':'%s','Flappy_Mass':'%s','Wrapper':'%s','H_Plane':'%s','H_Neck':'%s','UnderCut':'%s','Simulation':'%s','Testing':'%s','DateRange':'%s','CV_Height':'%s','CV_Leather':'%s','Remarks':'%s','Log':'%s','AI':'%s'}" \
-            % (str(self.ID),self.OEM,self.PRJ,self.AFIS,self.ESR,self.PE,self.CAE,self.Interface,self.CV_Mat,self.H_Mat,self.Tearline,self.E_Mat,self.Inflator,self.C_Mat,self.C_Type,self.C_Diam,self.C_Tether,self.H_Width,self.Flappy_Mass,self.Wrapper,self.H_Plane,self.H_Neck,self.UnderCut,self.Simulation,self.Testing,self.DateRange,self.CV_Height,self.CV_Leather,self.Log,self.AI)
+        return "{'ID':'%s','OEM':'%s','PRJ':'%s' ,'AFIS':'%s','ESR':'%s','PE':'%s','CAE':'%s','Interface':'%s','CV_Mat':'%s','H_Mat':'%s','Tearline':'%s','E_Mat':'%s','Inflator':'%s','C_Mat':'%s','C_Type':'%s','C_Diam':'%s','C_Tether':'%s','H_Width':'%s','Flappy_Mass':'%s','Wrapper':'%s','Hinge_Area':'%s','Hinge_Radius':'%s','H_Plane':'%s','H_Neck':'%s','UnderCut':'%s','Simulation':'%s','Testing':'%s','DateRange':'%s','CV_Height':'%s','CV_Leather':'%s','Remarks':'%s','Log':'%s','AI':'%s'}" \
+            % (str(self.ID),self.OEM,self.PRJ,self.AFIS,self.ESR,self.PE,self.CAE,self.Interface,self.CV_Mat,self.H_Mat,self.Tearline,self.E_Mat,self.Inflator,self.C_Mat,self.C_Type,self.C_Diam,self.C_Tether,self.H_Width,self.Flappy_Mass,self.Wrapper,self.Hinge_Area,self.Hinge_Radius,self.H_Plane,self.H_Neck,self.UnderCut,self.Simulation,self.Testing,self.DateRange,self.CV_Height,self.CV_Leather,self.Remarks,self.Log,self.AI)
   
         # return "{'id':%s,'caer':%s,'pe':%s,'oem':%s,'esr':%s,'date':%s,'proj':%s,'afis':%s,'cushion_type':%s,'cushion_mat':%s}" \
         #     % (str(self.id),self.caer,self.pe,self.oem,self.esr,self.date,self.proj,self.afis,self.cushion_type,self.cushion_mat) #,self.date,self.proj,self.afis,self.cushion_type,self.cushion_mat,self.cover_mat,self.housing_mat,self.emblem_mat,self.test_res)

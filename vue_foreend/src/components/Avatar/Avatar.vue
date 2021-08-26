@@ -5,34 +5,40 @@
         <template v-slot:activator="{ on }">
           <v-btn icon x-large v-on="on">
             <v-avatar color="brown" size="48">
-              <img
-        src="/static/img/Head.png"
-        alt="Bear"
-      >
+              <img src="/static/img/Head.png" alt="Bear" />
             </v-avatar>
           </v-btn>
         </template>
-        <v-card>
+
+        <v-card width="280">
           <v-list-item-content class="justify-center">
             <div class="mx-auto text-center">
               <v-avatar color="brown" size="48">
-              <img
-        src="/static/img/Head.png"
-        alt="Bear"
-      >
-            </v-avatar>
+                <img src="/static/img/Head.png" alt="Bear" />
+              </v-avatar>
               <h3>{{ User.Name }}</h3>
               <p class="text-caption mt-1">
-                {{User.Email }}
+                {{ User.Email }}
               </p>
+              <el-row >
+                <el-col :span="12">
+                  <el-badge :value="200" :max="99">
+                    <el-button size="small" @click="getProject">Project</el-button>
+                  </el-badge>
+                </el-col>
+                <el-col :span="12">
+                  <el-badge :value="100" :max="10">
+                    <el-button size="small" @click="getMessage">Message</el-button>
+                  </el-badge>
+                </el-col>
+              </el-row>
             </div>
           </v-list-item-content>
         </v-card>
       </v-menu>
     </v-row>
   </v-container>
-  
-</template>  
+</template>
 
 <script>
 import { mapState } from "vuex";
@@ -44,7 +50,7 @@ export default {
       email: "",
     },
   }),
-  mounted () {
+  mounted() {
     this.init();
   },
   computed: {
@@ -54,9 +60,14 @@ export default {
     init() {
       // console.log("this.User.Email");
       // console.log(this.User);
-      this.user.initials = this.User.Name
-    }
+      this.user.initials = this.User.Name;
+    },
+    getProject() {
+      console.log("getProject");
+    },
+    getMessage() {
+      console.log("getMessage");
+    },
   },
 };
 </script>
-

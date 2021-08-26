@@ -88,13 +88,14 @@ class PDFGenerator:
         ("Housing Mat.",data['H_Mat']),("Cushiong Mat.",data['C_Mat']),("Cushion Diam./mm",data['C_Diam']),\
         ("Cushion Mat.",data['C_Mat']),("Cushion fold",data['C_Type']),("Cushion Tether",data['C_Tether']),\
         ("Inflator",data['Inflator']),("Tearline",data['Tearline']),("Cover Leather",data['CV_Leather']),\
-        ("Difussor",data['C_Diffusor']),("Date",data["DateRange"][2:12]+" To "+data["DateRange"][16:26])]
+        ("Difussor",data['C_Diffusor']),("Remarks",data['Remarks']),("Date",data["DateRange"][2:12]+" To "+data["DateRange"][16:26])]
         task_table = Table(task_data, colWidths=[75 * mm, 100 * mm], rowHeights=12 * mm, style=self.common_style)
         story.append(task_table)
+        story.append(PageBreak())
+        
+        
+        #AI
         story.append(Paragraph(u"AI Info.", self.table_title_style))
-        
-        
-        
         ai_data =[("*Hinge width/mm",data["H_Width"]),("*Flappy Mass/kg",data["Flappy_Mass"]),("Cover Height/mm",data["CV_Height"]),\
         ("*Wrapper",data["Wrapper"]),("Cushion fold",data['C_Type']),("*Cushion Diam./mm",data['C_Diam']),("Under Cut",data['UnderCut']),("Hinge Area",data['Hinge_Area']),("Hinge Radius",data['Hinge_Radius']),("AI Hinge risk(0~1) 0:OK 1:NOK",data['AI'])]
         ai_table = Table(ai_data, colWidths=[75 * mm, 100 * mm], rowHeights=12 * mm, style=self.common_style)

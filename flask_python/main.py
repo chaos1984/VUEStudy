@@ -103,6 +103,11 @@ def delete():
     print("Delete done")
     return "Delete done"
 
+@app.route("/CAEReport",methods=["POST"])
+def CAEReport():
+    data = json.loads(request.get_data(as_text=True))
+    filename = ""
+    return "OK"
 
 @app.route('/RequestForm', methods=["POST"])
 def RequestForm():
@@ -196,7 +201,8 @@ def dabai():
     y = airun(test_data)
     return str(y[0])
 
-
+    
+    
 @app.route('/dabinfo', methods=['POST'])
 def dabinfo():
     user = getpass.getuser()
@@ -304,6 +310,8 @@ def addESRDB(data):
     db.session.commit()
     db.session.close()
     print('ok')
+    
+    
 ##############################################################################################################################
 ################################################################ FUNCTION ####################################################
 ##############################################################################################################################

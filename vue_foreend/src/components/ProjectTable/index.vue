@@ -146,6 +146,7 @@
         <v-icon small class="mr-2" @click="deleteItem(item)" :disabled="Permission(item.PE)">mdi-delete</v-icon>
         <v-icon small class="mr-2" @click="logItem(item)" >el-icon-notebook-1</v-icon>
         <v-icon small class="mr-2" @click="postRequest(item)">el-icon-tickets</v-icon>
+        <v-icon small class="mr-2" @click="CAEReport(item)">el-icon-data-analysis</v-icon>
       </template>
     </v-data-table>
 
@@ -187,37 +188,7 @@ export default {
   data: () => ({
     itemdata: "",
     PDFfile:'',
-    forminital: {
-      OEM: "",
-      PRJ: "",
-      AFIS: "",
-      ESR: "",
-      PE: "",
-      Interface: "",
-      CV_Mat: "",
-      H_Mat: "",
-      HousingMat: "",
-      Tearline: "",
-      E_Mat: "",
-      Inflator: "",
-      C_Mat: "",
-      C_Type: "",
-      C_Diam: "",
-      C_Tether: "",
-      H_Width: "",
-      Flappy_Mass: "",
-      Wrapper: "",
-      H_Plane: "",
-      H_Neck: "",
-      Daokou: "",
-      C_Diffusor: "",
-      DateRange: "",
-      Testing: ["Hinge Overtear", "Emblem Breakage"],
-      Simulation: ["Hinge Overtear", "Emblem Breakage"],
-      CV_Leather: "",
-      CV_Height: "",
-      Log: "",
-    },
+    forminital: {},
     Operation: "Project",
     popupdata: {},
     overlay: false,
@@ -240,7 +211,7 @@ export default {
       },
       { text: "ESR", value: "ESR" },
       { text: "PE", value: "PE" },
-      { text: "CAE", value: "CAE" },
+      // { text: "CAE", value: "CAE" },
       // { text: "Interface", value: "Interface" },
       { text: "CV_Mat.", value: "CV_Mat" },
       // { text: "H_Mat", value: "H_Mat" },
@@ -253,6 +224,8 @@ export default {
       { text: "Flappy Mass", value: "Flappy_Mass" },
       { text: "H_width", value: "H_Width" },
       { text: "CV_Height", value: "CV_Height" },
+      { text: "Hinge_Area", value: "Hinge_Area"},
+      { text: "Hinge_Radius", value: "Hinge_Radius"},
       // { text: "H_Plane", value: "H_Plane" },
       // { text: "H_Neck", value: "H_Neck" },
       { text: "Option", value: "actions", sortable: false },
@@ -358,6 +331,17 @@ export default {
       this.drawerVisable = true;
       this.itemdata = item;
     },
+
+    CAEReport(item){
+      this.$axios.post('/api/CAEReport',JSON.stringify(item),{headers:{'Content-Type':'application/x-www-form-urlencoded'}})
+					.then(res=>{
+              console.log(res.data)
+							})
+					.catch(function (error) {
+						console.log(error);
+						})
+    },
+
     close() {
       this.dialog = false;
       this.$nextTick(() => {
@@ -367,7 +351,7 @@ export default {
     },
 
       postRequest(item){
-        console.log(item.PE)
+        // console.log(item.PE)
 				this.$axios.post('/api/RequestForm',JSON.stringify(item),{headers:{'Content-Type':'application/x-www-form-urlencoded'}})
 					.then(res=>{
 						let blob = this.base64ToBlob(res.data,'application/pdf')

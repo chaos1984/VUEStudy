@@ -10,5 +10,6 @@
     "CushionFold":["6-12 roll 3-9 roll","3-9 roll 6-12 roll","6-12 roll 3-9 compress","3-9 roll 6-12 compress","12 roll 3-6-9 compress","compress"],
     "CushionMat":["470 dtex","350 dtex"],
     "TetherType":["3 Invert Y" ,"3 Y", "2 Symmetry","2 Unsymmetry"],
-    "FailureMode":["Hinge Overtear","Cover Hooks Detach","Omega Hooks Detach","Emblem Breakage","Other Failure Modes"]
+    "FailureMode":["Hinge Overtear","Cover Hooks Detach","Omega Hooks Detach","Emblem Breakage","Other Failure Modes"],
+    "CV_Leather":["No leather","8mm splitline","6mm"]
 }

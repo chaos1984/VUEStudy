@@ -315,39 +315,44 @@
 
         <el-col :span="6">
           <el-form-item
-            label="Hinge width"
+            label="Cover Leather"
+            :label-width="formLabelWidth"
+            prop="CV_Leather"
+            :rules="[{ required: true, message: 'Select one item' }]"
+          >
+            <el-select
+              v-model="form.CV_Leather"
+              placeholder="Select tether type"
+              :style="selectwidth"
+            >
+              <el-option
+                v-for="(item, index) in formItem.CV_Leather"
+                :key="index"
+                :label="item"
+                :value="item"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="6">
+          <el-form-item
+            label="Hinge Length"
             :label-width="formLabelWidth"
             prop="H_Width"
-            :rules="[{ required: true, trigger: 'blur' }]"
+            :rules="[{ required: true, message: 'Select one item' }]"
           >
             <el-input
               onkeyup="value=value.replace(/[^\.\d]/g, '')"
-              v-model="form.H_Width"
+              v-model="form.Hinge_Width"
               autocomplete="off"
               placeholder="mm"
             ></el-input>
           </el-form-item>
         </el-col>
-
         <el-col :span="6">
           <el-form-item
-            label="Cover Height"
-            :label-width="formLabelWidth"
-            prop="CV_Height"
-            :rules="[{ required: true, trigger: 'blur' }]"
-          >
-            <el-input
-              onkeyup="value=value.replace(/[^\.\d]/g, '')"
-              v-model="form.CV_Height"
-              autocomplete="off"
-              placeholder="mm"
-            ></el-input>
-          </el-form-item>
-        </el-col>
-
-        <el-col :span="6">
-          <el-form-item
-            label="Flappy mass"
+            label="Flap mass"
             :label-width="formLabelWidth"
             prop="Flappy_Mass"
             :rules="[{ required: true, trigger: 'blur' }]"
@@ -360,40 +365,8 @@
             ></el-input>
           </el-form-item>
         </el-col>
-
-        <el-col :span="6">
-          <el-form-item
-            label="Hinge Area"
-            :label-width="formLabelWidth"
-            prop="Hinge_Area"
-          >
-            <el-input
-              onkeyup="value=value.replace(/[^\.\d]/g, '')"
-              v-model="form.Hinge_Area"
-              autocomplete="off"
-              placeholder="mm2"
-            ></el-input>
-          </el-form-item>
-        </el-col>
-
-        <el-col :span="6">
-          <el-form-item
-            label="Hinge Radius"
-            :label-width="formLabelWidth"
-            prop="Hinge_Radius"
-          >
-            <el-input
-              onkeyup="value=value.replace(/[^\.\d]/g, '')"
-              v-model="form.Hinge_Radius"
-              autocomplete="off"
-              placeholder="mm"
-            ></el-input>
-          </el-form-item>
-        </el-col>
-
       </el-row>
-
-      <el-row>
+            <el-row>
         <el-col :span="4">
           <el-form-item
             label="Wrapper"
@@ -458,19 +431,77 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="4">
+      </el-row>
+              
+        <el-divider />
+      <el-row>
+        <el-col :span="6">
           <el-form-item
-            label="Cover Leather"
+            label="Hinge width"
             :label-width="formLabelWidth"
-            prop="CV_Leather"
-            :rules="[
-              { required: true, message: 'Need confirm', trigger: 'change' },
-            ]"
+            prop="Hinge_Width"
+            
           >
-            <el-checkbox v-model="form.CV_Leather"></el-checkbox>
+            <el-input
+              onkeyup="value=value.replace(/[^\.\d]/g, '')"
+              v-model="form.Hinge_Width"
+              autocomplete="off"
+              placeholder="mm"
+            ></el-input>
           </el-form-item>
         </el-col>
+
+        <el-col :span="6">
+          <el-form-item
+            label="Cov-Inf Height"
+            :label-width="formLabelWidth"
+            prop="CV_Height"
+            
+          >
+            <el-input
+              onkeyup="value=value.replace(/[^\.\d]/g, '')"
+              v-model="form.CV_Height"
+              autocomplete="off"
+              placeholder="mm"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+
+
+
+        <el-col :span="6">
+          <el-form-item
+            label="Hinge Area"
+            :label-width="formLabelWidth"
+            prop="Hinge_Area"
+          >
+            <el-input
+              onkeyup="value=value.replace(/[^\.\d]/g, '')"
+              v-model="form.Hinge_Area"
+              autocomplete="off"
+              placeholder="mm2"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="6">
+          <el-form-item
+            label="Hinge Radius"
+            :label-width="formLabelWidth"
+            prop="Hinge_Radius"
+          >
+            <el-input
+              onkeyup="value=value.replace(/[^\.\d]/g, '')"
+              v-model="form.Hinge_Radius"
+              autocomplete="off"
+              placeholder="mm"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+
       </el-row>
+
+
 
       <div class="block">
         <span>Date range </span>

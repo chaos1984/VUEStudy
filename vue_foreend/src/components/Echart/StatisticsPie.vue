@@ -1,19 +1,23 @@
 <template>
   <!--为echarts准备一个具备大小的容器dom-->
-  <div>
-    <el-select v-model="Itemlabel" placeholder="Select one item to plot pie" @change='drawDatafromDB'>
-      <el-option
-        v-for="(item, index) in itemList"
-        :key="index"
-        :label="item"
-        :value="item"
+  <div style="width: 100%; height: 400px">
+    
+      <el-select
+        v-model="Itemlabel"
+        placeholder="Select one item to plot pie"
+        @change="drawDatafromDB"
       >
-      </el-option>
-    </el-select>
-    <div id="StatisticPie" style="width: 100%; height: 400px"></div>
-    <!-- <el-divider/> -->
-    <div></div>
-  </div>
+        <el-option
+          v-for="(item, index) in itemList"
+          :key="index"
+          :label="item"
+          :value="item"
+        >
+        </el-option>
+      </el-select>
+      <div id="StatisticPie" style="width: 100%; height: 100%"></div>
+    </div>
+  
 </template>
 <script>
 //eslint disable next line
@@ -28,18 +32,18 @@ export default {
       DAB: { failure: [], nofailure: [] },
       mydata: {},
       item: "",
-      selectwidth: "width: 385px",
-      formLabelWidth: "130px",
+      // selectwidth: "width: 385px",
+      // formLabelWidth: "130px",
       itemList: "",
       Itemlabel: "",
     };
   },
 
   created() {
-  console.log('DrawPie')
+    console.log("DrawPie");
 
     this.Itemlabel = this.itemList[4];
-        this.mydata = this.getdata;
+    this.mydata = this.getdata;
     this.drawDatafromDB();
   },
 
@@ -68,15 +72,18 @@ export default {
       // console.log(this.mydata)
       // console.log(Object.keys(obj).length)
       var drawdata = [];
-      for (var j = 0; j<Object.keys(obj).length; j++) {
-        drawdata.push({'name':Object.keys(obj)[j],'value':Object.values(obj)[j]})
-        
+      for (var j = 0; j < Object.keys(obj).length; j++) {
+        drawdata.push({
+          name: Object.keys(obj)[j],
+          value: Object.values(obj)[j],
+        });
+
         // drawdata.push({'value':Object.values(obj[j])})
       }
-      this.drawPie("StatisticPie",drawdata);
+      this.drawPie("StatisticPie", drawdata);
     },
 
-    drawPie(id,drawdata) {
+    drawPie(id, drawdata) {
       this.charts = echarts.init(document.getElementById(id));
       this.charts.setOption({
         title: {
@@ -91,7 +98,7 @@ export default {
           feature: {
             dataView: { readOnly: false },
             restore: {},
-            saveAsImage: {}
+            saveAsImage: {},
           },
         },
         // brush: {},
@@ -115,8 +122,8 @@ export default {
         series: [
           {
             type: "pie",
-            radius: "80%",
-            data:drawdata,
+            radius: "60%",
+            data: drawdata,
             emphasis: {
               itemStyle: {
                 shadowBlur: 30,

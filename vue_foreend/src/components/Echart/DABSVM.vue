@@ -1,6 +1,7 @@
 <template>
   <!--为echarts准备一个具备大小的容器dom-->
-  <div>
+  <div style="width: 100%; height:400px">
+    <div style="width: 100%; height:10%">
     <el-row :gutter="5">
       <el-col :span="8">
         <el-select
@@ -48,22 +49,10 @@
             </el-option>
           </el-option-group>
         </el-select>
-        <!-- <el-select
-          v-model="Item"
-          placeholder="Select Feature"
-          @change="drawDatafromDB"
-        >
-          <el-option
-            v-for="(item, index) in ItemList"
-            :key="index"
-            :label="item"
-            :value="item"
-          >
-          </el-option>
-        </el-select> -->
       </el-col>
     </el-row>
-    <div id="DAB" style="width: 100%; height: 400px"></div>
+    </div>
+    <div id="DAB" ref="chart" style="width: 100%; height:80%"></div>
   </div>
 </template>
 <script>
@@ -138,49 +127,51 @@ export default {
       this.DAB.failure = [];
       this.DAB.nofailure = [];
       for (var i = 0; i < this.mydata.length; i++) {
-        var strData = JSON.stringify(this.mydata[i])
-        
+        var strData = JSON.stringify(this.mydata[i]);
+
         // console.log(strData.search(this.Item) != -1)
-        if (strData.search(this.Item) != -1){
-        if (this.TestorSim === "1") {
-          console.log("Testing");
-          if (this.mydata[i].Testing.indexOf(this.FailureMode) === -1) {
-            this.DAB.nofailure.push([
-              parseFloat(this.mydata[i].H_Width),
-              parseFloat(this.mydata[i].Flappy_Mass),
-              this.mydata[i].PRJ,
-            ]);
+        if (strData.search(this.Item) != -1) {
+          if (this.TestorSim === "1") {
+            console.log("Testing");
+            if (this.mydata[i].Testing.indexOf(this.FailureMode) === -1) {
+              this.DAB.nofailure.push([
+                parseFloat(this.mydata[i].H_Width),
+                parseFloat(this.mydata[i].Flappy_Mass),
+                this.mydata[i].PRJ,
+              ]);
+            } else {
+              this.DAB.failure.push([
+                parseFloat(this.mydata[i].H_Width),
+                parseFloat(this.mydata[i].Flappy_Mass),
+                this.mydata[i].PRJ,
+              ]);
+            }
           } else {
-            this.DAB.failure.push([
-              parseFloat(this.mydata[i].H_Width),
-              parseFloat(this.mydata[i].Flappy_Mass),
-              this.mydata[i].PRJ,
-            ]);
-          }
-        } else {
-          // console.log("Simulation");
-          if (this.mydata[i].Simulation.indexOf(this.FailureMode) === -1) {
-            // console.log(typeof(this.DAB.failure))
-            this.DAB.nofailure.push([
-              parseFloat(this.mydata[i].H_Width),
-              parseFloat(this.mydata[i].Flappy_Mass),
-              this.mydata[i].PRJ,
-            ]);
-          } else {
-            this.DAB.failure.push([
-              parseFloat(this.mydata[i].H_Width),
-              parseFloat(this.mydata[i].Flappy_Mass),
-              this.mydata[i].PRJ,
-            ]);
+            // console.log("Simulation");
+            if (this.mydata[i].Simulation.indexOf(this.FailureMode) === -1) {
+              // console.log(typeof(this.DAB.failure))
+              this.DAB.nofailure.push([
+                parseFloat(this.mydata[i].H_Width),
+                parseFloat(this.mydata[i].Flappy_Mass),
+                this.mydata[i].PRJ,
+              ]);
+            } else {
+              this.DAB.failure.push([
+                parseFloat(this.mydata[i].H_Width),
+                parseFloat(this.mydata[i].Flappy_Mass),
+                this.mydata[i].PRJ,
+              ]);
+            }
           }
         }
-      }
       }
       this.drawScatter("DAB");
     },
 
-    drawScatter(id) {
-      this.charts = echarts.init(document.getElementById(id));
+    drawScatter() {
+      var charts = this.$refs.chart;
+      //   this.charts = echarts.init(document.getElementById(id));
+      this.charts = echarts.init(charts);
       this.charts.setOption({
         title: {
           text: "DAB Cover ESR",
@@ -226,13 +217,11 @@ export default {
           },
         },
         toolbox: {
-          
           feature: {
             dataZoom: {},
             dataView: { readOnly: false },
-            saveAsImage: {}
+            saveAsImage: {},
           },
-          
         },
         // brush: {},
         legend: {

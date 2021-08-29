@@ -1,11 +1,14 @@
 <template>
   <div>
     <v-data-table
+      v-model="selectedItem"
       :headers="ESRheaders"
       :items="ESRTable"
       class="elevation-1"
       multi-sort
       :search="search"
+      item-key="PRJ"
+      show-select
       :custom-filter="filterOnlyCapsText"
     >
       <template v-slot:top>
@@ -30,8 +33,11 @@
       </template>
 
       <template v-slot:item.actions="{ item }">
+ 
         <el-popover placement="right" width="800" trigger="click">
+          
           <v-icon small class="mr-2" slot="reference">mdi-eye</v-icon>
+          
           <div>
             <el-row
               ><span class="Title">{{ item.PRJ }}</span></el-row
@@ -108,7 +114,7 @@
               >
               <el-col :span="6"
                 ><span>Hinge Width: </span
-                ><span class="Content">{{ item.H_Width }} mm</span></el-col
+                ><span class="Content">{{ item.Hinge_Width }} mm</span></el-col
               >
               <el-col :span="6"
                 ><span>HingePlane: </span
@@ -142,11 +148,69 @@
           </div>
         </el-popover>
 
-        <v-icon small class="mr-2" @click="editItem(item)" :disabled="Permission(item.PE)"> mdi-pencil </v-icon>
-        <v-icon small class="mr-2" @click="deleteItem(item)" :disabled="Permission(item.PE)">mdi-delete</v-icon>
-        <v-icon small class="mr-2" @click="logItem(item)" >el-icon-notebook-1</v-icon>
-        <v-icon small class="mr-2" @click="postRequest(item)">el-icon-tickets</v-icon>
-        <v-icon small class="mr-2" @click="CAEReport(item)">el-icon-data-analysis</v-icon>
+        <el-tooltip
+          class="item"
+          effect="dark"
+          content="Modify"
+          placement="top-end"
+        >
+          <v-icon
+            small
+            class="mr-2"
+            @click="editItem(item)"
+            :disabled="Permission(item.PE)"
+          >
+            mdi-pencil
+          </v-icon>
+        </el-tooltip>
+
+        <el-tooltip
+          class="item"
+          effect="dark"
+          content="Delete"
+          placement="top-end"
+        >
+          <v-icon
+            small
+            class="mr-2"
+            @click="deleteItem(item)"
+            :disabled="Permission(item.PE)"
+            >mdi-delete</v-icon
+          >
+        </el-tooltip>
+
+        <el-tooltip
+          class="item"
+          effect="dark"
+          content="Log"
+          placement="top-end"
+        >
+          <v-icon small class="mr-2" @click="logItem(item)"
+            >el-icon-notebook-1</v-icon
+          >
+        </el-tooltip>
+
+        <el-tooltip
+          class="item"
+          effect="dark"
+          content="ESR Requirest"
+          placement="top-end"
+        >
+          <v-icon small class="mr-2" @click="postRequest(item)"
+            >el-icon-tickets</v-icon
+          >
+        </el-tooltip>
+
+        <el-tooltip
+          class="item"
+          effect="dark"
+          content="CAE Report"
+          placement="top-end"
+        >
+          <v-icon small class="mr-2" @click="CAEReport(item)"
+            >el-icon-data-analysis</v-icon
+          >
+        </el-tooltip>
       </template>
     </v-data-table>
 
@@ -164,12 +228,13 @@
     </el-dialog>
 
     <el-divider />
-    <el-row :gutter="50">
-      <el-col :span="14"><DABSVM :getdata="ESRTable"></DABSVM></el-col>
-      <el-col :span="10"
-        ><StatisticsPie :getdata="ESRTable"></StatisticsPie
-      ></el-col>
-    </el-row>
+    <div>
+      <el-row :gutter="10">
+        <el-col :lg="8" :xs="24"><DABSVM :getdata="ESRTable" /></el-col>
+        <el-col :lg="8" :xs="24"><Redar :getdata="selectedItem" /></el-col>
+        <el-col :lg="8" :xs="24"><StatisticsPie :getdata="ESRTable" /></el-col>
+      </el-row>
+    </div>
     <el-divider />
     <ESRCalendars :getdata="ESRTable" />
   </div>
@@ -184,10 +249,13 @@ export default {
     POPUP: () => import("@/components/ProjectTable/popup"),
     LOG: () => import("@/components/ProjectTable/log"),
     ESRCalendars: () => import("@/components/ProjectTable/ESRCalendars"),
+    Redar: () => import("@/components/Echart/Redar.vue"),
   },
   data: () => ({
+    singleSelect: false,
+    selectedItem: [],
     itemdata: "",
-    PDFfile:'',
+    PDFfile: "",
     forminital: {},
     Operation: "Project",
     popupdata: {},
@@ -210,22 +278,23 @@ export default {
         value: "PRJ",
       },
       { text: "ESR", value: "ESR" },
-      { text: "PE", value: "PE" },
+      // { text: "PE", value: "PE" },
       // { text: "CAE", value: "CAE" },
       // { text: "Interface", value: "Interface" },
-      { text: "CV_Mat.", value: "CV_Mat" },
+      { text: "C0ver Mat.", value: "CV_Mat" },
       // { text: "H_Mat", value: "H_Mat" },
       // { text: "E_Mat", value: "E_Mat" },
       { text: "Inflator", value: "Inflator" },
       // { text: "C_Mat", value: "C_Mat" },
       // { text: "C_type", value: "C_Type" },
-      { text: "C_Diam", value: "C_Diam" },
+      { text: "Cushion Diam", value: "C_Diam" },
       // { text: "Tearline", value: "Tearline" },
-      { text: "Flappy Mass", value: "Flappy_Mass" },
-      { text: "H_width", value: "H_Width" },
-      { text: "CV_Height", value: "CV_Height" },
-      { text: "Hinge_Area", value: "Hinge_Area"},
-      { text: "Hinge_Radius", value: "Hinge_Radius"},
+      { text: "Flap Mass", value: "Flappy_Mass" },
+      { text: "Hinge Width", value: "Hinge_Width" },
+      // { text: "H_width", value: "H_Width" },
+      { text: "Cover-Inflator Height", value: "CV_Height" },
+      { text: "Hinge Area", value: "Hinge_Area" },
+      { text: "Hinge Radius", value: "Hinge_Radius" },
       // { text: "H_Plane", value: "H_Plane" },
       // { text: "H_Neck", value: "H_Neck" },
       { text: "Option", value: "actions", sortable: false },
@@ -240,9 +309,8 @@ export default {
     },
     ...mapState({
       CurrentForm: (state) => state.form,
-      User: (state) => state.User
+      User: (state) => state.User,
     }),
-    
   },
 
   watch: {
@@ -259,17 +327,15 @@ export default {
 
   mounted() {
     this.getData();
-
   },
   methods: {
-    Permission(name){
+    Permission(name) {
       // console.log( name)
-      if (this.User.Priority != 1){
-        return (this.User.Name === name) ?  false : true ;
-      } else{
-        return false
+      if (this.User.Priority != 1) {
+        return this.User.Name === name ? false : true;
+      } else {
+        return false;
       }
-      
     },
     cleardrawer() {
       this.itemdata = {};
@@ -332,14 +398,17 @@ export default {
       this.itemdata = item;
     },
 
-    CAEReport(item){
-      this.$axios.post('/api/CAEReport',JSON.stringify(item),{headers:{'Content-Type':'application/x-www-form-urlencoded'}})
-					.then(res=>{
-              console.log(res.data)
-							})
-					.catch(function (error) {
-						console.log(error);
-						})
+    CAEReport(item) {
+      this.$axios
+        .post("/api/CAEReport", JSON.stringify(item), {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        })
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     },
 
     close() {
@@ -350,67 +419,62 @@ export default {
       });
     },
 
-      postRequest(item){
-        // console.log(item.PE)
-				this.$axios.post('/api/RequestForm',JSON.stringify(item),{headers:{'Content-Type':'application/x-www-form-urlencoded'}})
-					.then(res=>{
-						let blob = this.base64ToBlob(res.data,'application/pdf')
-						this.PDFfile = window.URL.createObjectURL(blob)
-            window.open(this.PDFfile, '_blank');
-							})
-					.catch(function (error) {
-						console.log(error);
-						})
-				},
+    postRequest(item) {
+      // console.log(item.PE)
+      this.$axios
+        .post("/api/RequestForm", JSON.stringify(item), {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        })
+        .then((res) => {
+          let blob = this.base64ToBlob(res.data, "application/pdf");
+          this.PDFfile = window.URL.createObjectURL(blob);
+          window.open(this.PDFfile, "_blank");
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
 
-			base64ToBlob(b64Data, contentType='', sliceSize=512) {
-				const byteCharacters = atob(b64Data);
-				const byteArrays = [];
+    base64ToBlob(b64Data, contentType = "", sliceSize = 512) {
+      const byteCharacters = atob(b64Data);
+      const byteArrays = [];
 
-				for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-					const slice = byteCharacters.slice(offset, offset + sliceSize);
+      for (
+        let offset = 0;
+        offset < byteCharacters.length;
+        offset += sliceSize
+      ) {
+        const slice = byteCharacters.slice(offset, offset + sliceSize);
 
-					const byteNumbers = new Array(slice.length);
-					for (let i = 0; i < slice.length; i++) {
-					byteNumbers[i] = slice.charCodeAt(i);
-					}
+        const byteNumbers = new Array(slice.length);
+        for (let i = 0; i < slice.length; i++) {
+          byteNumbers[i] = slice.charCodeAt(i);
+        }
 
-					const byteArray = new Uint8Array(byteNumbers);
-					byteArrays.push(byteArray);
-				}
+        const byteArray = new Uint8Array(byteNumbers);
+        byteArrays.push(byteArray);
+      }
 
-				const blob = new Blob(byteArrays, {type: contentType});
-				return blob;
-				},
+      const blob = new Blob(byteArrays, { type: contentType });
+      return blob;
+    },
     // downloadPDF(item){
-		// 		// location.href =  this.url
+    // 		// location.href =  this.url
     //     this.postRequest(item)
-		// 		// let routeData = this.$router.resolve({});
-		// 		// routeData.url = this.PDFfile
-				
-		// 		window.open(this.PDFfile, '_blank');
-		// 	},
+    // 		// let routeData = this.$router.resolve({});
+    // 		// routeData.url = this.PDFfile
+
+    // 		window.open(this.PDFfile, '_blank');
+    // 	},
   },
 };
 </script>
 
 <style lang="scss" >
-.Title {
-  color: rgb(252, 0, 0);
-}
-.Content {
-  color: rgb(0, 17, 252);
-}
-.row-bg-light {
-  padding: 10px 0;
-  background: #e5e9f2;
-}
-.row-bg-dark {
-  padding: 10px 0;
-  background: #99a9bf;
-}
-
-.el-drawer.rtl {
-  overflow: scroll;
+.el-row {
+  margin-bottom: 20px;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }
 </style>

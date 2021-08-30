@@ -116,16 +116,16 @@ export default {
   watch: {
     getdata() {
       this.updateRange()
-      this.$refs.calendar.checkChange();
+      // this.$refs.calendar.checkChange();
     }
   },
   created() {
     this.updateRange()
-    this.$refs.calendar.checkChange();
+    // this.$refs.calendar.checkChange();
   },
 
   mounted() {
-    this.$refs.calendar.checkChange();
+    // this.$refs.calendar.checkChange();
   },
   methods: {
     viewDay({ date }) {

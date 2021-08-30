@@ -1,89 +1,10 @@
-<template >
-  <div class="block" style="margin-top: 20px">
-    <el-timeline>
-      <el-timeline-item v-for="(activity, index) in activities" :key="index">
-        <el-card style="width: 90%">
-          <p>{{ activity.timestamp }}</p>
-          <h2>{{ activity.title }}</h2>
-          <h3>{{ activity.content.data }}</h3>
-          <el-divider />
-
-          <h4
-            v-for="(comment, kindex) in activity.content.comments"
-            :key="kindex"
-          >
-            <p style="color:#909399 font-weight: bold;">{{ comment.time }}</p>
-            <p style="color: #409eff">{{ comment.data }}</p>
-          </h4>
-          <el-input
-            type="textarea"
-            :rows="3"
-            placeholder="Comment"
-            v-model="activity.content.comment"
-            @keyup.enter.native="
+<template>
+<div class="block" style="margin-top: 20px"><el-timeline><el-timeline-item v-for="(activity, index) in activities" :key="index"><el-card style="width: 90%"><p>{{ activity.timestamp }}</p><h2>{{ activity.title }}</h2><h3>{{ activity.content.data }}</h3><el-divider></el-divider><h4 v-for="(comment, kindex) in activity.content.comments" :key="kindex"><p style="color:#909399 font-weight: bold;">{{ comment.time }}</p><p style="color: #409eff">{{ comment.data }}</p></h4><el-input type="textarea" :rows="3" placeholder="Comment" v-model="activity.content.comment" @keyup.enter.native="
               activity.content.comment = submitcomment(
                 index,
                 activity.content.comment
               )
-            "
-          >
-          </el-input>
-        </el-card>
-      </el-timeline-item>
-    </el-timeline>
-    <!-- form input -->
-    <el-divider />
-    <div style="margin-left: 20px" width="50%">
-      <el-select
-        v-model="title"
-        multiple
-        filterable
-        allow-create
-        default-first-option
-        placeholder="Select a failure pattern"
-      >
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        >
-        </el-option>
-      </el-select>
-      <div style="margin: 20px 0"></div>
-      <el-input
-        type="textarea"
-        :rows="10"
-        placeholder="Content"
-        v-model="content"
-      >
-      </el-input>
-
-      <el-row :gutter="1" style="margin-top: 20px">
-        <el-button
-          type="primary"
-          icon="el-icon-plus"
-          circle
-          size="mini"
-          @click="addItem"
-        ></el-button>
-        <el-button
-          type="danger"
-          icon="el-icon-minus"
-          circle
-          size="mini"
-          @click="delItem"
-        ></el-button>
-        <el-button
-          type="warning"
-          icon="el-icon-folder-add"
-          circle
-          size="mini"
-          @click="mkdir"
-        ></el-button>
-      </el-row>
-    </div>
-  </div>
+            "></el-input></el-card></el-timeline-item></el-timeline><!-- form input --><el-divider></el-divider><div style="margin-left: 20px" width="50%"><el-select v-model="title" multiple filterable allow-create default-first-option placeholder="Select a failure pattern"><el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option></el-select><div style="margin: 20px 0"></div><el-input type="textarea" :rows="10" placeholder="Content" v-model="content"></el-input><el-row :gutter="1" style="margin-top: 20px"><el-button type="primary" icon="el-icon-plus" circle size="mini" @click="addItem"></el-button><el-button type="danger" icon="el-icon-minus" circle size="mini" @click="delItem"></el-button><el-button type="warning" icon="el-icon-folder-add" circle size="mini" @click="mkdir"></el-button></el-row></div></div>
 </template>
 
 

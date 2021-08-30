@@ -33,11 +33,9 @@
       </template>
 
       <template v-slot:item.actions="{ item }">
- 
         <el-popover placement="right" width="800" trigger="click">
-          
           <v-icon small class="mr-2" slot="reference">mdi-eye</v-icon>
-          
+
           <div>
             <el-row
               ><span class="Title">{{ item.PRJ }}</span></el-row
@@ -214,9 +212,9 @@
       </template>
     </v-data-table>
 
-    <el-drawer :visible.sync="drawerVisable" :with-header="false" size="50%">
+    <el-drawer   :visible.sync="drawerVisable" :with-header="false" size="50%" class= "el-drawer">
       <!-- <span>{{test}}</span> -->
-      <LOG :getdata="itemdata"></LOG>
+      <LOG :getdata="itemdata" ></LOG>
     </el-drawer>
 
     <el-dialog
@@ -227,11 +225,13 @@
       <POPUP :form="popupdata"></POPUP>
     </el-dialog>
 
+
+
     <el-divider />
     <div>
       <el-row :gutter="10">
         <el-col :lg="8" :xs="24"><DABSVM :getdata="ESRTable" /></el-col>
-        <el-col :lg="8" :xs="24"><Redar :getdata="selectedItem" /></el-col>
+        <el-col :lg="8" :xs="24"><Radar :getdata="selectedItem" /></el-col>
         <el-col :lg="8" :xs="24"><StatisticsPie :getdata="ESRTable" /></el-col>
       </el-row>
     </div>
@@ -249,9 +249,11 @@ export default {
     POPUP: () => import("@/components/ProjectTable/popup"),
     LOG: () => import("@/components/ProjectTable/log"),
     ESRCalendars: () => import("@/components/ProjectTable/ESRCalendars"),
-    Redar: () => import("@/components/Echart/Redar.vue"),
+    Radar: () => import("@/components/Echart/Radar.vue"),
+    // CAEReportpopup:() => import("@/components/Echart/CAEReportpopup"),
   },
   data: () => ({
+    pptfiledir: "",
     singleSelect: false,
     selectedItem: [],
     itemdata: "",
@@ -262,6 +264,7 @@ export default {
     overlay: false,
     detailInfo: {},
     dialogFormVisible: false,
+    CAEReportVisible: false,
     drawerVisable: false,
     dialog: false,
     dialogDelete: false,
@@ -281,7 +284,7 @@ export default {
       // { text: "PE", value: "PE" },
       // { text: "CAE", value: "CAE" },
       // { text: "Interface", value: "Interface" },
-      { text: "C0ver Mat.", value: "CV_Mat" },
+      { text: "Cover Mat.", value: "CV_Mat" },
       // { text: "H_Mat", value: "H_Mat" },
       // { text: "E_Mat", value: "E_Mat" },
       { text: "Inflator", value: "Inflator" },
@@ -380,6 +383,7 @@ export default {
       this.dialogFormVisible = true;
       this.Operation = "Edit project";
     },
+
     deleteItem(item) {
       // console.log(this.ESRTable.data)
       confirm("Are you sure you want to delete this item?") &&
@@ -399,25 +403,23 @@ export default {
     },
 
     CAEReport(item) {
-      this.$axios
-        .post("/api/CAEReport", JSON.stringify(item), {
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        })
-        .then((res) => {
-          console.log(res.data);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      Window.open(item.PPT, "_blank");
+      // console.log(item)
+      // this.$axios
+      //   .post("/api/getPPT", JSON.stringify(item), {
+      //     headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      //   })
+      //   .then((res) => {
+      //     console.log(res)
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error);
+      //   });
     },
+    
+  
 
-    close() {
-      this.dialog = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
+
 
     postRequest(item) {
       // console.log(item.PE)
@@ -458,14 +460,6 @@ export default {
       const blob = new Blob(byteArrays, { type: contentType });
       return blob;
     },
-    // downloadPDF(item){
-    // 		// location.href =  this.url
-    //     this.postRequest(item)
-    // 		// let routeData = this.$router.resolve({});
-    // 		// routeData.url = this.PDFfile
-
-    // 		window.open(this.PDFfile, '_blank');
-    // 	},
   },
 };
 </script>
@@ -477,4 +471,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
 }
+.el-drawer{
+    overflow: scroll;
+    }
 </style>

@@ -54,8 +54,10 @@ export default {
 
   watch: {
     getdata(newval) {
-      console.log(newval);
-      this.drawDatafromDB();
+      if (newval.length != 0) {
+        this.drawDatafromDB();
+      }
+      
     },
   },
 

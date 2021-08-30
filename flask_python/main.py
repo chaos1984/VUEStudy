@@ -84,7 +84,7 @@ def delete():
     # ESRpath = app.config['ESR']+"//123123"
     img_stream = ''
     file_obj = request.get_data(as_text=True)
-    print(file_obj)
+    # print(file_obj)
     if file_obj is None:
         # 表示没有发送文件
         return "未上传文件"
@@ -103,11 +103,7 @@ def delete():
     print("Delete done")
     return "Delete done"
 
-@app.route("/CAEReport",methods=["POST"])
-def CAEReport():
-    data = json.loads(request.get_data(as_text=True))
-    filename = ""
-    return "OK"
+
 
 @app.route('/RequestForm', methods=["POST"])
 def RequestForm():
@@ -117,6 +113,14 @@ def RequestForm():
     a = ESRpdf.PDFGenerator(filename)
     a.genTaskPDF(data)
     return return_img_stream('.\\temp\\'+filename)
+    
+    
+    
+@app.route('/CAEReport', methods=["POST"])
+def CAEReport():
+    data = json.loads(request.get_data(as_text=True))
+    print (data['PPT'])
+    return "OK"
 
 def return_img_stream(img_local_path):
     img_stream = ''
@@ -207,11 +211,11 @@ def dabai():
 def dabinfo():
     user = getpass.getuser()
     DABinfo= json.loads(request.get_data(as_text=True))
-    print (DABinfo)
+    # print (DABinfo)
 
     copyflag = DABinfo['params']['Copy']
-    print ("copyflag")
-    print (copyflag)
+    # print ("copyflag")
+    # print (copyflag)
     DABinfo = json.loads(DABinfo['params']['Dabinfo'])
 
 
@@ -223,9 +227,6 @@ def dabinfo():
 
     if copyflag :
         a = ESR.query.filter(ESR.PRJ == DABinfo['PRJ']).first()
-        print ("a")
-        print (a)
-        print ( DABinfo['PRJ'])
         if a != None:
             temp = DABinfo['PRJ'].split("_V")
             version = 1+int(temp[-1])
@@ -288,6 +289,7 @@ def dabinfo():
         DateRange=str(DABinfo['DateRange']),
         CV_Height=DABinfo['CV_Height'],
         CV_Leather=DABinfo['CV_Leather'],
+        PPT=str(DABinfo['PPT']),
         Remarks = DABinfo['Remarks'],
         Log=str(DABinfo['Log']),
         AI = str(y))

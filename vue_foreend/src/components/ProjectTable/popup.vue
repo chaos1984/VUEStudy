@@ -6,7 +6,7 @@
   <div>
     <el-form :model="form" ref="form">
       <el-row>
-        <el-col :span="6">
+        <el-col :lg="6" :xs="12">
           <el-form-item
             label="OEM"
             :label-width="formLabelWidth"
@@ -28,7 +28,7 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :lg="6" :xs="12">
           <el-form-item
             label="Project"
             :label-width="formLabelWidth"
@@ -39,7 +39,7 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :lg="6" :xs="12">
           <el-form-item
             label="AFIS"
             :label-width="formLabelWidth"
@@ -53,7 +53,7 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :lg="6" :xs="12">
           <el-form-item
             label="ESR"
             :label-width="formLabelWidth"
@@ -71,7 +71,7 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :lg="6" :xs="12">
           <el-form-item
             label="PE"
             :label-width="formLabelWidth"
@@ -97,7 +97,7 @@
 
         <!-- </el-row>
       <el-row> -->
-        <el-col :span="6">
+        <el-col :lg="6" :xs="12">
           <el-form-item
             label="Interface"
             :label-width="formLabelWidth"
@@ -119,7 +119,7 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :lg="6" :xs="12">
           <el-form-item
             label="Cover mat"
             :label-width="formLabelWidth"
@@ -141,7 +141,7 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :lg="6" :xs="12">
           <el-form-item
             label="Housing mat"
             :label-width="formLabelWidth"
@@ -163,7 +163,7 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :lg="6" :xs="12">
           <el-form-item
             label="Tearling Type"
             :label-width="formLabelWidth"
@@ -185,7 +185,7 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :lg="6" :xs="12">
           <el-form-item
             label="Emblem mat"
             :label-width="formLabelWidth"
@@ -209,7 +209,7 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :lg="6" :xs="12">
           <el-form-item
             label="Inflator"
             :label-width="formLabelWidth"
@@ -231,7 +231,7 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :lg="6" :xs="12">
           <el-form-item
             label="Cushion Mat."
             :label-width="formLabelWidth"
@@ -253,7 +253,7 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :lg="6" :xs="12">
           <el-form-item
             label="Cushion Fold "
             :label-width="formLabelWidth"
@@ -275,7 +275,7 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :lg="6" :xs="12">
           <el-form-item
             label="Cushion Diam"
             :label-width="formLabelWidth"
@@ -291,7 +291,7 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :lg="6" :xs="12">
           <el-form-item
             label="Tether Type"
             :label-width="formLabelWidth"
@@ -313,7 +313,7 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :lg="6" :xs="12">
           <el-form-item
             label="Cover Leather"
             :label-width="formLabelWidth"
@@ -335,7 +335,7 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :lg="6" :xs="12">
           <el-form-item
             label="Hinge Length"
             :label-width="formLabelWidth"
@@ -350,7 +350,7 @@
             ></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
+        <el-col :lg="6" :xs="12">
           <el-form-item
             label="Flap mass"
             :label-width="formLabelWidth"
@@ -366,7 +366,7 @@
           </el-form-item>
         </el-col>
       </el-row>
-            <el-row>
+      <el-row>
         <el-col :span="4">
           <el-form-item
             label="Wrapper"
@@ -430,17 +430,44 @@
             <el-checkbox v-model="form.C_Diffusor"></el-checkbox>
           </el-form-item>
         </el-col>
-
+        <el-col :lg="6" :xs="12">
+        
+            
+            <el-form-item label="Date select" :label-width="formLabelWidth" prop="DateRange" :rules="[
+              { required: true, message: 'Need confirm', trigger: 'change' },
+            ]">
+              <el-date-picker
+                v-model="form.DateRange"
+                type="daterange"
+                align="right"
+                start-placeholder="Start Date"
+                end-placeholder="End Date"
+                value-format="yyyy-MM-dd"
+              >
+                >
+              </el-date-picker>
+            </el-form-item>
+          
+        </el-col>
+        
       </el-row>
-              
-        <el-divider />
+      <el-form-item label="Remarks">
+        <el-input
+          type="textarea"
+          :rows="10"
+          placeholder="Remarks"
+          v-model="form.Remarks"
+        >
+        </el-input>
+      </el-form-item>
+      <el-divider />
       <el-row>
-        <el-col :span="6">
+        <el-col :lg="6" :xs="12">
           <el-form-item
             label="Hinge width"
             :label-width="formLabelWidth"
             prop="Hinge_Width"
-            
+            :rules= "userrules"
           >
             <el-input
               onkeyup="value=value.replace(/[^\.\d]/g, '')"
@@ -451,12 +478,12 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :lg="6" :xs="12">
           <el-form-item
             label="Cov-Inf Height"
             :label-width="formLabelWidth"
             prop="CV_Height"
-            
+            :rules= "userrules"
           >
             <el-input
               onkeyup="value=value.replace(/[^\.\d]/g, '')"
@@ -467,13 +494,12 @@
           </el-form-item>
         </el-col>
 
-
-
-        <el-col :span="6">
+        <el-col :lg="6" :xs="12">
           <el-form-item
             label="Hinge Area"
             :label-width="formLabelWidth"
             prop="Hinge_Area"
+            :rules= "userrules"
           >
             <el-input
               onkeyup="value=value.replace(/[^\.\d]/g, '')"
@@ -484,11 +510,12 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :lg="6" :xs="12">
           <el-form-item
             label="Hinge Radius"
             :label-width="formLabelWidth"
             prop="Hinge_Radius"
+            :rules= "userrules"
           >
             <el-input
               onkeyup="value=value.replace(/[^\.\d]/g, '')"
@@ -498,36 +525,30 @@
             ></el-input>
           </el-form-item>
         </el-col>
-
       </el-row>
 
 
-
-      <div class="block">
-        <span>Date range </span>
-        <el-form-item>
-          <el-date-picker
-            v-model="form.DateRange"
-            type="daterange"
-            align="right"
-            start-placeholder="Start Date"
-            end-placeholder="End Date"
-            value-format="yyyy-MM-dd"
+      <el-row :gutter="10">
+        <el-col :lg="12" :xs="12">
+          <el-form-item
+            label="PPT dir."
+            :label-width="formLabelWidth"
+            prop="PPT"
+          
+            :rules="userrules"
           >
-            >
-          </el-date-picker>
-        </el-form-item>
-      </div>
-      <el-divider></el-divider>
-      <el-form-item>
-        <el-input
-          type="textarea"
-          :rows="10"
-          placeholder="Remarks"
-          v-model="form.Remarks"
-        >
-        </el-input>
-      </el-form-item>
+            <el-input 
+              v-model="form.PPT"
+              autocomplete ="off"
+              :placeholder = "pptfile"
+              :disabled = "userpiority"
+              clearable
+            ></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      
       <el-divider></el-divider>
 
       <el-row>
@@ -542,18 +563,6 @@
               >
             </el-checkbox-group>
 
-            <!-- <el-select
-              v-model="form.Testing"
-              placeholder="Select Testing result"
-              :style="selectwidth"
-            >
-              <el-option
-                v-for="(item, index) in formItem.FailureMode"
-                :key="index"
-                :label="item"
-                :value="item"
-              ></el-option>
-            </el-select> -->
           </el-form-item>
         </el-col>
 
@@ -575,13 +584,16 @@
     <el-row>
       <el-col :span="3">
         <!-- <el-button @click="resetForm('form')">RESET</el-button> -->
-        <el-button type="primary" @click="submitForm('form')"
+        <el-button type="primary" @click="submitForm('form')" style="width: 80%"
           >Confirm</el-button
         >
       </el-col>
       <el-col :span="3">
         <!-- <el-button @click="resetForm('form')">RESET</el-button> -->
-        <el-button type="primary" @click="submitForm('form', 'true')"
+        <el-button
+          type="primary"
+          @click="submitForm('form', 'true')"
+          style="width: 80%"
           >Copy</el-button
         >
       </el-col>
@@ -590,6 +602,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   props: {
     form: {},
@@ -609,29 +622,55 @@ export default {
       }, 100);
     };
     return {
+      userrules: [],
+      pptfile: "None",
       PRJ: [{ required: true, validator: checkprj, trigger: "change" }],
       checkedList: [],
       dialogFormVisible: false,
-      selectwidth: "width: 250px",
+      selectwidth: "width: 100%",
       formLabelWidth: "130px",
       formItem: {},
     };
   },
+  computed: {
+    formTitle() {
+      return this.editedIndex === -1 ? "New Item" : "Edit Item";
+    },
+    ...mapState({
+      CurrentForm: (state) => state.form,
+      User: (state) => state.User,
+    }),
+  },
+
   watch: {
     form(newval) {
-      this.form = newval;
-      console.log("newval");
-      console.log(newval);
+      if (newval.length != 0) {
+        this.form = newval;
+      }
     },
   },
   mounted() {
     this.getDatafromJson();
+    this.Permission();
   },
   methods: {
+    Permission() {
+      console.log("this.User");
+      console.log(this.User);
+      if (this.User.Priority != "1") {
+        this.userpiority = true;
+        
+      } else {
+        this.userpiority = false;
+        this.userrules = [{ required: true }]
+      }
+    },
     getDatafromJson() {
       this.$axios.get("/static/json/formItem.json").then(
         (response) => {
+          this.Permission()
           this.formItem = JSON.parse(JSON.stringify(response.data));
+          // this.Permission()
         },
         (error) => {
           console.log(error);

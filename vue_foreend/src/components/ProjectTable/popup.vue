@@ -340,11 +340,11 @@
             label="Hinge Length"
             :label-width="formLabelWidth"
             prop="H_Width"
-            :rules="[{ required: true, message: 'Select one item' }]"
+            :rules="[{ required: true, trigger: 'blur' }]"
           >
             <el-input
               onkeyup="value=value.replace(/[^\.\d]/g, '')"
-              v-model="form.Hinge_Width"
+              v-model="form.H_Width"
               autocomplete="off"
               placeholder="mm"
             ></el-input>
@@ -629,7 +629,7 @@ export default {
       dialogFormVisible: false,
       selectwidth: "width: 100%",
       formLabelWidth: "130px",
-      formItem: {},
+      formItem: { },
     };
   },
   computed: {

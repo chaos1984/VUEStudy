@@ -258,7 +258,37 @@ export default {
     selectedItem: [],
     itemdata: "",
     PDFfile: "",
-    forminital: {},
+    forminital: {
+     OEM: "",
+     PRJ: "",
+     AFIS: "",
+     ESR: "",
+     PE: "",
+     Interface: "",
+     CV_Mat: "",
+     H_Mat: "",
+     HousingMat: "",
+     Tearline: "",
+     E_Mat: "",
+     Inflator: "",
+     C_Mat: "",
+     C_Type: "",
+     C_Diam: "",
+     C_Tether: "",
+     H_Width: "",
+     Flappy_Mass: "",
+     Wrapper: "",
+     H_Plane: "",
+     H_Neck: "",
+     Daokou: "",
+     C_Diffusor: "",
+     DateRange: "",
+     Testing: ["Hinge Overtear", "Emblem Breakage"],
+     Simulation: ["Hinge Overtear", "Emblem Breakage"],
+     CV_Leather: "",
+     CV_Height: "",
+     Log: "",
+   },
     Operation: "Project",
     popupdata: {},
     overlay: false,
@@ -403,7 +433,7 @@ export default {
     },
 
     CAEReport(item) {
-      Window.open(item.PPT, "_blank");
+      window.open(item.PPT, "_blank");
       // console.log(item)
       // this.$axios
       //   .post("/api/getPPT", JSON.stringify(item), {

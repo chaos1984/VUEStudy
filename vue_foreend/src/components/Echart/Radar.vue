@@ -97,7 +97,7 @@ export default {
               { text: "Flap Mass", max: 0.055 },
               { text: "Hinge Area", max: 300 },
               { text: "Hinge Radius", max: 300},
-              { text: "Hinge Width", max: 40 },
+              { text: "Hinge Width", max: 25 },
               { text: "Cover Height", max: 40 },
               
 

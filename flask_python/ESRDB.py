@@ -58,7 +58,7 @@ class ESR(db.Model):
     Testing = db.Column(db.String(80), nullable=False)
     DateRange = db.Column(db.String(80), nullable=False)
     CV_Height = db.Column(db.Float(), nullable=False)
-    CV_Leather = db.Column(db.Boolean, nullable=False)
+    CV_Leather = db.Column(db.String(80), nullable=False)
     PPT = db.Column(db.String(800), nullable=False)
     Remarks = db.Column(db.String(800), nullable=False)
     Log = db.Column(db.String(80), nullable=False)

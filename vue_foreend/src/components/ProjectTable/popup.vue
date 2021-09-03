@@ -512,16 +512,16 @@
 
         <el-col :lg="6" :xs="12">
           <el-form-item
-            label="Hinge Radius"
+            label="Hinge H/L"
             :label-width="formLabelWidth"
-            prop="Hinge_Radius"
+            prop="Hinge_HLratio"
             :rules= "userrules"
           >
             <el-input
               onkeyup="value=value.replace(/[^\.\d]/g, '')"
-              v-model="form.Hinge_Radius"
+              v-model="form.Hinge_HLratio"
               autocomplete="off"
-              placeholder="mm"
+            
             ></el-input>
           </el-form-item>
         </el-col>
@@ -531,16 +531,16 @@
       <el-row :gutter="10">
         <el-col :lg="12" :xs="12">
           <el-form-item
-            label="PPT dir."
+            label="Simulation dir."
             :label-width="formLabelWidth"
-            prop="PPT"
+            prop="Res"
           
             :rules="userrules"
           >
             <el-input 
-              v-model="form.PPT"
+              v-model="form.Res"
               autocomplete ="off"
-              :placeholder = "pptfile"
+              :placeholder = "caefile"
               :disabled = "userpiority"
               clearable
             ></el-input>
@@ -623,7 +623,7 @@ export default {
     };
     return {
       userrules: [],
-      pptfile: "None",
+      caefile: "None",
       PRJ: [{ required: true, validator: checkprj, trigger: "change" }],
       checkedList: [],
       dialogFormVisible: false,

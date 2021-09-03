@@ -198,7 +198,7 @@ def dabai():
     # data['NECK'] = pd.Categorical(data['NECK']).codes
     # data['PLANE'] = pd.Categorical(data['PLANE']).codes
 
-    test_data = data[['HINGE WIDTH', 'CUSHION RADIUS',
+    test_data = data[['HINGE WIDTH', 'CUSHION  RADIUS',
                       'FLAPPY MASS', 'PLANE', 'NECK', 'WRAPPER']]
 
     # x = np.tile(test_data, (10, 1))
@@ -212,12 +212,7 @@ def dabinfo():
     user = getpass.getuser()
     DABinfo = json.loads(request.get_data(as_text=True))
     copyflag = DABinfo['params']['Copy']
-    print ("@@@@@@@@@@@@@@@@@@@@@@@@@")
-    print (DABinfo['params']['Dabinfo'])
-    print (json.loads(DABinfo['params']['Dabinfo']))
     DABinfo = json.loads(DABinfo['params']['Dabinfo'])
-    print ("copyflag")
-    print (copyflag)
     if copyflag :
         a = ESR.query.filter(ESR.PRJ == DABinfo['PRJ']).first()
         if a != None:
@@ -273,7 +268,7 @@ def dabinfo():
         Wrapper=DABinfo['Wrapper'],
         Hinge_Area = DABinfo['Hinge_Area'],
         Hinge_Width = DABinfo['Hinge_Width'],
-        Hinge_Radius = DABinfo['Hinge_Radius'],
+        Hinge_HLratio = DABinfo['Hinge_HLratio'],
         H_Plane=DABinfo['H_Plane'],
         H_Neck=DABinfo['H_Neck'],
         UnderCut=DABinfo['UnderCut'],
@@ -282,7 +277,7 @@ def dabinfo():
         DateRange=str(DABinfo['DateRange']),
         CV_Height=DABinfo['CV_Height'],
         CV_Leather=DABinfo['CV_Leather'],
-        PPT=str(DABinfo['PPT']),
+        Res=str(DABinfo['Res']),
         Remarks = DABinfo['Remarks'],
         Log=str(DABinfo['Log']),
         AI = str(y))

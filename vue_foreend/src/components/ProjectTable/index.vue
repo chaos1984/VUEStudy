@@ -328,7 +328,7 @@ export default {
       // { text: "H_width", value: "H_Width" },
       { text: "Cover-Inflator Height", value: "CV_Height" },
       { text: "Hinge Area", value: "Hinge_Area" },
-      { text: "Hinge Radius", value: "Hinge_Radius" },
+      { text: "Hinge H/L", value: "Hinge_HLratio" },
       // { text: "H_Plane", value: "H_Plane" },
       // { text: "H_Neck", value: "H_Neck" },
       { text: "Option", value: "actions", sortable: false },

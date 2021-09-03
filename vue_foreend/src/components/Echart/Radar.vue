@@ -52,7 +52,7 @@ export default {
         console.log(selectedItem[i]);
         this.itemData.push(
           {
-                    value: [selectedItem[i].Flappy_Mass, selectedItem[i].Hinge_Area, selectedItem[i].Hinge_Radius, selectedItem[i].Hinge_Width,  selectedItem[i].CV_Height],
+                    value: [selectedItem[i].Flappy_Mass, selectedItem[i].Hinge_Area, selectedItem[i].Hinge_HLratio, selectedItem[i].Hinge_Width,  selectedItem[i].CV_Height],
                     name: selectedItem[i].PRJ,
                     symbol: 'rect',
                     symbolSize: 12,
@@ -96,7 +96,7 @@ export default {
             indicator: [
               { text: "Flap Mass", max: 0.055 },
               { text: "Hinge Area", max: 300 },
-              { text: "Hinge Radius", max: 300},
+              { text: "Hinge L/H", max: 0.12},
               { text: "Hinge Width", max: 25 },
               { text: "Cover Height", max: 40 },
               

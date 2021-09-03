@@ -111,6 +111,7 @@ export default {
     },
     mkdir() {},
     run(form) {
+      console.log(this.activities)
       form.Log = JSON.stringify(this.activities);
       this.$axios
         .post("/api/dabinfo", {

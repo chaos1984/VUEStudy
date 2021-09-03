@@ -655,8 +655,8 @@ export default {
   },
   methods: {
     Permission() {
-      console.log("this.User");
-      console.log(this.User);
+      // console.log("this.User");
+      // console.log(this.User);
       if (this.User.Priority != "1") {
         this.userpiority = true;
         
@@ -695,14 +695,7 @@ export default {
 
     run(copy) {
       if (this.form.Log == "") {
-        var myDate = new Date();
-        this.form.Log = [
-          {
-            title: "Project Start",
-            content: "",
-            timestamp: myDate.toLocaleString(),
-          },
-        ];
+        this.form.Log = [];
       }
       this.$axios
         .post("/api/dabinfo", {

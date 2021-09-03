@@ -11,5 +11,5 @@
     "CushionMat":["470 dtex","350 dtex"],
     "TetherType":["3 Invert Y" ,"3 Y", "2 Symmetry","2 Unsymmetry"],
     "FailureMode":["Hinge Overtear","Cover Hooks Detach","Omega Hooks Detach","Emblem Breakage","Other Failure Modes"],
-    "CV_Leather":["No leather","8mm splitline","6mm"]
+    "CV_Leather":["No leather","0.8mm splitline","0.6mm"]
 }

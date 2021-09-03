@@ -210,21 +210,14 @@ def dabai():
 @app.route('/dabinfo', methods=['POST'])
 def dabinfo():
     user = getpass.getuser()
-    DABinfo= json.loads(request.get_data(as_text=True))
-    # print (DABinfo)
-
+    DABinfo = json.loads(request.get_data(as_text=True))
     copyflag = DABinfo['params']['Copy']
-    # print ("copyflag")
-    # print (copyflag)
+    print ("@@@@@@@@@@@@@@@@@@@@@@@@@")
+    print (DABinfo['params']['Dabinfo'])
+    print (json.loads(DABinfo['params']['Dabinfo']))
     DABinfo = json.loads(DABinfo['params']['Dabinfo'])
-
-
-    # # 添加数据到ESR DB
-    # print("~~~~~~~~~~~~~~~~~~~~~")
-    # # print (DABinfo["ID"])
-    # print(db.session.query(func.max(ESR.ID)).scalar())
-    # print("~~~~~~~~~~~~~~~~~~~~~")
-
+    print ("copyflag")
+    print (copyflag)
     if copyflag :
         a = ESR.query.filter(ESR.PRJ == DABinfo['PRJ']).first()
         if a != None:

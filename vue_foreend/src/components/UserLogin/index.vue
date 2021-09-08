@@ -95,7 +95,6 @@ export default {
         (error) => {
           console.log(error);
         }
-        // this.data4fig = this.ESRTable
       );
     },
     handleSelect(item) {

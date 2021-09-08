@@ -69,7 +69,7 @@
     <!-- bar设置 -->
     <v-app-bar app color="cyan" dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>Autoliv CTC CAE</v-toolbar-title>
+      <v-toolbar-title>Autoliv Lin & AI</v-toolbar-title>
     </v-app-bar>
     <!-- 操作区域 -->
     <v-main class="d-flex pa-2">
@@ -143,41 +143,39 @@ export default {
     hackReset: true,
     links: ["Home", "About Us", "Team", "Services", "Contact Us"],
     ListTerm: [
-      { id: 1, title: "HOME", action: "FrontPage", icon: "mdi-home" },
+      
       {
-        id: 2,
+        id: 1,
         title: "DAB",
-        action: "",
+        action: "onESRinfo",
         icon: "mdi-steering",
-        children: [
-          // { title: "New Project", action: "onDAB" },
-          { title: "Project list", action: "onESRinfo" },
-        ],
       },
-      { id: 3, title: "PAB", action: "onPAB", icon: "iconfont icon-qinang" },
-      {
-        id: 4,
-        title: "Cover Material",
-        action: "",
-        icon: "iconfont icon-shouyetubiao-09",
-        model: false,
-        children: [
-          { title: "TA4003BE", action: "onMatPage" },
-          { title: "TT1081B", action: "onMatPage" },
-          { title: "TT990", action: "onMatPage" },
-          { title: "CAE_capability", action: "onMatPage" },
-          { title: "Common material comparison", action: "onCoverMat" },
-        ],
-      },
-      { id: 5, title: "Inflator", action: "onInf", icon: "mdi-bomb" },
+      { id: 2, title: "PAB", action: "onPAB", icon: "iconfont icon-qinang" },
+      { id: 3, title: "Mat", action: "onCoverMat", icon: "iconfont icon-shouyetubiao-09" },
+      // {
+      //   id: 4,
+      //   title: "Cover Material",
+      //   action: "",
+      //   icon: "iconfont icon-shouyetubiao-09",
+      //   model: false,
+      //   children: [
+      //     { title: "TA4003BE", action: "onMatPage" },
+      //     { title: "TT1081B", action: "onMatPage" },
+      //     { title: "TT990", action: "onMatPage" },
+      //     { title: "CAE_capability", action: "onMatPage" },
+      //     { title: "Common material comparison", action: "onCoverMat" },
+      //   ],
+      // },
+      { id: 4, title: "Inflator", action: "onInf", icon: "mdi-bomb" },
 
-      { id: 6, title: "Post View", action: "onTest", icon: "mdi-calendar mdi-spin" },
+      { id: 5, title: "Post View", action: "onTest", icon: "el-icon-video-camera-solid" },
       {
-        id: 7,
-        title: "DAB Cover Failure Predction",
+        id: 6,
+        title: "AI Predction",
         action: "onDABAI",
-        icon: "mdi-calendar",
+        icon: "mdi-robot",
       },
+      { id: 7, title: "Lin & AI Help", action: "FrontPage", icon: "mdi-book" },
     ],
   }),
 
@@ -186,7 +184,7 @@ export default {
     ...mapState({ User: (state) => state.User }),
   },
   created() {
-    this.currentvue = "SlideShow";
+    this.currentvue = "ProjectTable";
   },
   methods: {
     FrontPage() {
@@ -196,7 +194,11 @@ export default {
       this.currentvue = "Stepper";
     },
     onPAB() {
-      console.log("PAB");
+     this.$message({
+            showClose: true,
+            message: "The web site is still under construction, please try later. ",
+            type: "error",
+          });
     },
     onESRinfo() {
       this.currentvue = "ProjectTable";

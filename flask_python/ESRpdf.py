@@ -97,7 +97,7 @@ class PDFGenerator:
         #AI
         story.append(Paragraph(u"AI Info.", self.table_title_style))
         ai_data =[("*Hinge width/mm",data["H_Width"]),("*Flappy Mass/kg",data["Flappy_Mass"]),("Cover Height/mm",data["CV_Height"]),\
-        ("*Wrapper",data["Wrapper"]),("Cushion fold",data['C_Type']),("*Cushion Diam./mm",data['C_Diam']),("Under Cut",data['UnderCut']),("Hinge Area",data['Hinge_Area']),("Hinge Radius",data['Hinge_Radius']),("AI Hinge risk(0~1) 0:OK 1:NOK",data['AI'])]
+        ("*Wrapper",data["Wrapper"]),("Cushion fold",data['C_Type']),("*Cushion Diam./mm",data['C_Diam']),("Under Cut",data['UnderCut']),("Hinge Area",data['Hinge_Area']),("Cover Height",data['CV_Height']),("Hinge H/L",data['Hinge_HLratio']),("Hinge Width",data['Hinge_Width']),("AI Hinge risk(0~1) 0:OK 1:NOK",data['AI'])]
         ai_table = Table(ai_data, colWidths=[75 * mm, 100 * mm], rowHeights=12 * mm, style=self.common_style)
         story.append(ai_table)
 

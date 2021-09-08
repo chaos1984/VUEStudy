@@ -4,6 +4,7 @@
       v-model="selectedItem"
       :headers="ESRheaders"
       :items="ESRTable"
+      :items-per-page="5"
       class="elevation-1"
       multi-sort
       :search="search"
@@ -386,6 +387,7 @@ export default {
       );
     },
 
+
     getData() {
       this.$axios.get("/api/getdatabase").then(
         (response) => {
@@ -421,10 +423,10 @@ export default {
         this.$axios.post("/api/delitem", item.ID, {
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
         });
-
+      
       this.ESRTable.splice(item.id - 1, 1);
-      this.getData();
       this.dialogDelete = true;
+      this.getData();
     },
 
     logItem(item) {
@@ -435,17 +437,6 @@ export default {
 
     CAEReport(item) {
       window.open(item.PPT, "_blank");
-      // console.log(item)
-      // this.$axios
-      //   .post("/api/getPPT", JSON.stringify(item), {
-      //     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      //   })
-      //   .then((res) => {
-      //     console.log(res)
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error);
-      //   });
     },
     
   

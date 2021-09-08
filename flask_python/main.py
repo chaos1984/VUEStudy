@@ -109,7 +109,7 @@ def delete():
 def RequestForm():
     data = json.loads(request.get_data(as_text=True))
     
-    filename = data['PRJ']+'_'+data['ESR']+"_"+data['PE']+".pdf"
+    filename = "request.pdf"
     a = ESRpdf.PDFGenerator(filename)
     a.genTaskPDF(data)
     return return_img_stream('.\\temp\\'+filename)
@@ -347,12 +347,12 @@ def login():
     user = json.loads(request.get_data(as_text=True))
     obj = User.query.filter_by(Name=user["name"]).first()
     if not obj:
-        return res_json(201, '', '未找到该用户')
+        return res_json(201, '', 'Incorrect username')
     if obj.verify_password(user["password"]):
         token = generate_token(user["name"])
-        return res_json(200, token, '登录成功', obj.Priority)
+        return res_json(200, token, 'Success', obj.Priority)
     else:
-        return res_json(201, '', '密码错误')
+        return res_json(201, '', 'Incorrect password')
 
 # 生成token 入参：用户id
 

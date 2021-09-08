@@ -187,18 +187,34 @@ export default {
             console.log(error);
           }
         );
-      // this.$router.push({
-      //   path: "/Layout",
-      // });
       
     },
 
-
+    getDatafromDB() {
+      this.$axios.get("/api/getusers").then(
+        (response) => {
+          var user_list = response.data;
+          // console.log( user_list.length )
+          for (var i = 0; i < user_list.length; i++) {
+            // console.log(user_list[i].Name)
+            this.user_value.push({ value: String(user_list[i].Name),Email: String(user_list[i].Email),Priority: String(user_list[i].Priority)});
+            // this.user_value.push({ value: String(user_list[i].Name),priority: String(user_list[i].Priority)});
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
 
     Login() {
+      // this.$router.go(0)
+      
+      // this.getDatafromDB();
       this.$router.push({
         path: "/UserLogin",
       });
+      location.reload()
     },
 
 

@@ -100,7 +100,6 @@ def delete():
     # blend_pic = blend_two_images(file_obj)
 
     # img_stream = base64.b64encode(blend_pic)
-    print("Delete done")
     return "Delete done"
 
 
@@ -140,7 +139,7 @@ def getusers():
                 u.__dict__.pop('_sa_instance_state')
                 a.append(u.__dict__)
             except:
-                print(u)
+                pass
         return jsonify(a)
 
 
@@ -242,8 +241,8 @@ def dabinfo():
 
     # x = np.tile(test_data, (10, 1))
     y = airun(test_data)
-         
-         
+    print ('Originator') 
+    print (DABinfo['Originator'])     
     data = ESR(
         ID=int(DABinfo['ID']),
         OEM=DABinfo['OEM'],
@@ -279,6 +278,7 @@ def dabinfo():
         CV_Leather=DABinfo['CV_Leather'],
         Res=str(DABinfo['Res']),
         Remarks = DABinfo['Remarks'],
+        Originator = DABinfo['Originator'],
         Log=str(DABinfo['Log']),
         AI = str(y))
     # try:
@@ -300,7 +300,6 @@ def addESRDB(data):
     db.session.add(data)
     db.session.commit()
     db.session.close()
-    print('ok')
     
     
 ##############################################################################################################################
@@ -311,7 +310,6 @@ def addESRDB(data):
 
 def blend_two_images(img, back=app.config['img_pic']):
     img1 = Image.open(back)
-    print(img1)
     img1 = img1.convert('RGBA')
 
     img2 = Image.open(img)
@@ -330,7 +328,7 @@ def blend_two_images(img, back=app.config['img_pic']):
 @app.route('/register', methods=['POST'])
 def register():
     user = json.loads(request.get_data(as_text=True))
-    print(user)
+    # print(user)
     obj = User.query.filter_by(Name=user["name"]).first()
     if not obj:
         save = User(Name=user["name"], Email=user["email"], Priority='2')

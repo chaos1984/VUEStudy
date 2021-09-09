@@ -115,7 +115,7 @@ export default {
       this.charts = echarts.init(document.getElementById(id));
       this.charts.setOption({
         title: {
-          text: "发生器压力曲线",
+          text: "Tank pressure",
         },
         tooltip: {
           trigger: "axis",

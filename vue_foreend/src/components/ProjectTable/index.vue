@@ -230,7 +230,7 @@
 
     <el-divider />
     <div>
-      <el-row :gutter="10">
+      <el-row :gutter="0">
         <el-col :lg="8" :xs="24"><DABSVM :getdata="ESRTable" /></el-col>
         <el-col :lg="8" :xs="24"><Radar :getdata="selectedItem" /></el-col>
         <el-col :lg="8" :xs="24"><StatisticsPie :getdata="ESRTable" /></el-col>
@@ -289,6 +289,7 @@ export default {
      Simulation: ["Hinge Overtear", "Emblem Breakage"],
      CV_Leather: "",
      CV_Height: "",
+     Originator:"",
      Log: [],
    },
     Operation: "Project",
@@ -313,13 +314,13 @@ export default {
         value: "PRJ",
       },
       { text: "ESR", value: "ESR" },
-      // { text: "PE", value: "PE" },
+      { text: "PE", value: "PE" },
       // { text: "CAE", value: "CAE" },
       // { text: "Interface", value: "Interface" },
       { text: "Cover Mat.", value: "CV_Mat" },
       // { text: "H_Mat", value: "H_Mat" },
       // { text: "E_Mat", value: "E_Mat" },
-      { text: "Inflator", value: "Inflator" },
+      // { text: "Inflator", value: "Inflator" },
       // { text: "C_Mat", value: "C_Mat" },
       // { text: "C_type", value: "C_Type" },
       { text: "Cushion Diam", value: "C_Diam" },
@@ -333,6 +334,7 @@ export default {
       // { text: "H_Plane", value: "H_Plane" },
       // { text: "H_Neck", value: "H_Neck" },
       { text: "Option", value: "actions", sortable: false },
+      
     ],
     ESRTable: [],
     editedIndex: -1,

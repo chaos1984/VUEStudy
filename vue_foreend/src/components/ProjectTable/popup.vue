@@ -562,7 +562,6 @@
                 >{{ item }}</el-checkbox-button
               >
             </el-checkbox-group>
-
           </el-form-item>
         </el-col>
 
@@ -681,12 +680,13 @@ export default {
     submitForm(formName, copy = false) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          
           this.run(copy);
-          // this.$emit("closepopup", false);
+          
         } else {
           this.$message({
             showClose: true,
-            message: "Oops, this is a error message.",
+            message: "Incorrect information input",
             type: "error",
           });
         }
@@ -697,9 +697,13 @@ export default {
       if (this.form.Log == "") {
         this.form.Log = [];
       }
+      console.log("this.User.Name")
+      console.log( this.User.Name)
+      this.form.Originator = this.User.Name
       this.$axios
         .post("/api/dabinfo", {
           params: {
+            
             Dabinfo: JSON.stringify(this.form).replace(/'/g, '"'),
             Copy: copy,
           },

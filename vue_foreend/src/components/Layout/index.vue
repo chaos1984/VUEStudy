@@ -1,7 +1,7 @@
 <!-- Layout -->
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer v-model="drawer" app left>
+    <v-navigation-drawer v-model="drawer" app left color="cyan" dark>
       <v-list dense>
         <v-row justify="space-around">
           <Avatar />

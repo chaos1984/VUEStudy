@@ -22,6 +22,7 @@ module.exports = {
     // modules: false
     // },
     // webpack-dev-server 相关配置
+    runtimeCompiler: true,
       
   // webpack-dev-server 相关配置
   chainWebpack: (config) => {

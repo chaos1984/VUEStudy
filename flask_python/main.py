@@ -196,12 +196,12 @@ def dabai():
     data["HINGE WIDTH"] = data["HINGE WIDTH"].astype('float64')
     # data['NECK'] = pd.Categorical(data['NECK']).codes
     # data['PLANE'] = pd.Categorical(data['PLANE']).codes
-
-    test_data = data[['HINGE WIDTH', 'CUSHION  RADIUS',
+    test_data = data[['HINGE WIDTH', 'CUSHION RADIUS',
                       'FLAPPY MASS', 'PLANE', 'NECK', 'WRAPPER']]
-
+    
     # x = np.tile(test_data, (10, 1))
     y = airun(test_data)
+    print (y)
     return str(y[0])
 
     
@@ -335,9 +335,9 @@ def register():
         save.hash_password(user["pass"])  # 调用密码加密方法
         db.session.add(save)
         db.session.commit()
-        return 'Register success'
+        return res_json('success', '', 'Register success')
     else:
-        return 'User name has been registered!'
+        return res_json('error', '', 'User name has been registered!')
 
 
 @app.route('/login', methods=['POST'])
@@ -345,12 +345,12 @@ def login():
     user = json.loads(request.get_data(as_text=True))
     obj = User.query.filter_by(Name=user["name"]).first()
     if not obj:
-        return res_json(201, '', 'Incorrect username')
+        return res_json('error', '', 'Incorrect username')
     if obj.verify_password(user["password"]):
         token = generate_token(user["name"])
-        return res_json(200, token, 'Success', obj.Priority)
+        return res_json('success', token, 'Success', obj.Priority)
     else:
-        return res_json(201, '', 'Incorrect password')
+        return res_json('error', '', 'Incorrect password')
 
 # 生成token 入参：用户id
 

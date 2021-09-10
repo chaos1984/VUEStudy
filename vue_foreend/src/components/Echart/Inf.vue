@@ -5,38 +5,42 @@
       <el-col :span="16">
         <div id="inflator" style="width: 100%; height: 600px"></div>
       </el-col>
-    
+
       <!-- <el-divider></el-divider> -->
       <el-col :span="8">
         <el-row>
-          <el-form :inline="true" :model="formInline" class="demo-form-inline" >
-            <div v-for="(d, index) in user" :key="index" >
-              <el-form-item :label="index + ' Time(ms)'" style="width:180px">
-                <el-input
-                  v-model="formInline.time[index]"
-                  placeholder="0"
-                ></el-input>
-              </el-form-item>
-              <el-form-item label="Pressure(kPa)" style="width:180px">
-                <el-input
-                  v-model="formInline.pressure[index]"
-                  placeholder="0"
-                ></el-input>
-              </el-form-item>
-              <el-form-item> </el-form-item>
+          <el-form :inline="true" :model="formInline" class="demo-form-inline">
+            <div v-for="(d, index) in user" :key="index">
+              <el-col :span="12">
+                <el-form-item :label="index + ' Time(ms)'" style="width: 180px">
+                  <el-input
+                    v-model="formInline.time[index]"
+                    placeholder="0"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="Pressure(kPa)" style="width: 180px">
+                  <el-input
+                    v-model="formInline.pressure[index]"
+                    placeholder="0"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+              <!-- <el-form-item> </el-form-item> -->
             </div>
+            <el-button
+              round
+              style="font-size: 15px"
+              type="primary"
+              @click="plotUser"
+              >Plot<i class="el-icon-data-line"></i
+            ></el-button>
           </el-form>
 
           <i class="el-icon-circle-plus" @click="addItem"></i>
           <i class="el-icon-remove" @click="delItem"></i>
         </el-row>
-        <el-button
-          round
-          style="font-size: 15px"
-          type="primary"
-          @click="plotUser"
-          >Plot<i class="el-icon-data-line"></i
-        ></el-button>
       </el-col>
     </el-row>
   </div>
@@ -72,7 +76,7 @@ export default {
           this.formInline.pressure[i],
         ]);
       }
-      console.log(this.line.series[end - 1].data)
+      console.log(this.line.series[end - 1].data);
       this.draw("inflator");
     },
     addItem() {

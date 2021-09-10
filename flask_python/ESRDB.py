@@ -87,7 +87,6 @@ class User(db.Model):
         self.Password = pwd_context.encrypt(password)
  
     def verify_password(self,password): #验证密码方法
-        print (password,self.Password)
         return pwd_context.verify(password, self.Password)
 
 # db.create_all() # 未指定bind,则使用默认的数据库引擎

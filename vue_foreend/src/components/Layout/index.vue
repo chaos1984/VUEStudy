@@ -129,10 +129,12 @@ export default {
     Inf: () => import("@/components/Echart/Inf"),
     MatPage: () => import("@/components/MatPage/MatPage"),
 
-    test: () => import("@/components/TestData/TestData"),
+    // test: () => import("@/components/TestData/TestData"),
     DABAI: () => import("@/components/DABAI/DABAI"),
     Avatar: () => import("@/components/Avatar/Avatar"),
+    test: () => import("@/components/AntVX6/test"),
     // DABSVM: () => import("@/components/DABSVM/DABSVM"),
+   
   },
 
   data: () => ({

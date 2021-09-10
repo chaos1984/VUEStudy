@@ -139,7 +139,7 @@ export default {
               this.$message({
                 showClose: true,
                 message: response.data.msg,
-                type: "error",
+                type: response.data.states,
           });
             }
             // console.log(response.data[1])

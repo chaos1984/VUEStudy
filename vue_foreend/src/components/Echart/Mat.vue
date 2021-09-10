@@ -1,6 +1,6 @@
 <template>
   <!--为echarts准备一个具备大小的容器dom-->
-  <div id="main" style="width: 1200px; height: 800px"></div>
+  <div id="main" style="width: 100%; height: 600px"></div>
 </template>
 <script>
 import echarts from "echarts";
@@ -53,6 +53,9 @@ export default {
         left: 'right',
         top: 'center',
         feature: {
+          dataView: {
+              readOnly: false,
+            },
             saveAsImage: {show: true}
         }
     },
@@ -83,7 +86,7 @@ export default {
     ],
     title: {
           left: 'center',
-          text: '应变率 100/s',
+          text: 'Strain rate 100/s',
           fontSize:100
         },
     legend: {

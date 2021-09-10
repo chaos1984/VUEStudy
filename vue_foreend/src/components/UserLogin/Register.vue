@@ -151,13 +151,8 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.Register(formName) 
-          this.$message({
-            showClose: true,
-            message: "Done",
-            type: "success",
-          });
-          this.run();
-          this.$emit("closepopup", false);
+          // this.run();
+          // this.$emit("closepopup", false);
         } else {
           this.$message({
             showClose: true,
@@ -179,8 +174,8 @@ export default {
           (response) => {
             this.$message({
                 showClose: true,
-                message: response.data,
-                type: "success",
+                message: response.data.msg,
+                type: response.data.states,
           });
           },
           (error) => {

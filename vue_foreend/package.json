@@ -8,6 +8,9 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@antv/x6": "^1.26.1",
+    "@antv/x6-vue-shape": "^1.2.9",
+    "@vue/composition-api": "^1.1.5",
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
     "dropzone": "5.5.1",

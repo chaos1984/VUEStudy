@@ -13,6 +13,7 @@
             <el-select
               v-model="DABAIForm.cushion.mat"
               placeholder="请选择气袋材料"
+              disabled
             >
               <el-option
                 v-for="item in DABAIForm.cushion.matlist"
@@ -29,6 +30,7 @@
             <el-select
               v-model="DABAIForm.cushion.fold"
               placeholder="请选择气袋折叠形式"
+              disabled
             >
               <el-option
                 v-for="item in DABAIForm.cushion.foldlist"
@@ -45,6 +47,7 @@
             <el-select
               v-model="DABAIForm.cushion.tether"
               placeholder="请选择气袋拉带"
+              disabled
             >
               <el-option
                 v-for="item in DABAIForm.cushion.tetherlist"
@@ -80,6 +83,7 @@
             <el-select
               v-model="DABAIForm.cover.mat"
               placeholder="请选择Cover材料"
+              disabled
             >
               <el-option
                 v-for="item in DABAIForm.cover.matlist"
@@ -96,6 +100,7 @@
             <el-select
               v-model="DABAIForm.housing.mat"
               placeholder="请选择Housing材料"
+              disabled
             >
               <el-option
                 v-for="item in DABAIForm.housing.matlist"
@@ -112,6 +117,7 @@
             <el-select
               v-model="DABAIForm.emblem.mat"
               placeholder="请选择Emblem材料"
+              disabled
             >
               <el-option
                 v-for="item in DABAIForm.emblem.matlist"
@@ -128,6 +134,7 @@
             <el-select
               v-model="DABAIForm.inflator.type"
               placeholder="请选择Inflator类型"
+              disabled
             >
               <el-option
                 v-for="item in DABAIForm.inflator.typelist"
@@ -146,6 +153,7 @@
             <el-select
               v-model="DABAIForm.cover.tearline"
               placeholder="请选择Cover撕裂线形式"
+              disabled
             >
               <el-option
                 v-for="item in DABAIForm.cover.tearlinelist"
@@ -162,6 +170,7 @@
             <el-select
               v-model="DABAIForm.interface.type"
               placeholder="请选择DAB模块接口类型"
+              disabled
             >
               <el-option
                 v-for="item in DABAIForm.interface.typelist"
@@ -217,6 +226,7 @@
               label="Hinge Undercut"
               v-model="DABAIForm.cover.daokou"
               name="type"
+              disabled
             ></el-checkbox>
           </el-form-item>
         </el-col>
@@ -510,7 +520,7 @@ export default {
         cover: {
           mat: [
             {
-              required: true,
+              required: false,
               message: "Please select one item",
               trigger: "change",
             },
@@ -608,7 +618,7 @@ export default {
             console.log("this.DABAIForm.cover.matlist.label")
             console.log(this.DABAIForm.cover.matlist[2])
             this.tableData.push({
-              covermat: this.DABAIForm.cover.matlist[this.DABAIForm.cover.mat-1].label,
+              covermat: "TT1081",
               hingewidth: this.DABAIForm.cover.hingewidth,
               cushiondiam: this.DABAIForm.cushion.di,
               flappymass: this.DABAIForm.cover.flappymass,

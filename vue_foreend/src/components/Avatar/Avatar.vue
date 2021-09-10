@@ -20,16 +20,27 @@
               <p class="text-caption mt-1">
                 {{ User.Email }}
               </p>
-              <el-row >
+              <el-row>
                 <el-col :span="12">
                   <el-badge :value="200" :max="99">
-                    <el-button size="small" @click="getProject">Project</el-button>
+                    <el-button size="small" @click="getProject"
+                      >Project</el-button
+                    >
                   </el-badge>
                 </el-col>
                 <el-col :span="12">
                   <el-badge :value="100" :max="10">
-                    <el-button size="small" @click="getMessage">Message</el-button>
+                    <el-button size="small" @click="getMessage"
+                      >Message</el-button
+                    >
                   </el-badge>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="24">
+                  <el-button size="small" type="danger" @click="relogin" style="width:70%"
+                    >Relogin</el-button
+                  >
                 </el-col>
               </el-row>
             </div>
@@ -67,6 +78,12 @@ export default {
     },
     getMessage() {
       console.log("getMessage");
+    },
+    relogin() {
+      this.$router.push({
+        path: "/UserLogin",
+      });
+      location.reload();
     },
   },
 };

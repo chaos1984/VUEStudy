@@ -132,7 +132,7 @@ export default {
     // test: () => import("@/components/TestData/TestData"),
     DABAI: () => import("@/components/DABAI/DABAI"),
     Avatar: () => import("@/components/Avatar/Avatar"),
-    test: () => import("@/components/AntVX6/test"),
+    test: () => import("@/components/AntV/AntVG2"),
     // DABSVM: () => import("@/components/DABSVM/DABSVM"),
    
   },

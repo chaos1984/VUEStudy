@@ -15,7 +15,7 @@
         >
         </el-option>
       </el-select>
-      <div id="StatisticPie" style="width: 100%; height: 100%"></div>
+      <div id="StatisticPie" style="width: 100%; height: 90%"></div>
     </div>
   
 </template>

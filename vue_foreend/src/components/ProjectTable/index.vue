@@ -37,14 +37,14 @@
         <el-popover placement="right" width="800" trigger="click">
           <v-icon small class="mr-2" slot="reference">mdi-eye</v-icon>
 
-          <div>
+          <div class = "row-bg-light">
             <el-row
               ><span class="Title">{{ item.PRJ }}</span></el-row
             >
 
-            <v-divider></v-divider>
+            <!-- <v-divider class= 'divider'></v-divider> -->
 
-            <el-row class="row-bg-light">
+            <el-row >
               <el-col :span="6"
                 ><span>AFIS: </span
                 ><span class="Content">{{ item.AFIS }}</span></el-col
@@ -112,7 +112,7 @@
                 ><span class="Content">{{ item.Flappy_Mass }} kg</span></el-col
               >
               <el-col :span="6"
-                ><span>Hinge Width: </span
+                ><span>Hinge Length: </span
                 ><span class="Content">{{ item.Hinge_Width }} mm</span></el-col
               >
               <el-col :span="6"
@@ -498,4 +498,17 @@ export default {
 .el-drawer{
     overflow: scroll;
     }
+.row-bg-light
+    {
+  color:rgb(255, 255, 255);
+  background:#74a4e7;
+  padding: 10px;
+}
+.Title{
+  color:rgb(0, 0, 0);
+  font-size: 20px; 
+}
+.divider{
+  $divider-inset-margin:72px;
+}
 </style>

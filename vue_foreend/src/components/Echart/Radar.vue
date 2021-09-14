@@ -23,13 +23,6 @@ export default {
     };
   },
 
-  //   created() {
-  //   console.log('drawRadar')
-
-  //     this.Itemlabel = this.itemList[4];
-  //         selectedItem = this.getdata;
-  //     this.drawDatafromDB();
-  //   },
 
   mounted() {
     // selectedItem = this.getdata;
@@ -85,6 +78,16 @@ export default {
         title: {
           text: "Project comparison",
         },
+        tooltip: {
+          trigger: "item",
+        },
+        toolbox: {
+          feature: {
+            dataView: { readOnly: false },
+            restore: {},
+            saveAsImage: {},
+          },
+        },
         legend: {
           data:this.itemLegend,
           // orient: "vertical",
@@ -94,11 +97,11 @@ export default {
         radar: [
           {
             indicator: [
-              { text: "Flap Mass", max: 0.055 },
-              { text: "Hinge Area", max: 300 },
-              { text: "Hinge L/H", max: 0.22},
-              { text: "Hinge Width", max: 25 },
-              { text: "Cover Height", max: 40 },
+              { text: "Flap Mass\nNOK", max: 0.055 },
+              { text: "Hinge Area\nOK", max: 300 },
+              { text: "Hinge H/L\nNOK", max: 0.22},
+              { text: "Hinge Width\nOK", max: 25 },
+              { text: "Cover Height\nOK", max: 40 },
               
 
             ],
@@ -116,7 +119,7 @@ export default {
         ],
         series: [
           {
-            name: '雷达图',
+            name: 'Radar',
             type: 'radar',
             emphasis: {
                 lineStyle: {

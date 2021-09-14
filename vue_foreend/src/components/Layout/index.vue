@@ -38,7 +38,7 @@
               @click="callEvent(child.action)"
             >
               <v-list-item-action v-if="child.icon">
-                <v-icon>{{ child.icon }}</v-icon>
+                <v-icon  x-small dense>{{ child.icon }}</v-icon>
               </v-list-item-action>
               <v-list-item-content>
                 <v-list-item-title>
@@ -75,12 +75,6 @@
     <v-main class="d-flex pa-2">
       <!-- <appmain/> -->
       <component :is="currentvue" v-if="hackReset"> </component>
-
-      <!-- <v-banner >
-          <p >
-          Beta Version
-          </p>
-      </v-banner> -->
     </v-main>
     <!-- footer设置 -->
     <v-footer color="cyan" padless>
@@ -129,10 +123,11 @@ export default {
     Inf: () => import("@/components/Echart/Inf"),
     MatPage: () => import("@/components/MatPage/MatPage"),
 
-    // test: () => import("@/components/TestData/TestData"),
+    test: () => import("@/components/TestData/TestData"),
     DABAI: () => import("@/components/DABAI/DABAI"),
     Avatar: () => import("@/components/Avatar/Avatar"),
-    test: () => import("@/components/AntV/AntVG2"),
+    Help: () => import("@/components/Help/Help"),
+    // test: () => import("@/components/AntV/AntVG2"),
     // DABSVM: () => import("@/components/DABSVM/DABSVM"),
    
   },
@@ -171,13 +166,13 @@ export default {
       { id: 4, title: "Inflator", action: "onInf", icon: "mdi-bomb" },
 
       { id: 5, title: "Post View", action: "onTest", icon: "el-icon-video-camera-solid" },
-      {
-        id: 6,
-        title: "AI Predction",
-        action: "onDABAI",
-        icon: "mdi-robot",
-      },
-      { id: 7, title: "Lin & AI Help", action: "FrontPage", icon: "mdi-book" },
+      { id: 6, title: "AI Predction",  action: "onDABAI", icon: "mdi-robot"      },
+      { id: 7, title: "Help", action: "FrontPage", icon: "mdi-book" ,
+              children: [
+          { title: " Lin & AI Instruction", action: "FrontPage",icon:"mdi-camera-iris" },
+          { title: " DAB Cover Key Features", action: "onHelp", icon: "mdi-help" , },
+        
+        ],},
     ],
   }),
 
@@ -217,6 +212,11 @@ export default {
     onTest() {
       this.currentvue = "test";
     },
+    onHelp()
+    {
+      this.currentvue = "Help";
+    },
+
     onMatPage() {
       this.CurrentForm.CurrentMatPage = event.currentTarget.innerText;
       console.log(this.CurrentForm.CurrentMatPage);

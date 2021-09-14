@@ -1,5 +1,7 @@
 <template>
   <div>
+    <el-alert   show-icon title=" AI model is under training, and it is not suitable for each project." type="error"> </el-alert>
+    <el-alert   show-icon title=" So far, there are only five parameters for DAB cover hinge failure predIction, and only for TT1081B material." type="warning"> </el-alert>
     <el-form
       :model="DABAIForm"
       ref="DABAIForm"
@@ -186,7 +188,7 @@
 
       <el-row>
         <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
-          <el-form-item label="Hinge width" prop="cover.hingewidth">
+          <el-form-item label="Hinge length" prop="cover.hingewidth">
             <el-input
               onkeyup="value=value.replace(/[^\.\d]/g, '')"
               v-model="DABAIForm.cover.hingewidth"
@@ -615,8 +617,13 @@ export default {
             // if (this.DABAIForm.cover.mat === this.DABAIForm.cover.matlist.value){
                 
             // };
-            console.log("this.DABAIForm.cover.matlist.label")
-            console.log(this.DABAIForm.cover.matlist[2])
+            // console.log("this.DABAIForm.cover.matlist.label")
+            // console.log(this.DABAIForm.cover.matlist[2])
+          this.$message({
+                showClose: true,
+                message: "AI prediction is under training, so maybe the AI score is not correct for each model!",
+                type: 'error',
+          });
             this.tableData.push({
               covermat: "TT1081",
               hingewidth: this.DABAIForm.cover.hingewidth,

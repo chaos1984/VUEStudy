@@ -697,8 +697,6 @@ export default {
       if (this.form.Log == "") {
         this.form.Log = [];
       }
-      console.log("this.User.Name")
-      console.log( this.User.Name)
       this.form.Originator = this.User.Name
       this.$axios
         .post("/api/dabinfo", {

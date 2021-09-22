@@ -29,7 +29,7 @@
             >Save</v-btn
           > -->
 
-          <v-btn class="mb-2" width="100px" @click="addItem()">New</v-btn>
+          <v-btn class="mb-2" width="100px" @click="addItem()" :disabled='Permission(User.Name)'>NEW</v-btn>
         </v-toolbar>
       </template>
 
@@ -276,19 +276,24 @@ export default {
      C_Type: "",
      C_Diam: "",
      C_Tether: "",
-     H_Width: "",
-     Flappy_Mass: "",
+     C_Diffusor: "",
+     H_Width: "0",
+     Flappy_Mass: "0",
      Wrapper: "",
+     Hinge_Area :"0", 
+      Hinge_Width :"0",
+      Hinge_HLratio:"0",
      H_Plane: "",
      H_Neck: "",
      Daokou: "",
-     C_Diffusor: "",
      DateRange: "",
+      CV_Leather: "",
+     CV_Height: "0",
+     Res: "",
      Remarks:"None",
      Testing: ["Hinge Overtear", "Emblem Breakage"],
      Simulation: ["Hinge Overtear", "Emblem Breakage"],
-     CV_Leather: "",
-     CV_Height: "",
+
      Originator:"",
      Log: [],
    },
@@ -367,11 +372,13 @@ export default {
   },
   methods: {
     Permission(name) {
-      // console.log( name)
-      if (this.User.Priority != 1) {
+      // console.log(name)
+      if (this.User.Priority == 1) {
+        return false
+      }else if(this.User.Priority == 2){
         return this.User.Name === name ? false : true;
-      } else {
-        return false;
+        } else {
+        return true;
       }
     },
     cleardrawer() {
@@ -441,9 +448,6 @@ export default {
       window.open(item.PPT, "_blank");
     },
     
-  
-
-
 
     postRequest(item) {
       // console.log(item.PE)

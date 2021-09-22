@@ -19,6 +19,7 @@ from ESRDB import *
 import xgboost as xgb
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+app.config['absdir'] =  r"C:\\Users\\yujin.wang\\Desktop\\Linnnai\\VUEStudy\\flask_python\\"
 app.config['img_pic'] = r".\img\background.jpg"
 app.config['ESR'] = r"../ESR"
 app.config['ESRDB'] = r"../DB"
@@ -30,15 +31,6 @@ CORS(app)
 def index():
     return render_template('index.html')
 
-# @app.route('/ProjectTable')
-# def writejson():
-#     fout = open(r"C:\Users\yujin.wang\Desktop\Vuejs\10_MyApp\Autoliv_ESR_Foreend\public\static\data.json","r+")
-#     ProjectData = json.load(fout)
-#     ProjectData.append(request.args.get('ProjectTableData'))
-#     json.dump(ProjectData,fout)
-#     fout.close()
-
-#     return "OK"
 
 
 @app.route('/makedir', methods=['POST'])
@@ -55,8 +47,6 @@ def makedir():
 
 @app.route('/upload', methods=["POST"])
 def upload():
-    # test
-    # ESRpath = app.config['ESR']+"//123123"
     img_stream = ''
     file_obj = request.files['file']
     if file_obj is None:
@@ -74,7 +64,6 @@ def upload():
     # blend_pic = blend_two_images(file_obj)
 
     # img_stream = base64.b64encode(blend_pic)
-    print("Upload done")
     return "Upload done"
 
 
@@ -107,11 +96,9 @@ def delete():
 @app.route('/RequestForm', methods=["POST"])
 def RequestForm():
     data = json.loads(request.get_data(as_text=True))
-    
-    filename = "request.pdf"
-    a = ESRpdf.PDFGenerator(filename)
+    a = ESRpdf.PDFGenerator(app.config['absdir'])
     a.genTaskPDF(data)
-    return return_img_stream('.\\temp\\'+filename)
+    return return_img_stream(app.config['absdir']+"temp\\request.pdf")
     
     
     
@@ -240,9 +227,8 @@ def dabinfo():
                       'FLAPPY MASS', 'PLANE', 'NECK', 'WRAPPER']]
 
     # x = np.tile(test_data, (10, 1))
-    y = airun(test_data)
-    print ('Originator') 
-    print (DABinfo['Originator'])     
+    y = airun(test_data)  
+    print (DABinfo)
     data = ESR(
         ID=int(DABinfo['ID']),
         OEM=DABinfo['OEM'],
@@ -265,16 +251,16 @@ def dabinfo():
         H_Width=DABinfo['H_Width'],
         Flappy_Mass=DABinfo['Flappy_Mass'],
         Wrapper=DABinfo['Wrapper'],
-        Hinge_Area = DABinfo['Hinge_Area'],
-        Hinge_Width = DABinfo['Hinge_Width'],
-        Hinge_HLratio = DABinfo['Hinge_HLratio'],
+        Hinge_Area = float(DABinfo['Hinge_Area']),
+        Hinge_Width = float(DABinfo['Hinge_Width']),
+        Hinge_HLratio = float(DABinfo['Hinge_HLratio']),
         H_Plane=DABinfo['H_Plane'],
         H_Neck=DABinfo['H_Neck'],
         UnderCut=DABinfo['UnderCut'],
         Simulation=str(DABinfo['Simulation']),
         Testing=str(DABinfo['Testing']),
         DateRange=str(DABinfo['DateRange']),
-        CV_Height=DABinfo['CV_Height'],
+        CV_Height=float(DABinfo['CV_Height']),
         CV_Leather=DABinfo['CV_Leather'],
         Res=str(DABinfo['Res']),
         Remarks = DABinfo['Remarks'],
@@ -288,7 +274,6 @@ def dabinfo():
     # print ('Prj is exit!')
     # except:
     # print ('New Prj')
-
     addESRDB(data)
     return "Done"
 
@@ -396,7 +381,7 @@ def res_json(ID, data, msg, priority=2):
 
 def airun(data):
     x = xgb.DMatrix(data)
-    f = open('DABAIMODEL.dat', 'rb')
+    f = open(app.config['absdir']+'DABAIMODEL.dat', 'rb')
     bst = pickle.load(f)
     y = bst.predict(x)
     return (y)

@@ -37,13 +37,14 @@
               auto-complete="off"
               placeholder="Password"
               show-password
+              @keyup.enter.native="login('User')"
             ></el-input>
           </el-form-item>
 
           <el-form-item>
             <el-row :gutter="20">
               <el-col :span="12">
-                <el-button type="primary" @click="login('User')" style="width: 100%"
+                <el-button type="primary" @click="login('User')"  style="width: 100%"
                   >Login</el-button
                 >
               </el-col>
@@ -87,9 +88,7 @@ export default {
           var user_list = response.data;
           // console.log( user_list.length )
           for (var i = 0; i < user_list.length; i++) {
-            // console.log(user_list[i].Name)
             this.user_value.push({ value: String(user_list[i].Name),Email: String(user_list[i].Email),Priority: String(user_list[i].Priority)});
-            // this.user_value.push({ value: String(user_list[i].Name),priority: String(user_list[i].Priority)});
           }
         },
         (error) => {

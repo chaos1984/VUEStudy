@@ -9,11 +9,13 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 import time
 import json
+import os
 
 # 生成PDF文件
 class PDFGenerator:
-    def __init__(self, filename):
-        self.filename = filename
+    def __init__(self, absdir):
+        self.dir = absdir,
+
         # self.file_path = '/xxx/xxx/xxx/xxx/'
         self.title_style = ParagraphStyle(name="TitleStyle",  fontSize=32, alignment=TA_LEFT,leading=32,)
         self.sub_title_style = ParagraphStyle(name="SubTitleStyle", fontSize=32,
@@ -52,11 +54,11 @@ class PDFGenerator:
         story = []
         # 首页内容
         story.append(Spacer(1, 20 * mm))
-        img = Image('img/Logo.png')
-        img.drawHeight = 20 * mm
-        img.drawWidth = 40 * mm
-        img.hAlign = TA_LEFT
-        story.append(img)
+        # img = Image(self.dir+'img/Logo.png')
+        # img.drawHeight = 20 * mm
+        # img.drawWidth = 40 * mm
+        # img.hAlign = TA_LEFT
+        # story.append(img)
         story.append(Spacer(1, 10 * mm))
         story.append(Paragraph(u"DAB Deployment Simulation Request", self.title_style))
         story.append(Spacer(1, 20 * mm))
@@ -100,13 +102,11 @@ class PDFGenerator:
         ("*Wrapper",data["Wrapper"]),("Cushion fold",data['C_Type']),("*Cushion Diam./mm",data['C_Diam']),("Under Cut",data['UnderCut']),("Hinge Area",data['Hinge_Area']),("Cover Height",data['CV_Height']),("Hinge H/L",data['Hinge_HLratio']),("Hinge Width",data['Hinge_Width']),("AI Hinge risk(0~1) 0:OK 1:NOK",data['AI'])]
         ai_table = Table(ai_data, colWidths=[75 * mm, 100 * mm], rowHeights=12 * mm, style=self.common_style)
         story.append(ai_table)
-
         story.append(Spacer(1, 10 * mm))
-
-
-        doc = SimpleDocTemplate( ".\\temp\\"+self.filename,
+        doc = SimpleDocTemplate( self.dir+"temp//request.pdf",
                                 leftMargin=20 * mm, rightMargin=20 * mm, topMargin=20 * mm, bottomMargin=20 * mm)
         doc.build(story)
+
 if __name__ == "__main__":
     with open(r"jsonfortest.json", "r") as f:
         data = json.loads(f.read())

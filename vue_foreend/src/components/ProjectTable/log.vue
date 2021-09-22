@@ -135,8 +135,6 @@ export default {
   },
   methods: {
     submitcomment(index, comment) {
-      console.log("this.User");
-      console.log(this.User);
       if (this.User.Name != "") {
         comment = this.User.Name + ":\n" + comment;
 

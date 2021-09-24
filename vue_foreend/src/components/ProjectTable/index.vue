@@ -12,6 +12,11 @@
       show-select
       :custom-filter="filterOnlyCapsText"
     >
+      <template v-slot:item.COR ="{ item }">
+        <v-chip :color="getColor(item.COR)" dark>
+          {{ item.COR }}
+        </v-chip>
+      </template>
       <template v-slot:top>
         <v-toolbar flat color="white">
           <v-toolbar-title>ESR Table</v-toolbar-title>
@@ -29,7 +34,13 @@
             >Save</v-btn
           > -->
 
-          <v-btn class="mb-2" width="100px" @click="addItem()" :disabled='Permission(User.Name)'>NEW</v-btn>
+          <v-btn
+            class="mb-2"
+            width="100px"
+            @click="addItem()"
+            :disabled="Permission(User.Name)"
+            >NEW</v-btn
+          >
         </v-toolbar>
       </template>
 
@@ -37,14 +48,14 @@
         <el-popover placement="right" width="800" trigger="click">
           <v-icon small class="mr-2" slot="reference">mdi-eye</v-icon>
 
-          <div class = "row-bg-light">
+          <div class="row-bg-light">
             <el-row
               ><span class="Title">{{ item.PRJ }}</span></el-row
             >
 
             <!-- <v-divider class= 'divider'></v-divider> -->
 
-            <el-row >
+            <el-row>
               <el-col :span="6"
                 ><span>AFIS: </span
                 ><span class="Content">{{ item.AFIS }}</span></el-col
@@ -213,9 +224,14 @@
       </template>
     </v-data-table>
 
-    <el-drawer   :visible.sync="drawerVisable" :with-header="false" size="50%" class= "el-drawer">
+    <el-drawer
+      :visible.sync="drawerVisable"
+      :with-header="false"
+      size="50%"
+      class="el-drawer"
+    >
       <!-- <span>{{test}}</span> -->
-      <LOG :getdata="itemdata" ></LOG>
+      <LOG :getdata="itemdata"></LOG>
     </el-drawer>
 
     <el-dialog
@@ -225,8 +241,6 @@
     >
       <POPUP :form="popupdata"></POPUP>
     </el-dialog>
-
-
 
     <el-divider />
     <div>
@@ -260,43 +274,43 @@ export default {
     itemdata: "",
     PDFfile: "",
     forminital: {
-     OEM: "",
-     PRJ: "",
-     AFIS: "",
-     ESR: "",
-     PE: "",
-     Interface: "",
-     CV_Mat: "",
-     H_Mat: "",
-     HousingMat: "",
-     Tearline: "",
-     E_Mat: "",
-     Inflator: "",
-     C_Mat: "",
-     C_Type: "",
-     C_Diam: "",
-     C_Tether: "",
-     C_Diffusor: "",
-     H_Width: "0",
-     Flappy_Mass: "0",
-     Wrapper: "",
-     Hinge_Area :"0", 
-      Hinge_Width :"0",
-      Hinge_HLratio:"0",
-     H_Plane: "",
-     H_Neck: "",
-     Daokou: "",
-     DateRange: "",
+      OEM: "",
+      PRJ: "",
+      AFIS: "",
+      ESR: "",
+      PE: "",
+      Interface: "",
+      CV_Mat: "",
+      H_Mat: "",
+      HousingMat: "",
+      Tearline: "",
+      E_Mat: "",
+      Inflator: "",
+      C_Mat: "",
+      C_Type: "",
+      C_Diam: "",
+      C_Tether: "",
+      C_Diffusor: "",
+      H_Width: "0",
+      Flappy_Mass: "0",
+      Wrapper: "",
+      Hinge_Area: "0",
+      Hinge_Width: "0",
+      Hinge_HLratio: "0",
+      H_Plane: "",
+      H_Neck: "",
+      Daokou: "",
+      DateRange: "",
       CV_Leather: "",
-     CV_Height: "0",
-     Res: "",
-     Remarks:"None",
-     Testing: ["Hinge Overtear", "Emblem Breakage"],
-     Simulation: ["Hinge Overtear", "Emblem Breakage"],
+      CV_Height: "0",
+      Res: "",
+      Remarks: "None",
+      Testing: ["Hinge Overtear", "Emblem Breakage"],
+      Simulation: ["Hinge Overtear", "Emblem Breakage"],
 
-     Originator:"",
-     Log: [],
-   },
+      Originator: "",
+      Log: [],
+    },
     Operation: "Project",
     popupdata: {},
     overlay: false,
@@ -312,6 +326,12 @@ export default {
       //   text: "ID",
       //   value: "ID",
       // },
+      {
+        text: "Correlation",
+        align: "start",
+        sortable: false,
+        value: "COR",
+      },
       {
         text: "Prj",
         align: "start",
@@ -339,7 +359,6 @@ export default {
       // { text: "H_Plane", value: "H_Plane" },
       // { text: "H_Neck", value: "H_Neck" },
       { text: "Option", value: "actions", sortable: false },
-      
     ],
     ESRTable: [],
     editedIndex: -1,
@@ -371,13 +390,18 @@ export default {
     this.getData();
   },
   methods: {
+    getColor(calories) {
+      if (calories > 180) return "red";
+      else if (calories > 200) return "orange";
+      else return "green";
+    },
     Permission(name) {
       // console.log(name)
       if (this.User.Priority == 1) {
-        return false
-      }else if(this.User.Priority == 2){
+        return false;
+      } else if (this.User.Priority == 2) {
         return this.User.Name === name ? false : true;
-        } else {
+      } else {
         return true;
       }
     },
@@ -395,7 +419,6 @@ export default {
         value.toString().indexOf(search) !== -1
       );
     },
-
 
     getData() {
       this.$axios.get("/api/getdatabase").then(
@@ -432,7 +455,7 @@ export default {
         this.$axios.post("/api/delitem", item.ID, {
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
         });
-      
+
       this.ESRTable.splice(item.id - 1, 1);
       this.dialogDelete = true;
       this.getData();
@@ -447,7 +470,6 @@ export default {
     CAEReport(item) {
       window.open(item.PPT, "_blank");
     },
-    
 
     postRequest(item) {
       // console.log(item.PE)
@@ -499,20 +521,19 @@ export default {
   display: flex;
   flex-wrap: wrap;
 }
-.el-drawer{
-    overflow: scroll;
-    }
-.row-bg-light
-    {
-  color:rgb(255, 255, 255);
-  background:#74a4e7;
+.el-drawer {
+  overflow: scroll;
+}
+.row-bg-light {
+  color: rgb(255, 255, 255);
+  background: #74a4e7;
   padding: 10px;
 }
-.Title{
-  color:rgb(0, 0, 0);
-  font-size: 20px; 
+.Title {
+  color: rgb(0, 0, 0);
+  font-size: 20px;
 }
-.divider{
-  $divider-inset-margin:72px;
+.divider {
+  $divider-inset-margin: 72px;
 }
 </style>

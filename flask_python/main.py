@@ -11,6 +11,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
 import base64
 import pickle
+from sqlite3 import connect
 
 import time
 import hmac
@@ -69,9 +70,7 @@ def upload():
 
 @app.route('/delete', methods=["POST"])
 def delete():
-    # test
-    # ESRpath = app.config['ESR']+"//123123"
-    img_stream = ''
+    #删除上传文件
     file_obj = request.get_data(as_text=True)
     # print(file_obj)
     if file_obj is None:
@@ -142,20 +141,31 @@ def getdatabase():
                 print(u)
         return jsonify(a)
 
+@app.route('/calcCor', methods=['POST'])
+def calcCor():
+    # data = json.loads(request.get_data(as_text=True))
+    # a = ESR.query.all()
+    # conn = connect(':memory:')
+    # b = pd.read_sql('SELECT ID FROM a', 'postgres:///ESR')
+    # print (b) 
+    
+    print (ESR.db2pd())
+    return jsonify(0)
 
-@app.route('/findDB', methods=['POST'])
-def findDB():
-    obj = request.get_data(as_text=True)
-    print('*****************************')
-    print(obj)
-    a = ESR.query.filter_by(esr=obj).count()
-    print(a, type(a), a == 0)
-    if a == 0:
-        print('************0*************')
-        return "0"  # No duplicated files
-    else:
-        print('************1*************')
-        return "1"
+
+# @app.route('/findDB', methods=['POST'])
+# def findDB():
+#     obj = request.get_data(as_text=True)
+#     print('*****************************')
+#     print(obj)
+#     a = ESR.query.filter_by(esr=obj).count()
+#     print(a, type(a), a == 0)
+#     if a == 0:
+#         print('************0*************')
+#         return "0"  # No duplicated files
+#     else:
+#         print('************1*************')
+#         return "1"
 
 
 @app.route('/delitem', methods=['POST'])
@@ -228,7 +238,7 @@ def dabinfo():
 
     # x = np.tile(test_data, (10, 1))
     y = airun(test_data)  
-    print (DABinfo)
+    # print (DABinfo)
     data = ESR(
         ID=int(DABinfo['ID']),
         OEM=DABinfo['OEM'],

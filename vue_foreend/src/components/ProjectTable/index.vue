@@ -12,11 +12,12 @@
       show-select
       :custom-filter="filterOnlyCapsText"
     >
-      <template v-slot:item.COR ="{ item }">
+      <template v-slot:item.COR="{ item }">
         <v-chip :color="getColor(item.COR)" dark>
           {{ item.COR }}
         </v-chip>
       </template>
+
       <template v-slot:top>
         <v-toolbar flat color="white">
           <v-toolbar-title>ESR Table</v-toolbar-title>
@@ -384,6 +385,10 @@ export default {
     dialogFormVisible(val) {
       val || this.getData();
     },
+    selectedItem(val){
+      console.log(val[0].ID)
+      this.getProjectCor(val)
+    }
   },
 
   mounted() {
@@ -395,6 +400,24 @@ export default {
       else if (calories > 200) return "orange";
       else return "green";
     },
+
+    getProjectCor() {
+      // console.log(item.PE)
+      var item = this.selectedItem;
+      if (item.length === 1) {
+        this.$axios
+          .post("/api/calcCor", JSON.stringify(item[0].ID), {
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          })
+          .then((res) => {
+            console.log(res.data)
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
+    },
+
     Permission(name) {
       // console.log(name)
       if (this.User.Priority == 1) {
@@ -470,7 +493,7 @@ export default {
     CAEReport(item) {
       window.open(item.PPT, "_blank");
     },
-
+    
     postRequest(item) {
       // console.log(item.PE)
       this.$axios

@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from passlib.apps import custom_app_context as pwd_context
 import pandas as pd
 from sqlalchemy import create_engine
+from sqlalchemy.sql.expression import false, true
 
 
 app = Flask(__name__)
@@ -74,12 +75,16 @@ class ESR(db.Model):
   
         # return "{'id':%s,'caer':%s,'pe':%s,'oem':%s,'esr':%s,'date':%s,'proj':%s,'afis':%s,'cushion_type':%s,'cushion_mat':%s}" \
         #     % (str(self.id),self.caer,self.pe,self.oem,self.esr,self.date,self.proj,self.afis,self.cushion_type,self.cushion_mat) #,self.date,self.proj,self.afis,self.cushion_type,self.cushion_mat,self.cover_mat,self.housing_mat,self.emblem_mat,self.test_Res)
-    def db2pd():
+    def db2pd(item,features=['Hinge_Area','CV_Height','Flappy_Mass','Hinge_Width','Hinge_HLratio']):
         con = create_engine('sqlite:///DB//ESR.db')
-        c =  pd.read_sql_table('ESRTable',con)
-        return c
-            
-        
+        prj =  pd.read_sql_table('ESRTable',con,coerce_float=True)
+        indexprj = prj[prj["ID"]==item].index[0]
+        prtFeatures = prj[features].astype(float)
+        prtFeaturesNorm = (prtFeatures - prtFeatures.min()) /(prtFeatures.max() - prtFeatures.min())
+        prtFeaturesNorm_T = prtFeaturesNorm.T
+        itemCorr = prtFeaturesNorm_T.corr()[indexprj]
+        # temp = [i for i in itemCorr.tolist()]
+        return itemCorr.tolist()
 
 class User(db.Model):
     __bind_key__ = 'Users' # 已设置__bind_key__,则采用设置的数据库引擎

@@ -11,12 +11,22 @@
       item-key="PRJ"
       show-select
       :custom-filter="filterOnlyCapsText"
+      show-expand
+      :expanded.sync="expanded"
     >
       <template v-slot:item.COR="{ item }">
         <v-chip :color="getColor(item.COR)" dark>
           {{ item.COR }}
         </v-chip>
       </template>
+
+      <template v-slot:expanded-item="{ headers }">
+  
+      <td :colspan="headers.length">
+        <Status/> 
+      </td>
+      
+    </template>
 
       <template v-slot:top>
         <v-toolbar flat color="white">
@@ -263,6 +273,7 @@ export default {
     DABSVM: () => import("@/components/Echart/DABSVM"),
     StatisticsPie: () => import("@/components/Echart/StatisticsPie"),
     POPUP: () => import("@/components/ProjectTable/popup"),
+    Status: () => import("@/components/ProjectTable/Status"),
     LOG: () => import("@/components/ProjectTable/log"),
     ESRCalendars: () => import("@/components/ProjectTable/ESRCalendars"),
     Radar: () => import("@/components/Echart/Radar.vue"),
@@ -270,7 +281,6 @@ export default {
   },
   data: () => ({
     pptfiledir: "",
-    singleSelect: false,
     selectedItem: [],
     itemdata: "",
     PDFfile: "",
@@ -323,14 +333,12 @@ export default {
     dialogDelete: false,
     search: "",
     ESRheaders: [
-      // {
-      //   text: "ID",
-      //   value: "ID",
-      // },
+      {
+        text: "ID",
+        value: "ID",
+      },
       {
         text: "Correlation",
-        align: "start",
-        sortable: false,
         value: "COR",
       },
       {
@@ -365,10 +373,37 @@ export default {
     editedIndex: -1,
   }),
 
+  // asyncComputed: {
+  //   getProjectCor() {
+  //     // console.log(item.PE)
+  //     var item = this.selectedItem;
+
+  //     if (item.length === 1) {
+  //       this.$axios
+  //         .post("/api/calcCor", JSON.stringify(item[0].ID), {
+  //           headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  //         })
+  //         .then((res) => {
+  //           var rescheck = res.data.split("\n");
+  //           rescheck = rescheck.slice(1, 100000);
+  //           for (var i = 0; i < rescheck.length; i++) {
+  //             this.ESRTable[i]["COR"] = parseFloat(rescheck[i]).toFixed(3);
+  //           }
+  //           // console.log(this.ESRTable);
+  //         })
+  //         .catch(function (error) {
+  //           console.log(error);
+  //         });
+  //     }
+  //     return this.ESRTable;
+  //   },
+  // },
+
   computed: {
     formTitle() {
       return this.editedIndex === -1 ? "New Item" : "Edit Item";
     },
+
     ...mapState({
       CurrentForm: (state) => state.form,
       User: (state) => state.User,
@@ -376,6 +411,10 @@ export default {
   },
 
   watch: {
+    // ESRTable(val){
+      
+    // },
+
     dialog(val) {
       val || this.getData();
     },
@@ -385,10 +424,14 @@ export default {
     dialogFormVisible(val) {
       val || this.getData();
     },
-    selectedItem(val){
-      console.log(val[0].ID)
-      this.getProjectCor(val)
-    }
+    selectedItem(newVal) {
+      // console.log(newVal);
+      // console.log(oldVal);
+      // console.log(val[0].ID)
+      this.getProjectCor(newVal);
+      // newVal || this.getData();
+      // this.getProjectCor(newVal);
+    },
   },
 
   mounted() {
@@ -396,21 +439,29 @@ export default {
   },
   methods: {
     getColor(calories) {
-      if (calories > 180) return "red";
-      else if (calories > 200) return "orange";
-      else return "green";
+      if (calories > 0.8) return "green";
+      else if (calories > 0.5) return "blue";
+      else if (calories > 0.2) return "orange";
+      else if (calories > -0.2) return "pink";
+      else return "red";
     },
 
     getProjectCor() {
       // console.log(item.PE)
       var item = this.selectedItem;
+
       if (item.length === 1) {
         this.$axios
           .post("/api/calcCor", JSON.stringify(item[0].ID), {
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
           })
           .then((res) => {
-            console.log(res.data)
+            var rescheck = res.data.split("\n");
+            rescheck = rescheck.slice(1, 100000);
+            for (var i = 0; i < rescheck.length; i++) {
+              this.ESRTable[i]["COR"] = parseFloat(rescheck[i]).toFixed(3);
+            }
+            // console.log(this.ESRTable);
           })
           .catch(function (error) {
             console.log(error);
@@ -493,7 +544,7 @@ export default {
     CAEReport(item) {
       window.open(item.PPT, "_blank");
     },
-    
+
     postRequest(item) {
       // console.log(item.PE)
       this.$axios

@@ -103,6 +103,7 @@ class PDFGenerator:
         ai_table = Table(ai_data, colWidths=[75 * mm, 100 * mm], rowHeights=12 * mm, style=self.common_style)
         story.append(ai_table)
         story.append(Spacer(1, 10 * mm))
+        # 点击PDF request 没有反应，应修改相关路径
         doc = SimpleDocTemplate( self.dir+"temp//request.pdf",
                                 leftMargin=20 * mm, rightMargin=20 * mm, topMargin=20 * mm, bottomMargin=20 * mm)
         doc.build(story)

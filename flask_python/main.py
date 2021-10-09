@@ -143,14 +143,9 @@ def getdatabase():
 
 @app.route('/calcCor', methods=['POST'])
 def calcCor():
-    # data = json.loads(request.get_data(as_text=True))
-    # a = ESR.query.all()
-    # conn = connect(':memory:')
-    # b = pd.read_sql('SELECT ID FROM a', 'postgres:///ESR')
-    # print (b) 
-    
-    print (ESR.db2pd())
-    return jsonify(0)
+    item = json.loads(request.get_data(as_text=True))
+    cor = ESR.db2pd(item)
+    return jsonify(cor)
 
 
 # @app.route('/findDB', methods=['POST'])
@@ -198,7 +193,7 @@ def dabai():
     
     # x = np.tile(test_data, (10, 1))
     y = airun(test_data)
-    print (y)
+    # print (y)
     return str(y[0])
 
     

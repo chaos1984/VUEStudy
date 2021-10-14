@@ -11,8 +11,9 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
 import base64
 import pickle
-from sqlite3 import connect
 
+# from weblog import *
+from flask import current_app
 import time
 import hmac
 
@@ -143,6 +144,7 @@ def getdatabase():
 
 @app.route('/calcCor', methods=['POST'])
 def calcCor():
+    
     item = json.loads(request.get_data(as_text=True))
     cor = ESR.db2pd(item)
     return jsonify(cor)
@@ -392,6 +394,7 @@ def airun(data):
     return (y)
 
 if __name__ == "__main__":
+
     app.run(
         host='127.0.0.1',
         # host='10.123.20.248',

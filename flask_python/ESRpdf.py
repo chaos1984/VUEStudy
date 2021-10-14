@@ -14,7 +14,7 @@ import os
 # 生成PDF文件
 class PDFGenerator:
     def __init__(self, absdir):
-        self.dir = absdir,
+        self.dir = absdir
 
         # self.file_path = '/xxx/xxx/xxx/xxx/'
         self.title_style = ParagraphStyle(name="TitleStyle",  fontSize=32, alignment=TA_LEFT,leading=32,)
@@ -104,6 +104,7 @@ class PDFGenerator:
         story.append(ai_table)
         story.append(Spacer(1, 10 * mm))
         # 点击PDF request 没有反应，应修改相关路径
+        print (self.dir)
         doc = SimpleDocTemplate( self.dir+"temp//request.pdf",
                                 leftMargin=20 * mm, rightMargin=20 * mm, topMargin=20 * mm, bottomMargin=20 * mm)
         doc.build(story)

@@ -21,11 +21,14 @@
 </template>
 <script>
 export default {
+    
   name: "status",
-  components: {},
+    props: {
+    steplist: [],
+  },
   data: () => {
     return {
-        steplist : [true,true,true,false]
+        // steplist : [true,true,true,false]
     };
   },
   mounted() {},

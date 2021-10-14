@@ -76,7 +76,7 @@ class ESR(db.Model):
         # return "{'id':%s,'caer':%s,'pe':%s,'oem':%s,'esr':%s,'date':%s,'proj':%s,'afis':%s,'cushion_type':%s,'cushion_mat':%s}" \
         #     % (str(self.id),self.caer,self.pe,self.oem,self.esr,self.date,self.proj,self.afis,self.cushion_type,self.cushion_mat) #,self.date,self.proj,self.afis,self.cushion_type,self.cushion_mat,self.cover_mat,self.housing_mat,self.emblem_mat,self.test_Res)
     def db2pd(item,features=['Hinge_Area','CV_Height','Flappy_Mass','Hinge_Width','Hinge_HLratio']):
-        con = create_engine('sqlite:///DB//ESR.db')
+        con = create_engine('sqlite:///C://Users//yujin.wang//Desktop//Linnnai//VUEStudy//flask_python//DB//ESR.db')
         prj =  pd.read_sql_table('ESRTable',con,coerce_float=True)
         indexprj = prj[prj["ID"]==item].index[0]
         prtFeatures = prj[features].astype(float)

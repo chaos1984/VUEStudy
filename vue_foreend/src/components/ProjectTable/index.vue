@@ -12,9 +12,8 @@
       show-select
       :custom-filter="filterOnlyCapsText"
       show-expand
-      :expanded.sync="expanded"
     >
-      <template v-slot:item.COR="{ item }">
+      <template v-slot:item.COR ="{ item }">
         <v-chip :color="getColor(item.COR)" dark>
           {{ item.COR }}
         </v-chip>
@@ -23,7 +22,7 @@
       <template v-slot:expanded-item="{ headers }">
   
       <td :colspan="headers.length">
-        <Status/> 
+        <Status :steplist = "[true,true,true,false]"> </Status>
       </td>
       
     </template>
@@ -456,12 +455,17 @@ export default {
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
           })
           .then((res) => {
-            var rescheck = res.data.split("\n");
-            rescheck = rescheck.slice(1, 100000);
-            for (var i = 0; i < rescheck.length; i++) {
-              this.ESRTable[i]["COR"] = parseFloat(rescheck[i]).toFixed(3);
+
+            var rescheck = res.data.replace(/\r\n/g,"");
+            rescheck = rescheck.slice(0, 100000);
+            var c = []
+            eval('c='+rescheck)
+            
+            for (var i = 0; i < c.length; i++) {
+              this.ESRTable[i]["COR"] = parseFloat(c[i]).toFixed(3);
             }
-            // console.log(this.ESRTable);
+            // console.log("this.ESRTable");
+            
           })
           .catch(function (error) {
             console.log(error);

@@ -147,6 +147,8 @@ def calcCor():
     
     item = json.loads(request.get_data(as_text=True))
     cor = ESR.db2pd(item)
+    print (type(cor))
+    print (cor)
     return jsonify(cor)
 
 

@@ -301,18 +301,18 @@ export default {
       C_Diam: "",
       C_Tether: "",
       C_Diffusor: "",
-      H_Width: "0",
-      Flappy_Mass: "0",
+      H_Width: "",
+      Flappy_Mass: "",
       Wrapper: "",
-      Hinge_Area: "0",
-      Hinge_Width: "0",
-      Hinge_HLratio: "0",
+      Hinge_Area: "",
+      Hinge_Width: "",
+      Hinge_HLratio: "",
       H_Plane: "",
       H_Neck: "",
       Daokou: "",
       DateRange: "",
       CV_Leather: "",
-      CV_Height: "0",
+      CV_Height: "",
       Res: "",
       Remarks: "None",
       Testing: ["Hinge Overtear", "Emblem Breakage"],
@@ -455,14 +455,17 @@ export default {
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
           })
           .then((res) => {
-
-            var rescheck = res.data.replace(/\r\n/g,"");
-            rescheck = rescheck.slice(0, 100000);
-            var c = []
-            eval('c='+rescheck)
+            // console.log("res.data")
             
-            for (var i = 0; i < c.length; i++) {
-              this.ESRTable[i]["COR"] = parseFloat(c[i]).toFixed(3);
+            // res.data = String(res.data)
+            // var rescheck = res.data.replace(/\r\n/g,"");
+            // console.log(res.data)
+            // rescheck = rescheck.slice(1, 100000);
+            
+            // eval('res.data='+rescheck)
+            
+            for (var i = 0; i < res.data.length; i++) {
+              this.ESRTable[i]["COR"] = parseFloat(res.data[i]).toFixed(3);
             }
             // console.log("this.ESRTable");
             

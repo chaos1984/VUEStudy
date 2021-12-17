@@ -147,8 +147,8 @@ def calcCor():
     
     item = json.loads(request.get_data(as_text=True))
     cor = ESR.db2pd(item)
-    print (type(cor))
-    print (cor)
+    # print (type(cor))
+    # print (cor)
     return jsonify(cor)
 
 
@@ -237,18 +237,25 @@ def dabinfo():
 
     # x = np.tile(test_data, (10, 1))
     y = airun(test_data)  
+    ## Check data input
+    for i in ['Hinge_Area','Hinge_Width','Hinge_HLratio','CV_Height']:
+        try: 
+            DABinfo[i] = float(DABinfo[i])
+        except:
+            DABinfo[i] = 0
     # print (DABinfo)
     data = ESR(
         ID=int(DABinfo['ID']),
         OEM=DABinfo['OEM'],
         PRJ=DABinfo['PRJ'],
         AFIS=DABinfo['AFIS'],
-        ESR=DABinfo['ESR'],
+        ENO=DABinfo['ENO'],
         CAE=user,
         PE=DABinfo['PE'],
         Interface=DABinfo['Interface'],
         CV_Mat=DABinfo['CV_Mat'],
         H_Mat=DABinfo['H_Mat'],
+        Lock_Mat=DABinfo['Lock_Mat'],
         Tearline=DABinfo['Tearline'],
         E_Mat=DABinfo['E_Mat'],
         Inflator=DABinfo['Inflator'],
@@ -390,7 +397,7 @@ def res_json(ID, data, msg, priority=2):
 
 def airun(data):
     x = xgb.DMatrix(data)
-    f = open(app.config['absdir']+'DABAIMODEL.dat', 'rb')
+    f = open('DABAIMODEL.dat', 'rb')
     bst = pickle.load(f)
     y = bst.predict(x)
     return (y)

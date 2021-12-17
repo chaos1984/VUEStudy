@@ -72,7 +72,7 @@
               >
               <el-col :span="6"
                 ><span>ESR: </span
-                ><span class="Content">{{ item.ESR }}</span></el-col
+                ><span class="Content">{{ item.ENo }}</span></el-col
               >
               <el-col :span="6"
                 ><span>PE: </span>
@@ -287,7 +287,7 @@ export default {
       OEM: "",
       PRJ: "",
       AFIS: "",
-      ESR: "",
+      ENo: "",
       PE: "",
       Interface: "",
       CV_Mat: "",

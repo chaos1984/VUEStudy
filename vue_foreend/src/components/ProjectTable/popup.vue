@@ -55,17 +55,14 @@
 
         <el-col :lg="6" :xs="12">
           <el-form-item
-            label="ESR"
+            label="ENO"
             :label-width="formLabelWidth"
-            prop="ESR"
-            :rules="[
-              { required: true, trigger: 'blur' },
-              { max: 6, min: 6, message: '6-digit', trigger: 'blur' },
-            ]"
+            prop="ENO"
+            :rules="[{ required: true, trigger: 'blur' }]"
           >
             <el-input
               onkeyup="value=value.replace(/[^\d]/g, '')"
-              v-model="form.ESR"
+              v-model="form.ENO"
               autocomplete="off"
             ></el-input>
           </el-form-item>
@@ -150,6 +147,28 @@
           >
             <el-select
               v-model="form.H_Mat"
+              placeholder="Select housing material"
+              :style="selectwidth"
+            >
+              <el-option
+                v-for="(item, index) in formItem.HousingMat"
+                :key="index"
+                :label="item"
+                :value="item"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+
+        <el-col :lg="6" :xs="12">
+          <el-form-item
+            label="Locking mat"
+            :label-width="formLabelWidth"
+            prop="Lock_Mat"
+            :rules="[{ required: true, message: 'Select one item' }]"
+          >
+            <el-select
+              v-model="form.Lock_Mat"
               placeholder="Select housing material"
               :style="selectwidth"
             >
@@ -431,25 +450,26 @@
           </el-form-item>
         </el-col>
         <el-col :lg="6" :xs="12">
-        
-            
-            <el-form-item label="Date select" :label-width="formLabelWidth" prop="DateRange" :rules="[
+          <el-form-item
+            label="Date select"
+            :label-width="formLabelWidth"
+            prop="DateRange"
+            :rules="[
               { required: true, message: 'Need confirm', trigger: 'change' },
-            ]">
-              <el-date-picker
-                v-model="form.DateRange"
-                type="daterange"
-                align="right"
-                start-placeholder="Start Date"
-                end-placeholder="End Date"
-                value-format="yyyy-MM-dd"
+            ]"
+          >
+            <el-date-picker
+              v-model="form.DateRange"
+              type="daterange"
+              align="right"
+              start-placeholder="Start Date"
+              end-placeholder="End Date"
+              value-format="yyyy-MM-dd"
+            >
               >
-                >
-              </el-date-picker>
-            </el-form-item>
-          
+            </el-date-picker>
+          </el-form-item>
         </el-col>
-        
       </el-row>
       <el-form-item label="Remarks">
         <el-input
@@ -467,7 +487,7 @@
             label="Hinge width"
             :label-width="formLabelWidth"
             prop="Hinge_Width"
-            :rules= "userrules"
+            :rules="userrules"
           >
             <el-input
               onkeyup="value=value.replace(/[^\.\d]/g, '')"
@@ -483,7 +503,7 @@
             label="Cov-Inf Height"
             :label-width="formLabelWidth"
             prop="CV_Height"
-            :rules= "userrules"
+            :rules="userrules"
           >
             <el-input
               onkeyup="value=value.replace(/[^\.\d]/g, '')"
@@ -499,7 +519,7 @@
             label="Hinge Area"
             :label-width="formLabelWidth"
             prop="Hinge_Area"
-            :rules= "userrules"
+            :rules="userrules"
           >
             <el-input
               onkeyup="value=value.replace(/[^\.\d]/g, '')"
@@ -515,18 +535,16 @@
             label="Hinge H/L"
             :label-width="formLabelWidth"
             prop="Hinge_HLratio"
-            :rules= "userrules"
+            :rules="userrules"
           >
             <el-input
               onkeyup="value=value.replace(/[^\.\d]/g, '')"
               v-model="form.Hinge_HLratio"
               autocomplete="off"
-            
             ></el-input>
           </el-form-item>
         </el-col>
       </el-row>
-
 
       <el-row :gutter="10">
         <el-col :lg="12" :xs="12">
@@ -534,21 +552,19 @@
             label="Simulation dir."
             :label-width="formLabelWidth"
             prop="Res"
-          
             :rules="userrules"
           >
-            <el-input 
+            <el-input
               v-model="form.Res"
-              autocomplete ="off"
-              :placeholder = "caefile"
-              :disabled = "userpiority"
+              autocomplete="off"
+              :placeholder="caefile"
+              :disabled="userpiority"
               clearable
             ></el-input>
           </el-form-item>
         </el-col>
       </el-row>
 
-      
       <el-divider></el-divider>
 
       <el-row>
@@ -628,7 +644,7 @@ export default {
       dialogFormVisible: false,
       selectwidth: "width: 100%",
       formLabelWidth: "130px",
-      formItem: { },
+      formItem: {},
     };
   },
   computed: {
@@ -658,16 +674,15 @@ export default {
       // console.log(this.User);
       if (this.User.Priority != "1") {
         this.userpiority = true;
-        
       } else {
         this.userpiority = false;
-        this.userrules = [{ required: true }]
+        this.userrules = [{ required: true }];
       }
     },
     getDatafromJson() {
       this.$axios.get("/static/json/formItem.json").then(
         (response) => {
-          this.Permission()
+          this.Permission();
           this.formItem = JSON.parse(JSON.stringify(response.data));
           // this.Permission()
         },
@@ -680,9 +695,7 @@ export default {
     submitForm(formName, copy = false) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          
           this.run(copy);
-          
         } else {
           this.$message({
             showClose: true,
@@ -697,11 +710,10 @@ export default {
       if (this.form.Log == "") {
         this.form.Log = [];
       }
-      this.form.Originator = this.User.Name
+      this.form.Originator = this.User.Name;
       this.$axios
         .post("/api/dabinfo", {
           params: {
-            
             Dabinfo: JSON.stringify(this.form).replace(/'/g, '"'),
             Copy: copy,
           },
